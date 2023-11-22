@@ -1,11 +1,17 @@
-import { Button } from '@/components/ui/button'
-import Image from 'next/image'
 import Hero from './_components/hero'
+import Meetup from './_components/meetup'
+import MentorCarousel from './_components/carousel/mentor-carousel'
+import Mockup from './_components/mockup'
+import Registration from './_components/registration'
 
 export default function Home() {
   return (
     <div>
       <Hero />
+      <Meetup />
+      <Mockup />
+      <MentorCarousel />
+      <Registration />
     </div>
   )
 }

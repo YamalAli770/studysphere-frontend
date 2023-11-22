@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default function Hero() {
@@ -36,7 +37,11 @@ export default function Hero() {
                 {/* Middle */}
                 <section className='flex flex-col gap-y-4'>
                     <p className='text-sm'>Connecting mentors and mentees for study<br /> abroad journeys</p>
-                    <Button className='w-fit mx-auto'>Register Now</Button>
+                    <Link href="sign-up">
+                        <Button className='w-fit mx-auto'>
+                            Register Now
+                        </Button>
+                    </Link>
                 </section>
                 {/* Bottom */}
                 <section className='flex items-end w-full justify-between'>

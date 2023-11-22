@@ -2,30 +2,9 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { heroData } from '@/data/hero-data'
 
 export default function Hero() {
-  const heroImages = [
-    {
-        src: '/hero-image-1.jpg',
-        className: 'relative w-60 h-72',
-    },
-    {
-        src: '/hero-image-2.jpg',
-        className: 'relative w-56 h-60',
-    },
-    {
-        src: '/hero-image-3.jpg',
-        className: 'relative w-72 h-44',
-    },
-    {
-        src: '/hero-image-4.jpg',
-        className: 'relative w-56 h-60',
-    },
-    {
-        src: '/hero-image-5.jpg',
-        className: 'relative w-60 h-72',
-    },
-  ]
   return (
     <div className='py-12'>
         <div className="container">
@@ -46,7 +25,7 @@ export default function Hero() {
                 {/* Bottom */}
                 <section className='flex items-end w-full justify-between'>
                     {/* Large */}
-                    {heroImages.map((image, index) => (
+                    {heroData.map((image, index) => (
                         <div key={index} className={image.className}>
                             <Image src={image.src} fill={true} alt='hero-image' style={{objectFit: 'cover', borderRadius: '1rem'}} />
                         </div>

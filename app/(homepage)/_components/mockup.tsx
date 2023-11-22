@@ -18,10 +18,10 @@ export default function Mockup() {
                 {/* Bottom */}
                 <section className='flex'>
                     <div className='relative w-full h-96'>
-                        <Image src="/mockup-1.png" alt='mobile-mockup' fill={true} style={{objectFit: 'contain'}} />
+                        <Image src="/mockup/mockup-1.png" alt='mobile-mockup' fill={true} style={{objectFit: 'contain'}} />
                     </div>
                     <div className='relative w-full h-96'>
-                        <Image src="/mockup-2.png" alt='mobile-mockup' fill={true} style={{objectFit: 'contain'}} />
+                        <Image src="/mockup/mockup-2.png" alt='mobile-mockup' fill={true} style={{objectFit: 'contain'}} />
                     </div>
                 </section>
             </div>

@@ -17,10 +17,10 @@ export default function Meetup() {
           {/* Bottom */}
           <section className='grid grid-cols-12'>
             <div className='col-span-6 grid-rows-1 w-full h-96 relative'>
-              <Image src='/meetup-image-1.jpg' fill={true} style={{objectFit: "cover"}} alt='meetup-image' />
+              <Image src='/meetup/meetup-image-1.jpg' fill={true} style={{objectFit: "cover"}} alt='meetup-image' />
             </div>
             <div className='col-span-6 grid-rows-1 w-full h-96 relative'>
-              <Image src='/meetup-image-2.jpg' fill={true} style={{objectFit: "cover"}} alt='meetup-image' />
+              <Image src='/meetup/meetup-image-2.jpg' fill={true} style={{objectFit: "cover"}} alt='meetup-image' />
             </div>
           </section>
         </div>

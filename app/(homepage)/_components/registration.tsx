@@ -9,18 +9,18 @@ export default function Registration() {
                 {/* Left */}
                 <section className='flex items-center'>
                     <div className='relative w-72 h-72 bg-secondary-bg rounded-full'>
-                        <Image src='/register-1.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
+                        <Image src='/register/register-1.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
                     </div>
                     <div className='flex flex-col gap-y-4'>
                         <div className='relative w-72 h-72 bg-secondary-bg rounded-full'>
-                            <Image src='/register-2.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
+                            <Image src='/register/register-2.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
                         </div>
                         <div className='relative w-72 h-72 bg-secondary-bg rounded-full'>
-                            <Image src='/register-3.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
+                            <Image src='/register/register-3.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
                         </div>
                     </div>
                     <div className='relative w-72 h-72 bg-secondary-bg rounded-full'>
-                        <Image src='/register-4.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
+                        <Image src='/register/register-4.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
                     </div>
                 </section>
                 {/* Right */}

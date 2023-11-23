@@ -1,4 +1,4 @@
-export const carouselData = [
+export const mentorCarouselData = [
     {
       src: "/slider/slider-1.jpg",
       name: "Yamal Ali",

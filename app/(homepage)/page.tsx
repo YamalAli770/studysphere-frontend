@@ -1,3 +1,4 @@
+import Download from './_components/download'
 import Hero from './_components/hero'
 import Meetup from './_components/meetup'
 import MentorCarousel from './_components/mentor-carousel/mentor-carousel'
@@ -14,6 +15,7 @@ export default function Home() {
       <MentorCarousel />
       <Registration />
       <TestimonialCarousel />
+      <Download />
     </div>
   )
 }

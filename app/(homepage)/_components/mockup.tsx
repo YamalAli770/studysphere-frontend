@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Mockup() {
   return (
-    <div className='py-12'>
+    <div className='py-24'>
         <div className="container">
             <div className='flex flex-col gap-y-24'>
                 {/* Top */}

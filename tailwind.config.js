@@ -80,7 +80,11 @@ module.exports = {
       backgroundColor: {
         "primary-bg": "#fff",
         "secondary-bg": "#21e9c5",
+        "ternary-bg": "#094044"
       },
+      width: {
+        "testimony": "30rem",
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

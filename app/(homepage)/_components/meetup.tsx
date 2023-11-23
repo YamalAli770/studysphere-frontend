@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Meetup() {
   return (
-    <div className='py-12 bg-secondary-bg'>
+    <div className='py-24 bg-secondary-bg'>
         <div className='container'>
         <div className='flex flex-col gap-y-24'>
           {/* Top */}

@@ -3,13 +3,13 @@
 import useEmblaCarousel, { EmblaOptionsType } from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
 import Slide from "./_components/slide"
-import { carouselData } from '@/data/carousel-data'
+import { mentorCarouselData } from '@/data/mentor-carousel-data'
 
 export default function MentorCarousel() {
   const [emblaRef] = useEmblaCarousel({loop: true}, [Autoplay()]);
   
   return (
-    <div className="py-12 bg-secondary-bg">
+    <div className="py-24 bg-secondary-bg">
       <div className="container">
         <div className="flex flex-col gap-y-24">
           {/* Top */}
@@ -25,7 +25,7 @@ export default function MentorCarousel() {
           <section>
             <div className="embla overflow-hidden" ref={emblaRef}>
               <div className="embla__container flex">
-                {carouselData.map((slide, index) => (
+                {mentorCarouselData.map((slide, index) => (
                   <div className="embla__slide mr-8" key={index}>
                     <Slide {...slide} />
                   </div>

@@ -29,7 +29,7 @@ export const heroData = [
 
 export default function Hero() {
   return (
-    <div className='py-12'>
+    <div className='py-24'>
         <div className="container">
             <div className='flex flex-col items-center text-center gap-y-12'>
                 {/* Top */}

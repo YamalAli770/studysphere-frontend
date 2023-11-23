@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 export default function Registration() {
   return (
-    <div className='py-12'>
+    <div className='py-24'>
         <div className='container'>
-            <div className='py-24 flex justify-between items-center'>
+            <div className='flex justify-between items-center'>
                 {/* Left */}
                 <section className='flex items-center'>
                     <div className='relative w-72 h-72 bg-secondary-bg rounded-full'>

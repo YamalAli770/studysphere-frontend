@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { AppleIcon, Play } from 'lucide-react';
 import Image from 'next/image';
+import { FaAppStore, FaGooglePlay } from 'react-icons/fa6';
 
 export default function Download() {
   return (
@@ -12,14 +12,14 @@ export default function Download() {
                     <h1 className='text-4xl text-white'>Download The App And <br />Engage In Delightful <br />Conversations</h1>
                     <div className='flex gap-x-6'>
                         <Button variant="ghost" className='bg-white rounded-full flex gap-2 py-6'>
-                            <AppleIcon size={25} />
+                            <FaAppStore size={25} />
                             <div className='flex flex-col items-start'>
                                 <p className='text-xs text-gray-400'>Download on the</p>
                                 <p className='font-semibold text-base'>App Store</p>
                             </div>
                         </Button>
                         <Button variant="ghost" className='bg-white rounded-full flex gap-2 py-6'>
-                            <Play size={25} />
+                            <FaGooglePlay size={25} />
                             <div className='flex flex-col items-start'>
                                 <p className='text-xs text-gray-400'>Get it on</p>
                                 <p className='font-semibold text-base'>Google Play</p>

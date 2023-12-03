@@ -26,7 +26,7 @@ export default function Footer() {
               </ul>
             </section>
           </div>
-          {/* Breaker */}
+          {/* Seperator */}
           <hr className="border-white border-2" />
           {/* Bottom */}
           <div className="flex justify-between">

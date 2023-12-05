@@ -84,6 +84,7 @@ module.exports = {
       },
       width: {
         "testimony": "30rem",
+        "user": "30rem",
       }
     },
   },

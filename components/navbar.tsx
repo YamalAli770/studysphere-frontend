@@ -14,7 +14,7 @@ export default function Navbar() {
           <nav className="flex gap-x-10">
             <Link className="" href="/">Home</Link>
             <Link href="/search">Search</Link>
-            <Link href="/mentor">Mentorship</Link>
+            <Link href="/mentorship">Mentorship</Link>
             <Link href="/forum">Forum</Link>
           </nav>
           <Button variant="gradient" className="w-20">Sign in</Button>

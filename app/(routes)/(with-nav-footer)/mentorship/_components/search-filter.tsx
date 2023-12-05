@@ -7,7 +7,7 @@ import { Star } from "lucide-react";
 
 export default function SearchFilter(){
     return(
-        <div className="bg-secondary-bg p-6 w-2/6">
+        <div className="bg-secondary rounded-md p-6 w-2/6">
             <p className="text-xl mb-5">FILTERS</p>
             <Separator />
             <div className="my-5">
@@ -65,7 +65,7 @@ export default function SearchFilter(){
                     </div>
                     <div className="flex items-center space-x-2">
                         <RadioGroupItem value="doesnotmatter" id="r3"/>
-                        <Label htmlFor="r3" className="text-sm">Doesn't matter</Label>
+                        <Label htmlFor="r3" className="text-sm">Does not matter</Label>
                     </div>
                 </RadioGroup>
             </div>

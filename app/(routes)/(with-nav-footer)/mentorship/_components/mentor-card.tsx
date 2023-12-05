@@ -12,7 +12,7 @@ type Mentors = {
 
 export default function MentorCard(props:Mentors) {
     return(
-        <div className='p-6 bg-gray-100 w-60 rounded-md'>
+        <div className='p-6 w-60 rounded-md'>
         <div className='flex flex-col gap-y-4 justify-between items-center'>
             {/* Top */}
             <div className='relative w-28 h-28'>

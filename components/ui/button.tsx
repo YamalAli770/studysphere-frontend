@@ -21,6 +21,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         gradient: "bg-gradient-to-r from-gray-300 via-gray-700 to-teal-500 text-white hover:from-gray-400 hover:via-gray-800 hover:to-teal-600",
         social: "bg-transparent border border-gray-400 w-24 hover:text-gray-400",
+        pagination: "bg-transparent text-white rounded-none border-r border-gray-400 w-12 hover:text-gray-400",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -33,9 +33,9 @@ export default function ProfileDetails(){
             </div>
             <div className="mt-8">
                 <p className="text-3xl font-semibold mb-3">Yamal Ali</p>
-                <p className="text-gray-500 mb-1">Studying B.E in Software Engineering</p>
-                <div className="flex justify-between">
-                    <div className="flex h-8 items-center space-x-4 text-sm">
+                <p className="text-gray-500 mb-4 md:mb-1">Studying B.E in Software Engineering</p>
+                <div className="flex flex-col md:flex-row md:justify-between">
+                    <div className="flex h-8 items-center space-x-4 mb-12 md:mb-0 text-sm">
                         <div className="flex items-center space-x-2">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bank" viewBox="0 0 16 16">
@@ -70,7 +70,7 @@ export default function ProfileDetails(){
                             </p>
                         </div>
                     </div>
-                    <div className="flex space-x-3">
+                    <div className="flex space-x-3 justify-center md:justify-end">
                         <Button variant={"outline"}  size={"icon"}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>

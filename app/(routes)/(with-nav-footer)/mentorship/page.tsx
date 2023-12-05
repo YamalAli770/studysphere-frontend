@@ -11,7 +11,7 @@ export default function Mentorship() {
                     <div className="pb-24 flex justify-center">
                         <SearchInput/>
                     </div>
-                    <div className="flex">
+                    <div className="flex gap-0">
                         <SearchFilter/>
                         <MentorGrid/>
                     </div>

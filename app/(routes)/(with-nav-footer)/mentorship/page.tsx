@@ -1,4 +1,5 @@
 import MentorGrid from "./_components/mentor-grid"
+import Pagination from "./_components/pagination"
 import SearchFilter from "./_components/search-filter"
 import  SearchInput  from "./_components/search-input"
 
@@ -14,6 +15,9 @@ export default function Mentorship() {
                     <div className="flex">
                         <SearchFilter/>
                         <MentorGrid/>
+                    </div>
+                    <div className="py-7 mt-12 border-t-2">
+                        <Pagination />
                     </div>
                 </div>
             </div>

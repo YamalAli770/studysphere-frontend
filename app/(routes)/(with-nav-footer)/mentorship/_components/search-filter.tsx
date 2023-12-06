@@ -7,7 +7,7 @@ import { Star } from "lucide-react";
 
 export default function SearchFilter(){
     return(
-        <div className="bg-secondary rounded-md p-6 w-2/6">
+        <div className="bg-secondary rounded-md p-6 lg:p-7 xl:p-9">
             <p className="text-xl mb-5">FILTERS</p>
             <Separator />
             <div className="my-5">

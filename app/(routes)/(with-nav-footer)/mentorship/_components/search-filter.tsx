@@ -65,22 +65,61 @@ export default function SearchFilter(){
                     </div>
                     <div className="flex items-center space-x-2">
                         <RadioGroupItem value="doesnotmatter" id="r3"/>
-                        <Label htmlFor="r3" className="text-sm">Does not matter</Label>
+                        <Label htmlFor="r3" className="text-sm">Doesn&#39;t matter</Label>
                     </div>
                 </RadioGroup>
             </div>
             <Separator />
             <div className="my-5">
-                <div className="flex justify-between">
-                    <p className="mb-4">Rating</p>
-                    <span>5</span>
-                </div>
-                <div className="flex">
-                    <Star fill="white" color="white" />
-                    <Star fill="white" color="white" />
-                    <Star fill="white" color="white" />
-                    <Star fill="white" color="white" />
-                    <Star fill="white" color="white" />
+                <p className="mb-4">Rating</p>                    
+                <div className="flex flex-col space-y-2">
+                    <div className="flex space-x-1 text-teal-400">
+                        <Star fill="currentColor" size={20}/>
+                        <Star fill="currentColor" size={20}/>
+                        <Star fill="currentColor" size={20}/>
+                        <Star fill="currentColor" size={20}/>
+                        <Star fill="currentColor" size={20}/>
+                    </div>                   
+                    <div className="flex items-center">
+                        <div className="flex space-x-1 text-teal-400">
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="white" size={20}/>
+                        </div>
+                        <p className="text-sm ms-3">and Up</p>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="flex space-x-1 text-teal-400">
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                        </div>
+                        <p className="text-sm ms-3">and Up</p>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="flex space-x-1 text-teal-400">
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                        </div>
+                        <p className="text-sm ms-3">and Up</p>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="flex space-x-1 text-teal-400">
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                        </div>
+                        <p className="text-sm ms-3">and Up</p>
+                    </div>
                 </div>
             </div>
             <Separator />

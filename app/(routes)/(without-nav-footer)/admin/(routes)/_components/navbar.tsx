@@ -2,7 +2,7 @@ import { LogOut, UserCircle } from "lucide-react";
 
 export default function Navbar() {
   return (
-    <div className="col-span-5">
+    <div>
       <div className="border border-b-gray-300">
         <section className="py-6 px-4 flex items-center justify-end gap-3">
           <div className="flex gap-1">

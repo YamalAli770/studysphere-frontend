@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CommentList from './CommentList';
+import CommentList from './comment-list';
 
 interface Post {
   id: number;  

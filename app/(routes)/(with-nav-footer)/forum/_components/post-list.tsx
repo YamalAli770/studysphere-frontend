@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import PostItem from './PostItem';
+import PostItem from './post-item';
 import { timeStamp } from 'console';
 
 const PostList = () => {

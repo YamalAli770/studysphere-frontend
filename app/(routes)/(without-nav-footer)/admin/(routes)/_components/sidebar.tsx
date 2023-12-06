@@ -23,12 +23,12 @@ const sidebarRoutes = [
     {
         name: "Mentees",
         icon: <PiStudent size={20} />,
-        path: "/admin/students",
+        path: "/admin/mentees",
     },
     {
         name: "Mentors",
         icon: <FaChalkboardTeacher size={20} />,
-        path: "/admin/teachers",
+        path: "/admin/mentors",
     },
     {
         name: "Orders",

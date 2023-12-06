@@ -76,6 +76,7 @@ module.exports = {
       textColor: {
         "primary-text": "#000",
         "secondary-text": "#737373",
+        "accent-text": "#21e9c5"
         "accent": "#27A68F"
       },
       backgroundColor: {

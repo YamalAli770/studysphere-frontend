@@ -13,8 +13,12 @@ export default function Mentorship() {
                         <SearchInput/>
                     </div>
                     <div className="flex">
-                        <SearchFilter/>
-                        <MentorGrid/>
+                        <div className="md:2/12 lg:w-3/12 min-w-max">
+                            <SearchFilter/>
+                        </div>
+                        <div className="md:10/12 lg:w-9/12">
+                            <MentorGrid/>
+                        </div>
                     </div>
                     <div className="py-7 mt-12 border-t-2">
                         <Pagination />

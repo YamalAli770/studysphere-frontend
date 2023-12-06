@@ -77,16 +77,21 @@ module.exports = {
         "primary-text": "#000",
         "secondary-text": "#737373",
         "accent-text": "#21e9c5"
+        "accent": "#27A68F"
       },
       backgroundColor: {
         "primary-bg": "#fff",
         "secondary-bg": "#21e9c5",
-        "ternary-bg": "#094044"
+        "ternary-bg": "#094044",
+        "accent": "#E0F6F2"
       },
       width: {
         "testimony": "30rem",
         "user": "30rem",
-      }
+      },
+      borderColor: {
+        "secondary": "#21e9c5",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

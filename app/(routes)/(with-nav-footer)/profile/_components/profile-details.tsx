@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Star } from "lucide-react";
 import Image from "next/image";
+import MeetingModal from "./meeting-modal";
 
 export default function ProfileDetails(){
     return (
@@ -78,6 +79,7 @@ export default function ProfileDetails(){
                         </Button>
                         <Button variant={"outline"}>Message</Button>
                         <Button variant={"default"}>Book a Session</Button>
+                        <MeetingModal/>
                     </div>
                 </div>
             </div>

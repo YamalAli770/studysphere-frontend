@@ -4,6 +4,7 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, 
 
 import CardList from "./_components/card-list"
 import RevenueChart from "./_components/revenue-chart"
+import TrafficChart from "./_components/traffic-chart"
 
 export default function Dashboard() {
   return (
@@ -38,6 +39,9 @@ export default function Dashboard() {
           <RevenueChart />
         </section>
         {/* Bottom */}
+        <section>
+          <TrafficChart />
+        </section>
       </div>
     </div>
   )

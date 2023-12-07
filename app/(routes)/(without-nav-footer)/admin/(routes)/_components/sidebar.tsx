@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Book, Layout, Settings, ShoppingBasket } from "lucide-react"
+import { Layout, Settings, ShieldAlert, ShoppingBasket } from "lucide-react"
 import { PiStudent } from "react-icons/pi"
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { usePathname } from "next/navigation";
@@ -14,11 +14,6 @@ const sidebarRoutes = [
         name: "Dashboard",
         icon: <Layout size={20} />,
         path: "/admin/dashboard",
-    },
-    {
-        name: "Courses",
-        icon: <Book size={20} />,
-        path: "/admin/courses",
     },
     {
         name: "Mentees",
@@ -36,6 +31,11 @@ const sidebarRoutes = [
         path: "/admin/orders",
     },
     {
+        name: "Disputes",
+        icon: <ShieldAlert size={20} />,
+        path: "/admin/disputes",
+    },
+    {
         name: "Settings",
         icon: <Settings size={20} />,
         path: "/admin/settings",
@@ -49,7 +49,7 @@ export default function Sidebar() {
 
   return (
     <div className="col-span-1">
-        <div className="h-screen flex flex-col border border-r-gray-300">
+        <div className="h-full overflow-y-auto flex flex-col border border-r-gray-300">
             {/* Top */}
             <section className="border border-gray-300 py-6 px-4">
                 <div className="text-xl flex gap-3 items-center">

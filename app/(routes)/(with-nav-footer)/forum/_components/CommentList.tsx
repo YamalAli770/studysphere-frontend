@@ -37,7 +37,7 @@ const CommentList: React.FC<{ postId: number }> = ({ postId }) => {
           <div key={comment.id} className="comment">
             <CommentItem comment={comment} />
             <span className="comment-like-icon" onClick={() => handleLike(comment.id)}>
-              
+            
             </span>
           </div>
         ))}

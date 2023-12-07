@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import PostItem from './PostItem';
+import CreatePost from './CreatePost';
 
 
 const PostList = () => {
@@ -17,6 +18,31 @@ const PostList = () => {
     { id: 4, author: 'Osama Nasim', content: 'Thinking of studying languages abroad. Any suggestions?',  likes: 0, comments: 0 },
    
   ]);
+  const [newPost, setNewPost] = useState({
+    author: '',
+    content: '',
+  });
+
+  const handleCreatePost = () => {
+    const postId = posts.length + 1; 
+    const createdPost = {
+      id: postId,
+      author: newPost.author,
+      content: newPost.content,
+      likes: 0,
+      comments: 0,
+    };
+
+    const updatedPosts = [...posts, createdPost];
+    setPosts(updatedPosts);
+    setNewPost({ author: '', content: '' }); 
+    
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setNewPost((prevPost) => ({ ...prevPost, [name]: value }));
+  };
 
   const handleLike = (postId: number) => {
     const updatedPosts = posts.map((post) => {
@@ -32,13 +58,19 @@ const PostList = () => {
 
   return (
     <div>
+        
         <h2 className="text-2xl font-bold mb-4 text-center">Forum</h2>
+
+        
+        
+        <CreatePost onCreatePost={handleCreatePost} currentUser="Muhammad Omer Siddiqui" posts={posts} />
+
+
         {posts.map((post) => (
           <div key={post.id} className="post">
             <PostItem post={post} />           
           </div>
         ))}
-      
     </div>
   );
 };

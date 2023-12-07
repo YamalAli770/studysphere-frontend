@@ -7,11 +7,9 @@ export default function Forum() {
         <div className="container">
             <div className="pb-24 flex justify-center">
             <PostList />
-            </div>
-            
+            </div>            
         </div>
       </div>
-      
     </>
   )
 }

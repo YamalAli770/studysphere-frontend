@@ -8,7 +8,7 @@ export default function Review(){
                 <div className="flex items-center space-x-3">
                     <span className="w-9 h-9 relative overflow-hidden rounded-full">
                         <Image
-                        src={"/testimonial/testimonial-1.jpg"}
+                        src={"https://ucarecdn.com/388ff4fd-9851-4d29-8dac-60af9ed779f8/-/preview/500x500/-/quality/smart_retina/-/format/auto/"}
                         fill={true}
                         style={{objectFit:"cover"}}
                         alt={"review-profile-photo"}>

@@ -9,7 +9,7 @@ export default function ProfileDetails(){
             <div className="flex justify-between items-center space-x-6">
                 <div className="rounded-full relative shadow-xl overflow-hidden h-36 w-36">
                     <Image
-                    src={"/slider/slider-1.jpg"}
+                    src={"https://ucarecdn.com/5a2e1064-794b-413e-866d-5f8ade379174/-/preview/500x500/-/quality/smart_retina/-/format/auto/"}
                     fill={true}
                     style={{objectFit: "cover"}}
                     alt="profile-photo">

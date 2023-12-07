@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Book, Layout, Settings, ShoppingBasket } from "lucide-react"
+import { Layout, Settings, ShieldAlert, ShoppingBasket } from "lucide-react"
 import { PiStudent } from "react-icons/pi"
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { usePathname } from "next/navigation";
@@ -14,11 +14,6 @@ const sidebarRoutes = [
         name: "Dashboard",
         icon: <Layout size={20} />,
         path: "/admin/dashboard",
-    },
-    {
-        name: "Courses",
-        icon: <Book size={20} />,
-        path: "/admin/courses",
     },
     {
         name: "Mentees",
@@ -34,6 +29,11 @@ const sidebarRoutes = [
         name: "Orders",
         icon: <ShoppingBasket size={20} />,
         path: "/admin/orders",
+    },
+    {
+        name: "Disputes",
+        icon: <ShieldAlert size={20} />,
+        path: "/admin/disputes",
     },
     {
         name: "Settings",

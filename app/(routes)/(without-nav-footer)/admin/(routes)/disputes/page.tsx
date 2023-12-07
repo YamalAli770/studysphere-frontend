@@ -1,12 +1,12 @@
 import { columns } from "./_components/columns";
 import DataTable from "../_components/data-table";
 
-import { mentors } from "@/data/dbd-mentor-data";
+import { disputes } from "@/data/dbd-dispute-data";
 
-export default function Mentors() {
+export default function Dispute() {
   return (
     <div className="p-6">
-      <DataTable columns={columns} data={mentors} />
+      <DataTable columns={columns} data={disputes} />
     </div>
   )
 }

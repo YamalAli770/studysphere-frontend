@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CommentList from './CommentList';
+import CommentList from './comment-list';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { mentorCarouselData } from '@/data/mentor-carousel-data'
 

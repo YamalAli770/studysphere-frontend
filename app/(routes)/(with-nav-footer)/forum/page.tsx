@@ -1,4 +1,4 @@
-import PostList from "./_components/PostList";
+import PostList from "./_components/post-list";
 
 export default function Forum() {
   return (

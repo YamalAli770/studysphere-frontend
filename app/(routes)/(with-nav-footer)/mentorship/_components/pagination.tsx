@@ -11,7 +11,7 @@ export default function Pagination() {
             <p>Page <span>1/3</span></p>
         </section>
         {/* Right */}
-        <section className="flex bg-black rounded-md">
+        <section className="flex bg-primary rounded-md">
             <Button variant="pagination">
                 <ChevronLeft />
             </Button>

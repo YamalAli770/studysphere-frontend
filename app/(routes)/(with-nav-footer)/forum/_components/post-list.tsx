@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
-import PostItem from './PostItem';
-import CreatePost from './CreatePost';
+import PostItem from './post-item';
+import CreatePost from './create-post';
 
 
 const PostList = () => {

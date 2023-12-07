@@ -7,7 +7,7 @@ import { Star } from "lucide-react";
 
 export default function SearchFilter(){
     return(
-        <div className="bg-secondary-bg p-6 w-2/6">
+        <div className="bg-secondary rounded-md p-6 lg:p-7 xl:p-9">
             <p className="text-xl mb-5">FILTERS</p>
             <Separator />
             <div className="my-5">
@@ -65,22 +65,61 @@ export default function SearchFilter(){
                     </div>
                     <div className="flex items-center space-x-2">
                         <RadioGroupItem value="doesnotmatter" id="r3"/>
-                        <Label htmlFor="r3" className="text-sm">Doesn't matter</Label>
+                        <Label htmlFor="r3" className="text-sm">Doesn&#39;t matter</Label>
                     </div>
                 </RadioGroup>
             </div>
             <Separator />
             <div className="my-5">
-                <div className="flex justify-between">
-                    <p className="mb-4">Rating</p>
-                    <span>5</span>
-                </div>
-                <div className="flex">
-                    <Star fill="white" color="white" />
-                    <Star fill="white" color="white" />
-                    <Star fill="white" color="white" />
-                    <Star fill="white" color="white" />
-                    <Star fill="white" color="white" />
+                <p className="mb-4">Rating</p>                    
+                <div className="flex flex-col space-y-2">
+                    <div className="flex space-x-1 text-teal-400">
+                        <Star fill="currentColor" size={20}/>
+                        <Star fill="currentColor" size={20}/>
+                        <Star fill="currentColor" size={20}/>
+                        <Star fill="currentColor" size={20}/>
+                        <Star fill="currentColor" size={20}/>
+                    </div>                   
+                    <div className="flex items-center">
+                        <div className="flex space-x-1 text-teal-400">
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="white" size={20}/>
+                        </div>
+                        <p className="text-sm ms-3">and Up</p>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="flex space-x-1 text-teal-400">
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                        </div>
+                        <p className="text-sm ms-3">and Up</p>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="flex space-x-1 text-teal-400">
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                        </div>
+                        <p className="text-sm ms-3">and Up</p>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="flex space-x-1 text-teal-400">
+                            <Star fill="currentColor" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                            <Star fill="white" size={20}/>
+                        </div>
+                        <p className="text-sm ms-3">and Up</p>
+                    </div>
                 </div>
             </div>
             <Separator />

@@ -49,7 +49,7 @@ export default function Sidebar() {
 
   return (
     <div className="col-span-1">
-        <div className="h-screen flex flex-col border border-r-gray-300">
+        <div className="h-full overflow-y-auto flex flex-col border border-r-gray-300">
             {/* Top */}
             <section className="border border-gray-300 py-6 px-4">
                 <div className="text-xl flex gap-3 items-center">

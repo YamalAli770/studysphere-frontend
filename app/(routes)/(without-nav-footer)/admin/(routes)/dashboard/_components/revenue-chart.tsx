@@ -7,10 +7,10 @@ import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 export default function RevenueChart() {
   return (
-    <div className="col-span-3 p-4 bg-black flex flex-col gap-3 rounded-md">
+    <div className="col-span-3 p-4 bg-secondary flex flex-col gap-3 rounded-md">
       <div className='flex justify-between items-center'>
-        <h2 className='text-white pl-3 text-lg'>Revenue</h2>
-        <Button variant="secondary">Change View</Button>
+        <h2 className='pl-3 text-lg'>Revenue</h2>
+        <Button>Change View</Button>
       </div>
       <ResponsiveContainer width="100%" height={350}>
         <BarChart data={revenueData}>

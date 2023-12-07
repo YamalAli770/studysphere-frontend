@@ -14,7 +14,7 @@ type CardProps = {
 
 export default function Card({ ...card }: CardProps) {
   return (
-    <div className="flex flex-col justify-between bg-black text-white p-4 h-52 w-72 rounded-md">
+    <div className="flex flex-col justify-between bg-secondary p-4 h-52 w-72 rounded-md">
         {/* Top */}
         <section className="flex items-center gap-2">
             {card.icon}
@@ -24,7 +24,7 @@ export default function Card({ ...card }: CardProps) {
         <section className="flex flex-col gap-1">
             <h1 className="text-2xl">{card.amount}</h1>
             <div className="flex gap-3 text-xs">
-                <span className={cn("flex items-center gap-1 text-accent-text", !card.increase && "text-red-500")}>
+                <span className={cn("flex items-center gap-1 text-green-500", !card.increase && "text-red-500")}>
                     { card.increase ? <ArrowUpRight size={15} /> : <ArrowDownRight size={15} /> }
                     {card.percentage}
                 </span>

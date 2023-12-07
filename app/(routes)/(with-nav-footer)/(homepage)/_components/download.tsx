@@ -29,7 +29,7 @@ export default function Download() {
                 </section>
                 {/* Right */}
                 <section className='col-span-6 grid-rows-1'>
-                    <Image src="/mockup/mockup-1.png" alt='mobile-mockup' width={600} height={300} />
+                    <Image src="https://ucarecdn.com/c23eba60-05be-4e64-9930-e44501780d78/-/preview/500x500/-/quality/smart_retina/-/format/auto/" alt='mobile-mockup' width={600} height={300} />
                 </section>
             </div>
         </div>

@@ -53,7 +53,7 @@ export default function Sidebar() {
             {/* Top */}
             <section className="border border-gray-300 py-6 px-4">
                 <div className="text-xl flex gap-3 items-center">
-                    <Image src="/logo.svg" alt="logo" width={42} height={30} />
+                    <Image src="/logo.png" alt="logo" width={42} height={30} />
                     <h1>Study Sphere</h1>
                 </div>
             </section>

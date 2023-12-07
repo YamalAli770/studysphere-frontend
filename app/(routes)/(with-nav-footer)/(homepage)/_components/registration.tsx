@@ -9,18 +9,18 @@ export default function Registration() {
                 {/* Left */}
                 <section className='flex items-center'>
                     <div className='relative w-72 h-72 bg-secondary-bg rounded-full'>
-                        <Image src='/register/register-1.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
+                        <Image src='https://ucarecdn.com/2fdfe0f3-fc55-466f-a5cd-d00d74231547/-/preview/500x500/-/quality/smart_retina/-/format/auto/' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
                     </div>
                     <div className='flex flex-col gap-y-4'>
                         <div className='relative w-72 h-72 bg-secondary-bg rounded-full'>
-                            <Image src='/register/register-2.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
+                            <Image src='https://ucarecdn.com/804779b8-db9b-4b44-abd1-8bdb35df3bc0/-/preview/500x500/-/quality/smart_retina/-/format/auto/' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
                         </div>
                         <div className='relative w-72 h-72 bg-secondary-bg rounded-full'>
-                            <Image src='/register/register-3.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
+                            <Image src='https://ucarecdn.com/cab5ea16-57a3-454d-9a12-e33d91b8065e/-/preview/500x500/-/quality/smart_retina/-/format/auto/' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
                         </div>
                     </div>
                     <div className='relative w-72 h-72 bg-secondary-bg rounded-full'>
-                        <Image src='/register/register-4.jpg' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
+                        <Image src='https://ucarecdn.com/de8dd8fc-1f34-4cdf-9195-c17dc8106aa0/-/preview/500x500/-/quality/smart_retina/-/format/auto/' alt='teacher' fill={true} style={{objectFit: 'cover', objectPosition: "top"}} className='p-4 rounded-full' />
                     </div>
                 </section>
                 {/* Right */}

@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="flex justify-between">
             {/* Left */}
             <section className="flex flex-col gap-y-2">
-              <Image src="/logo.svg" width={30} height={30} alt="study-sphere-logo" />
+              <Image src="/logo-white.png" width={50} height={40} alt="study-sphere-logo" />
               <h3>Study Sphere</h3>
               <p className="text-secondary-text text-xs">Connecting aspiring student <br /> with qualified mentors</p>
             </section>

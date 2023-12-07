@@ -9,7 +9,7 @@ export default function Navbar() {
       <div className="container">
         <div className="hidden justify-between items-center md:flex">
           <Link href="/">
-            <Image src="/logo.svg" width={30} height={30} alt="study-sphere-logo" />
+            <Image src="/logo.png" width={60} height={30} alt="study-sphere-logo" />
           </Link>
           <nav className="flex gap-x-10">
             <Link className="" href="/">Home</Link>

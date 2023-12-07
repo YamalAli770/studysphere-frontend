@@ -5,23 +5,23 @@ import React from 'react'
 
 export const heroData = [
     {
-        src: '/hero/hero-image-1.jpg',
+        src: 'https://ucarecdn.com/3a036c93-1b62-465a-947d-551fe2ea30a6/-/preview/500x500/-/quality/smart_retina/-/format/auto/',
         className: 'relative w-60 h-72',
     },
     {
-        src: '/hero/hero-image-2.jpg',
+        src: 'https://ucarecdn.com/98e75879-e03c-480e-b463-fc733f79b71e/-/preview/500x500/-/quality/smart_retina/-/format/auto/',
         className: 'relative w-56 h-60',
     },
     {
-        src: '/hero/hero-image-3.jpg',
+        src: 'https://ucarecdn.com/64a02c36-1329-4a1b-a762-c6bd6546277f/-/preview/500x500/-/quality/smart_retina/-/format/auto/',
         className: 'relative w-72 h-44',
     },
     {
-        src: '/hero/hero-image-4.jpg',
+        src: 'https://ucarecdn.com/5d54a5f8-4efa-46fb-b763-4a590bbe994c/-/preview/500x500/-/quality/smart_retina/-/format/auto/',
         className: 'relative w-56 h-60',
     },
     {
-        src: '/hero/hero-image-5.jpg',
+        src: 'https://ucarecdn.com/1ee2d9be-60e1-430e-b929-2eb39a147085/-/preview/500x500/-/quality/smart_retina/-/format/auto/',
         className: 'relative w-60 h-72',
     },
 ];

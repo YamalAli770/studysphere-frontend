@@ -6,7 +6,7 @@ import MeetingModal from "./meeting-modal";
 
 export default function ProfileDetails(){
     return (
-        <div>
+        <div className="px-5 sm:px-0">
             <div className="flex justify-between items-center space-x-6">
                 <div className="rounded-full relative shadow-xl overflow-hidden h-36 w-36">
                     <Image
@@ -78,7 +78,6 @@ export default function ProfileDetails(){
                         </svg>
                         </Button>
                         <Button variant={"outline"}>Message</Button>
-                        <Button variant={"default"}>Book a Session</Button>
                         <MeetingModal/>
                     </div>
                 </div>

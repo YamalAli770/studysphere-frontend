@@ -18,17 +18,17 @@ export default function ProfileDetails(){
                 </div>
                 <div className="flex flex-col space-y-4">
                     <div className="p-4 rounded-md bg-secondary">
-                        <h3 className="text-xl font-semibold text-teal-400">
+                        <h3 className="text-xl font-semibold text-accent-text">
                             351
                         </h3>
-                        <p className="text-sm text-teal-800">Sessions Completed</p>
+                        <p className="text-sm text-accent-text-dark">Sessions Completed</p>
                     </div>
                     <div className="p-4 rounded-md bg-secondary">
-                        <h3 className="text-xl flex items-center space-x-2 font-semibold text-teal-400">
+                        <h3 className="text-xl flex items-center space-x-2 font-semibold text-accent-text">
                             <Star fill="currentColor" className="mb-1"/>
                             <p>4.8</p>
                         </h3>
-                        <p className="text-sm text-teal-800">128 Reviews</p>
+                        <p className="text-sm text-accent-text-dark">128 Reviews</p>
                     </div>
                 </div>
             </div>

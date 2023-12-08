@@ -9,7 +9,7 @@ export default function MeetingModal(){
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={"default"}>Meet Up</Button>
+                <Button variant={"default"}>Book a Session</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -19,19 +19,10 @@ export default function MeetingModal(){
                 </DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col space-y-6 py-6">
-                    <Select>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select Date" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="light">12:00 PM UTC</SelectItem>
-                            <SelectItem value="dark">5:00 PM UTC</SelectItem>
-                            <SelectItem value="system">10:00 PM UTC</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <DatePicker></DatePicker>
                     <div className="flex space-x-6">
                             <Select>
-                                <SelectTrigger className="w-1/3">
+                                <SelectTrigger className="w-1/3 min-w-[144px]">
                                     <SelectValue placeholder="Select Time" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -52,20 +43,20 @@ export default function MeetingModal(){
                                     <SelectItem value="100">100 min</SelectItem>
                                 </SelectContent>
                             </Select>
-                        <div className="flex space-x-2 items-center px-4 py-2 rounded-md bg-secondary w-1/3">
-                            <h3 className="text-xl flex items-center space-x-2 font-semibold text-teal-400">
+                        <div className="flex space-x-2 min-w-[124px] items-center px-4 py-2 rounded-md bg-secondary w-1/3">
+                            <h3 className="text-xl flex items-center space-x-2 font-semibold text-accent-text">
                                 <p>0.4 $</p>
                             </h3>
-                            <p className="text-sm text-teal-800">/ min</p>
+                            <p className="text-sm text-accent-text-dark">/ min</p>
                         </div>
                     </div>
                 </div>
                 <div className="flex justify-between items-center">
                         <div className="flex space-x-2 items-center px-4 py-2 rounded-md bg-secondary">
-                            <h3 className="text-xl flex items-center space-x-2 font-semibold text-teal-400">
+                            <h3 className="text-xl flex items-center space-x-2 font-semibold text-accent-text">
                                 <p>8 $</p>
                             </h3>
-                            <p className="text-sm text-teal-800">Total</p>
+                            <p className="text-sm text-accent-text-dark">Total</p>
                         </div>
                     <Button variant={"default"}>Send Request</Button>                
                 </div>

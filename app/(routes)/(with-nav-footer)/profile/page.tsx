@@ -11,7 +11,7 @@ export default function Profile(){
                 <Separator className="my-10"/>
                 <div className="md:flex md:space-x-10">
                     <div className="w-full md:w-2/3 mb-10 md:mb-0">
-                        <div className="rounded-md shadow-md p-8 border border-secondary">
+                        <div className="rounded-md shadow-md p-8 border">
                             <h3 className="text-xl font-semibold ">About Me</h3>
                             <Separator className="my-5"/>
                             <p>

@@ -10,12 +10,13 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      
+      // padding: "2rem",
       screens: {
         "sm":"640px",
         "md":"768px",
-        "lg":"990px",
-        "xl":"1200px",
+        "lg":"1024px",
+        "xl":"1130px",
       },
     },
     extend: {
@@ -79,7 +80,8 @@ module.exports = {
       textColor: {
         "primary-text": "#000",
         "secondary-text": "#737373",
-        "accent-text": "#21e9c5",
+        "accent-text": "#2dd4be",
+        "accent-text-dark": "#115e59",
         "accent": "#27A68F"
       },
       backgroundColor: {

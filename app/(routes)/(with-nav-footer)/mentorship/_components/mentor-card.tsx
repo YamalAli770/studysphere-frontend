@@ -13,20 +13,32 @@ type Mentors = {
 
 export default function MentorCard(props:Mentors) {
     return(
-        <div className='p-6 w-60 rounded-md border-2 border-gray-300'>
-            <div className='flex flex-col gap-y-4 justify-between items-center'>
-                {/* Top */}
+        <div className='px-4 pb-6 pt-4 w-60 rounded-md border hover:shadow-xl border-muted'>
+            {/* Top */}
+            <div className='flex justify-between text-sm'>
+                <p>
+                    5.0
+                </p>
+                <p>
+                    44 / hr
+                </p>
+            </div>
+            <div className='flex flex-col gap-y-2 justify-between items-center'>
+                
                 <div className='relative w-28 h-28'>
                     <Image src={props.src} alt='person-headshot' fill={true} style={{objectFit: "cover"}} className='rounded-full object-top' />
                 </div>
                 {/* Center */}
-                <div className='flex gap-2 items-center'>
-                    <h3 className='font-semibold'>
-                        {props.name}
-                    </h3>
-                    <Verified color='white' fill='#45abff' />
+                <div className='flex flex-col items-center'>
+                    <div className='flex gap-2 items-center'>
+                        <h3 className='font-semibold'>
+                            {props.name}
+                        </h3>
+                        <Verified color='white' fill='#45abff' />
+                    </div>
+                    <p className='text-sm text-gray-400'>NEDUET</p>
                 </div>
-                <div className='flex justify-between items-center'>
+                <div className='flex my-2 justify-between items-center'>
                     <div>
                         <div className="flex items-center justify-center p-2 mb-2 rounded-full h-10 w-10 text-teal-400 bg-secondary">
                             <Tv2 fill='currentColor' size={"18"}/>
@@ -37,7 +49,7 @@ export default function MentorCard(props:Mentors) {
                     </div>
                     <hr className='w-14 rotate-90'/>
                     <div>
-                        <div className="flex items-center justify-center p-2 mb-2 rounded-full h-10 w-10 text-accent-text bg-secondary">
+                        <div className="flex items-center justify-center p-2 mb-2 rounded-full h-10 w-10 text-teal-400 bg-secondary">
                             <Star fill='currentColor' size={"18"}/>
                         </div>
                         <h3 className="text-center font-semibold">

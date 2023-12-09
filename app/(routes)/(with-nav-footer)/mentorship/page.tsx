@@ -12,11 +12,11 @@ export default function Mentorship() {
                     <div className="pb-24 flex justify-center">
                         <SearchInput/>
                     </div>
-                    <div className="flex">
-                        <div className="md:2/12 lg:w-3/12 min-w-max">
+                    <div className="flex md:space-x-6">
+                        <div className="hidden lg:block md:w-2/12 lg:w-2/12 min-w-max">
                             <SearchFilter/>
                         </div>
-                        <div className="md:10/12 lg:w-9/12">
+                        <div className="w-full md:w-10/12 lg:w-10/12">
                             <MentorGrid/>
                         </div>
                     </div>

@@ -20,9 +20,9 @@ const sidebarRoutes = [
         path: "/dashboard/feed",
     },
     {
-        name: "Messages",
+        name: "Conversations",
         icon: <MessageSquare size={20} />,
-        path: "/dashboard/messages",
+        path: "/dashboard/conversation",
     },
     {
         name: "Events",

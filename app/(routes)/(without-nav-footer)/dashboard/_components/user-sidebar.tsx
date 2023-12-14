@@ -12,22 +12,22 @@ const sidebarRoutes = [
     {
         name: "Profile",
         icon: <UserCircle2 size={20} />,
-        path: "/profile",
+        path: "/dashboard/profile",
     },
     {
         name: "News Feed",
         icon: <Bookmark size={20} />,
-        path: "/profile/feed",
+        path: "/dashboard/feed",
     },
     {
         name: "Messages",
         icon: <MessageSquare size={20} />,
-        path: "/profile/messages",
+        path: "/dashboard/messages",
     },
     {
         name: "Events",
         icon: <CalendarCheck size={20} />,
-        path: "/profile/meetup",
+        path: "/dashboard/meetup",
     },
 ];
 
@@ -48,7 +48,7 @@ const createRoutes = [
 ];
 
 
-export default function ProfileSidebar() {
+export default function UserSidebar() {
   const pathname = usePathname(); 
   const activeRoute = sidebarRoutes.find((route) => route.path === pathname);
 

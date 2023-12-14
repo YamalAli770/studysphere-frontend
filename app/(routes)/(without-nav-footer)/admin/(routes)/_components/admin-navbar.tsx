@@ -1,6 +1,6 @@
 import { LogOut, UserCircle } from "lucide-react";
 
-export default function Navbar() {
+export default function AdminNavbar() {
   return (
     <div>
       <div className="border border-b-gray-300">

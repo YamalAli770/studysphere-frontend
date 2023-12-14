@@ -40,10 +40,9 @@ const sidebarRoutes = [
         icon: <Settings size={20} />,
         path: "/admin/settings",
     },
-]
+];
 
-
-export default function Sidebar() {
+export default function AdminSidebar() {
   const pathname = usePathname(); 
   const activeRoute = sidebarRoutes.find((route) => route.path === pathname);
 

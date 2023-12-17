@@ -1,5 +1,5 @@
-import UserNavbar from "./dashboard/_components/user-navbar"
-import UserSidebar from "./dashboard/_components/user-sidebar"
+import UserNavbar from "./_components/user-navbar"
+import UserSidebar from "./_components/user-sidebar"
 
 export default function layout({ children }: { children: React.ReactNode}) {
   return (

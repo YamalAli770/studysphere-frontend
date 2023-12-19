@@ -82,13 +82,15 @@ module.exports = {
         "secondary-text": "#737373",
         "accent-text": "#2dd4be",
         "accent-text-dark": "#115e59",
-        "accent": "#27A68F"
+        "accent": "#27A68F",
+        "modal": "#21e9c5"
       },
       backgroundColor: {
         "primary-bg": "#fff",
         "secondary-bg": "#21e9c5",
         "ternary-bg": "#094044",
-        "accent": "#E0F6F2"
+        "accent": "#E0F6F2",
+        "modal": "#c8e8e2"
       },
       width: {
         "testimony": "30rem",

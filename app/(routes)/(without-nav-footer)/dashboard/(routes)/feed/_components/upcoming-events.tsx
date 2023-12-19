@@ -41,37 +41,37 @@ export default function UpcomingEvents() {
               Upcomming Meetings
             </div>
             <div className='flex flex-col space-y-5'>
-              <div className='flex space-x-2'>
+              <div className='flex space-x-3'>
                 <span className='flex flex-col items-center p-3'>
                   <span className='text-xs'>Mon</span>
-                  <span className='text-sm'>9</span>
+                  <span className='text-sm'>09</span>
                 </span>
                 <span className='flex-auto relative flex flex-col ps-8 rounded-lg p-3 bg-gray-100/80'>
                   <span className='absolute rounded-xl h-8 w-[3px] bg-secondary-bg top-[19px] left-[12px]'></span>
                   <span>1 Hour Meet</span>
-                  <span className='text-sm font-normal'>09.00 - 10.00</span>
+                  <span className='text-xs font-normal'>09.00 - 10.00</span>
                 </span>
               </div>
-              <div className='flex space-x-2'>
+              <div className='flex space-x-3'>
                 <span className='flex flex-col items-center p-3'>
                   <span className='text-xs'>Mon</span>
-                  <span className='text-sm'>9</span>
+                  <span className='text-sm'>09</span>
                 </span>
                 <span className='flex-auto relative flex flex-col ps-8 rounded-lg p-3 bg-gray-100/80'>
                   <span className='absolute rounded-xl h-8 w-[3px] bg-secondary-bg top-[19px] left-[12px]'></span>
                   <span>1 Hour Meet</span>
-                  <span className='text-sm font-normal'>09.00 - 10.00</span>
+                  <span className='text-xs font-normal'>09.00 - 10.00</span>
                 </span>
               </div>
-              <div className='flex space-x-2'>
+              <div className='flex space-x-3'>
                 <span className='flex flex-col items-center p-3'>
                   <span className='text-xs'>Mon</span>
-                  <span className='text-sm'>9</span>
+                  <span className='text-sm'>09</span>
                 </span>
                 <span className='flex-auto relative flex flex-col ps-8 rounded-lg p-3 bg-gray-100/80'>
                   <span className='absolute rounded-xl h-8 w-[3px] bg-secondary-bg top-[19px] left-[12px]'></span>
                   <span>1 Hour Meet</span>
-                  <span className='text-sm font-normal'>09.00 - 10.00</span>
+                  <span className='text-xs font-normal'>09.00 - 10.00</span>
                 </span>
               </div>
             </div>

@@ -22,14 +22,14 @@ export default function Verification() {
             via email.
           </p>
           <div>
-            <h3 className='font-semibold text-lg'>Verification Requirements</h3>
+            <h3 className='font-semibold text-lg mb-2'>Verification Requirements</h3>
             <ul className="list-disc list-inside text-sm">
               <li>Proof of education (Transcript/Degree/Student ID Card)</li>
               <li>Current photo of yourself</li>
             </ul>
           </div>
           <div>
-            <h3 className='font-semibold text-lg'>Verification Process:</h3>
+            <h3 className='font-semibold text-lg mb-2'>Verification Process:</h3>
             <ol className="list-decimal list-inside text-sm">
               <li>Submit your verification request</li>
               <li>Our team will review your request</li>
@@ -37,7 +37,7 @@ export default function Verification() {
             </ol>
           </div>
           <div>
-            <h3 className='font-semibold text-lg'>Verification Results:</h3>
+            <h3 className='font-semibold text-lg mb-2'>Verification Results:</h3>
             <ul className="list-disc list-inside text-sm">
               <li>Approved: You will be able to access all the application features</li>
               <li>Denied: You will be able to access the application with limited features</li>

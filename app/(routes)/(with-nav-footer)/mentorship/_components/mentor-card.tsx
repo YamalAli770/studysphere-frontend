@@ -63,7 +63,7 @@ export default function MentorCard(props:Mentors) {
                 </p> */}
                 {/* Bottom */}
                 <div className='flex justify-between space-x-4'>
-                    <Link href={`/mentorship/profile`}>
+                    <Link href={`/profile`}>
                         <Button variant="default">
                             Visit Profile
                         </Button>

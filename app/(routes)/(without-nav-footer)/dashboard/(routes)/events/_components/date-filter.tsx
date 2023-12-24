@@ -1,8 +1,9 @@
 "use client"
+
+
 import {CalendarIcon} from "lucide-react";
 import * as React from "react";
 import { format } from "date-fns"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -11,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Badge } from "@/components/ui/badge";
+
 
 export function DateFilter() {
   const [date, setDate] = React.useState<Date>();
@@ -22,8 +23,7 @@ export function DateFilter() {
 
   return (
     <div className="flex items-center">
-        {date && (<Button variant={'ghost'} onClick={resetDate}>X</Button>)}
-        
+        {date && (<Button className="me-2" variant={'ghost'} onClick={resetDate}>X</Button>)}
         <Popover>
             <PopoverTrigger asChild>
                 <Button

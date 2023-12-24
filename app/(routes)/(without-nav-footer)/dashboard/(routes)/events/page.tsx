@@ -4,6 +4,7 @@ import * as React from "react";
 import { Calendar } from "@/components/ui/calendar";
 import EventCard from "./_components/event-card";
 import { Button } from '@/components/ui/button';
+import { DateFilter } from "./_components/date-filter";
 
 
 
@@ -23,7 +24,7 @@ export default function Events(){
                     </div>
                 </div>
                 <div>
-                    <Button>Filter by Date</Button>
+                    <DateFilter></DateFilter>
                 </div>
             </div>
             <div className="grid gap-x-8 gap-y-10 lg:gap-y-12 grid-cols-2 grid-rows-3 lg:grid-cols-3 lg:grid-rows-2">

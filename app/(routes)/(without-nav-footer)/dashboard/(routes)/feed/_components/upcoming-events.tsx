@@ -47,7 +47,7 @@ export default function UpcomingEvents() {
                   <span className='text-sm'>09</span>
                 </span>
                 <span className='flex-auto relative flex flex-col ps-8 rounded-lg p-3 bg-gray-100/80'>
-                  <span className='absolute rounded-xl h-8 w-[3px] bg-secondary-bg top-[19px] left-[12px]'></span>
+                  <span className='absolute rounded-xl h-8 w-[3px] bg-secondary-bg top-[15px] left-[12px]'></span>
                   <span className="text-sm">1 Hour Meet</span>
                   <span className='text-xs font-normal'>09.00 - 10.00</span>
                 </span>
@@ -58,7 +58,7 @@ export default function UpcomingEvents() {
                   <span className='text-sm'>09</span>
                 </span>
                 <span className='flex-auto relative flex flex-col ps-8 rounded-lg p-3 bg-gray-100/80'>
-                  <span className='absolute rounded-xl h-8 w-[3px] bg-secondary-bg top-[19px] left-[12px]'></span>
+                  <span className='absolute rounded-xl h-8 w-[3px] bg-secondary-bg top-[15px] left-[12px]'></span>
                   <span className="text-sm">1 Hour Meet</span>
                   <span className='text-xs font-normal'>09.00 - 10.00</span>
                 </span>
@@ -69,7 +69,7 @@ export default function UpcomingEvents() {
                   <span className='text-sm'>09</span>
                 </span>
                 <span className='flex-auto relative flex flex-col ps-8 rounded-lg p-3 bg-gray-100/80'>
-                  <span className='absolute rounded-xl h-8 w-[3px] bg-secondary-bg top-[19px] left-[12px]'></span>
+                  <span className='absolute rounded-xl h-8 w-[3px] bg-secondary-bg top-[15px] left-[12px]'></span>
                   <span className="text-sm">1 Hour Meet</span>
                   <span className='text-xs font-normal'>09.00 - 10.00</span>
                 </span>

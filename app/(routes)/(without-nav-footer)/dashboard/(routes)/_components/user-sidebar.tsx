@@ -27,7 +27,7 @@ const sidebarRoutes = [
     {
         name: "Events",
         icon: <CalendarCheck size={20} />,
-        path: "/dashboard/meetup",
+        path: "/dashboard/events",
     },
 ];
 

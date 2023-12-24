@@ -11,6 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { Badge } from "@/components/ui/badge";
 
 export function DateFilter() {
   const [date, setDate] = React.useState<Date>();
@@ -20,28 +21,31 @@ export function DateFilter() {
   }
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={date ? "default" : "outline"}
-          className={cn(
-            "justify-start text-left font-normal",
-            !date && "text-muted-foreground"
-          )}
-        >
-          <CalendarIcon className="mr-2 h-4 w-4"/>
-          {date ? format(date, "PPP") : <span>Filter By Date</span>}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          disabled = {(date) => date < new Date()}
-          initialFocus
-        />
-      </PopoverContent>
-    </Popover>
+    <div className="flex items-center">
+        {date && (<Button variant={'ghost'} onClick={resetDate}>X</Button>)}
+        
+        <Popover>
+            <PopoverTrigger asChild>
+                <Button
+                variant={date ? "default" : "outline"}
+                className={cn(
+                    "justify-start text-left font-normal"
+                    )}
+                    >
+                <CalendarIcon className="mr-2 h-4 w-4"/>
+                {date ? format(date, "PPP") : <span>Filter By Date</span>}
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                disabled = {(date) => date < new Date()}
+                initialFocus
+                />
+            </PopoverContent>
+        </Popover>
+    </div>
   )
 }

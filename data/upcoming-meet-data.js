@@ -1,0 +1,51 @@
+export const upcomingMeetData = [
+    {
+      time: "12:00 PM - 1:30 PM",
+      date: "Monday, September 5",
+      profileImageUrl: "https://ucarecdn.com/5a2e1064-794b-413e-866d-5f8ade379174/-/preview/500x500/-/quality/smart_retina/-/format/auto/",
+      attendeeName: "Yamal Ali",
+      duration: 1.5,
+      cost: 90.00,
+    },
+    {
+      time: "2:00 PM - 3:30 PM",
+      date: "Wednesday, September 7",
+      profileImageUrl: "https://ucarecdn.com/3cd842ab-ec6e-48da-92c8-d471814c083c/-/preview/500x500/-/quality/smart_retina/-/format/auto/",
+      attendeeName: "Osama Nasim",
+      duration: 2,
+      cost: 120.00,
+    },
+    {
+      time: "4:00 PM - 5:30 PM",
+      date: "Friday, September 9",
+      profileImageUrl: "https://ucarecdn.com/d5bd0018-82e3-479c-ab74-4c082e208580/-/preview/500x500/-/quality/smart_retina/-/format/auto/",
+      attendeeName: "Ayesha Khan",
+      duration: 1.5,
+      cost: 90.00,
+    },
+    {
+      time: "10:00 AM - 11:30 AM",
+      date: "Saturday, September 10",
+      profileImageUrl: "https://ucarecdn.com/435a3a88-caf9-44f6-8b29-5709d9837096/-/preview/500x500/-/quality/smart_retina/-/format/auto/",
+      attendeeName: "Alex Wolf",
+      duration: 2,
+      cost: 120.00,
+    },
+    {
+      time: "1:00 PM - 2:30 PM",
+      date: "Monday, September 12",
+      profileImageUrl: "https://ucarecdn.com/1e322021-0287-45d2-9b41-70c8d7ef2715/-/preview/500x500/-/quality/smart_retina/-/format/auto/",
+      attendeeName: "Lee Min Ho",
+      duration: 1.5,
+      cost: 90.00,
+    },
+    {
+      time: "3:00 PM - 4:30 PM",
+      date: "Wednesday, September 14",
+      profileImageUrl: "https://ucarecdn.com/0a7b2c1a-a533-4681-8a74-3b65ccd8e4df/-/preview/500x500/-/quality/smart_retina/-/format/auto/",
+      attendeeName: "John Smith",
+      duration: 2,
+      cost: 120.00,
+    },
+  ];
+  

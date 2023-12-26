@@ -3,15 +3,19 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
+import VerificationModal from "./_components/verification-modal";
 
 export default function Profile() {
   return (
     <div className="p-6">
       <div className="flex flex-col gap-7">
         {/* Top */}
-        <section>
-          <h1 className="text-3xl font-semibold">Profile Settings</h1>
-          <p>Customize your personal details</p>
+        <section className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-semibold">Profile Settings</h1>
+            <p>Customize your personal details</p>
+          </div>
+          <VerificationModal />
         </section>
         {/* Middle */}
         <section className="flex flex-col gap-4">

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { BadgePlus, Bookmark, CalendarCheck, HelpCircle, MessageSquare, PenIcon, PenLine, Settings, ShieldCheck, UserCircle2 } from "lucide-react"
+import { Bookmark, CalendarCheck, HelpCircle, MessageSquare, Settings, UserCircle2 } from "lucide-react"
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
@@ -31,29 +31,9 @@ const sidebarRoutes = [
     },
 ];
 
-const createRoutes = [
-    {
-        name: "Post",
-        icon: <BadgePlus size={20} />,
-        path: "/dashboard/create/post",
-    },
-    {
-        name: "Meetup",
-        icon: <PenLine size={20} />,
-        path: "/dashboard/create/meetup",
-    },
-    {
-        name: "Verification Request",
-        icon: <ShieldCheck size={20} />,
-        path: "/dashboard/create/verification",
-    },
-];
-
-
 export default function UserSidebar() {
   const pathname = usePathname(); 
-  const routes = sidebarRoutes.concat(createRoutes);
-  const activeRoute = routes.find((route) => route.path === pathname);
+  const activeRoute = sidebarRoutes.find((route) => route.path === pathname);
 
   return (
     <div className="col-span-1">
@@ -72,16 +52,6 @@ export default function UserSidebar() {
                         {sidebarRoutes.map((route, index) => (
                             <div key={index} className={cn("flex items-center gap-2 cursor-pointer p-4 hover:text-accent", activeRoute?.path === route.path && "border-r-4 border-secondary bg-accent")}>
                                 {route.icon}
-                                <Link href={route.path}>{route.name}</Link>
-                            </div>
-                        ))}
-                    </div>
-                    <Separator className="my-5" />
-                    <div>
-                        <h3 className="text-gray-500 text-md px-4">Create</h3>
-                        {createRoutes.map((route, index) => (
-                            <div key={index} className={cn("flex items-center gap-2 cursor-pointer p-4 hover:text-accent", activeRoute?.path === route.path && "border-r-4 border-secondary bg-accent")}>
-                            {route.icon}
                                 <Link href={route.path}>{route.name}</Link>
                             </div>
                         ))}

@@ -1,11 +1,15 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import VerificationModal from "./_components/verification-modal";
+import { useSessionContext } from "supertokens-auth-react/recipe/session";
 
 export default function Profile() {
+  const session = useSessionContext();
   return (
     <div className="p-6">
       <div className="flex flex-col gap-7">
@@ -15,7 +19,7 @@ export default function Profile() {
             <h1 className="text-3xl font-semibold">Profile Settings</h1>
             <p>Customize your personal details</p>
           </div>
-          <VerificationModal />
+          { !session.loading && session.accessTokenPayload.accountType === "mentor" && <VerificationModal />}
         </section>
         {/* Middle */}
         <section className="flex flex-col gap-4">

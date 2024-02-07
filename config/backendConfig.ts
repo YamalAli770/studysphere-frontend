@@ -1,4 +1,6 @@
 import SuperTokens from "supertokens-node";
+import Dashboard from "supertokens-node/recipe/dashboard"
+import UserRoles from "supertokens-node/recipe/userroles";
 import ThirdPartyEmailPasswordNode from 'supertokens-node/recipe/thirdpartyemailpassword'
 import SessionNode from 'supertokens-node/recipe/session'
 import { appInfo } from './appInfo'
@@ -17,38 +19,78 @@ export const backendConfig = (): TypeInput => {
       ThirdPartyEmailPasswordNode.init({
         // We have provided you with development keys which you can use for testing.
         // IMPORTANT: Please replace them with your own OAuth keys for production use.
+        signUpFeature: {
+          formFields: [{
+              id: "accountType"
+          }]
+        },
         providers: [{
             config: {
                 thirdPartyId: "google",
                 clients: [{
-                    clientId: "1060725074195-kmeum4crr01uirfl2op9kd5acmi9jutn.apps.googleusercontent.com",
-                    clientSecret: "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"
-                }]
-            }
-        }, {
-            config: {
-                thirdPartyId: "github",
-                clients: [{
-                    clientId: "467101b197249757c71f",
-                    clientSecret: "e97051221f4b6426e8fe8d51486396703012f5bd"
-                }]
-            }
-        }, {
-            config: {
-                thirdPartyId: "apple",
-                clients: [{
-                    clientId: "4398792-io.supertokens.example.service",
-                    additionalConfig: {
-                        keyId: "7M48Y4RYDL",
-                        privateKey:
-                            "-----BEGIN PRIVATE KEY-----\nMIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgu8gXs+XYkqXD6Ala9Sf/iJXzhbwcoG5dMh1OonpdJUmgCgYIKoZIzj0DAQehRANCAASfrvlFbFCYqn3I2zeknYXLwtH30JuOKestDbSfZYxZNMqhF/OzdZFTV0zc5u5s3eN+oCWbnvl0hM+9IW0UlkdA\n-----END PRIVATE KEY-----",
-                        teamId: "YWQCXGJRJL",
-                    }
+                    clientId: "941452243058-bn4kg69tib0lm67v0hed6ojfv3vftnm5.apps.googleusercontent.com",
+                    clientSecret: "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"
                 }]
             }
         }],
+        override: {
+          apis: (originalImplementation) => {
+            return {
+              ...originalImplementation,
+              emailPasswordSignUpPOST: async function (input) {
+                if (originalImplementation.emailPasswordSignUpPOST === undefined) {
+                    throw Error("Should never come here");
+                }
+
+                let accountType = input.formFields.find((f) => f.id === "accountType")?.value as string;
+
+                input.userContext = {
+                  ...input.userContext,
+                  accountType: accountType
+                }
+
+                // First we call the original implementation of signUpPOST.
+                let response = await originalImplementation.emailPasswordSignUpPOST!(input);
+
+                return response;
+              }
+            }
+          },
+          functions: (originalImplementation) => {
+            return {
+              ...originalImplementation,
+              emailPasswordSignUp: async function (input) {
+                let response = await originalImplementation.emailPasswordSignUp(input);
+
+                if(response.status === "OK" && response.user.loginMethods.length === 1) {
+                  let accountType = input.userContext.accountType;
+                  await UserRoles.addRoleToUser("public", response.user.id, accountType);
+                }
+                return response;
+              }
+            }
+          }
+        }
       }),
-      SessionNode.init(),
+      SessionNode.init({
+        override: {
+          functions: (originalImplementation) => {
+            return {
+              ...originalImplementation,
+              createNewSession: async function (input) {
+                let accountType = input.accessTokenPayload['st-role']['v'][0];
+                input.accessTokenPayload = {
+                  ...input.accessTokenPayload,
+                  accountType: accountType
+                }
+                return originalImplementation.createNewSession(input);
+              }
+            }
+          }
+        }
+      }),
+      UserRoles.init(),
+      Dashboard.init(),
     ],
     isInServerlessEnv: true,
   }

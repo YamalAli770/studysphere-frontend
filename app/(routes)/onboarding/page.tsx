@@ -1,41 +1,130 @@
-import { PiNumberCircleFiveBold, PiNumberCircleFourBold, PiNumberCircleOneBold, PiNumberCircleSixBold, PiNumberCircleThreeBold, PiNumberCircleTwoBold } from "react-icons/pi";
+"use client";
+
+import { useMemo, useState } from "react";
+
+import Image from "next/image";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+import { PhoneInput } from "@/components/ui/phone-input";
+import { Input } from "@/components/ui/input";
+import { Select, SelectTrigger, SelectValue, SelectContent,SelectItem } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+
+import countries from "i18n-iso-countries";
+// Import the languages to use
+import enLocale from "i18n-iso-countries/langs/en.json";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+// Register the languages
+countries.registerLocale(enLocale);
 
 export default function OnBoarding() {
+  const countryObj = countries.getNames("en", { select: "alias" });
+  const countryArray = useMemo(() => {
+    return Object.entries(countryObj).map(([key, value]) => ({
+      label: value,
+      value: key
+    }))
+  }, []);
+
+  const [value, setValue] = useState()
   return (
     <div>
         {/* Top */}
-        <section className='p-6'>
-            <h2 className="text-4xl">Study <span className="text-accent-text">Sphere</span></h2>
+        <section className='p-6 flex items-center gap-1'>
+            <Image src="/logo.png" alt="Study Sphere Logo" width={50} height={50} />
+            <h2 className="text-2xl">Study <span className="text-accent-text">Sphere</span></h2>
         </section>
         {/* Bottom */}
-        <section className="grid grid-cols-7 p-6">
-            {/* Tabs */}
-            <div className="col-span-1">
-                <ul>
-                    <li className="flex items-center gap-2 text-lg">
-                        <PiNumberCircleOneBold />
-                        <p>First Step</p>
-                    </li>
-                    <div className="border-l-4 h-11"></div>
-                    <li className="flex items-center gap-2 text-lg">
-                        <PiNumberCircleTwoBold />
-                        <p>Second Step</p>
-                    </li>
-                    <div className="border-l-4 h-11"></div>
-                    <li className="flex items-center gap-2 text-lg">
-                        <PiNumberCircleThreeBold />
-                        <p>Third Step</p>
-                    </li>
-                    <div className="border-l-4 h-11"></div>
-                    <li className="flex items-center gap-2 text-lg">
-                        <PiNumberCircleFourBold />
-                        <p>Fourth Step</p>
-                    </li>
-                </ul>
-            </div>
-            {/* Tabs Content */}
-            <div className="col-span-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, quos aut sapiente illum, odit dolor dolorum suscipit nihil voluptate enim qui nam asperiores similique tenetur maiores libero obcaecati voluptatum? Dignissimos quo ea voluptas id ipsa impedit quasi deserunt eveniet laboriosam temporibus exercitationem, nihil vel cum doloremque voluptatum placeat modi facilis reprehenderit voluptates, doloribus unde saepe cumque est! Optio, quo? Illum, eos ea similique, laboriosam eaque odit voluptatum, rerum adipisci dolor vitae officiis quidem totam quisquam quae? Debitis enim eum fugit quae cupiditate quisquam vitae. Mollitia assumenda tenetur laudantium voluptate saepe facere ullam recusandae porro. Eos veniam eum, numquam iure praesentium suscipit nemo dolorem eveniet voluptatum, voluptas officia! Repellat, culpa deserunt. Fugiat, nostrum ut qui molestiae deleniti similique dignissimos modi dolorum, quod cupiditate nulla blanditiis eius perspiciatis aut repudiandae excepturi ab ea doloremque inventore quis ex facilis sunt libero optio. Minus totam dolor iusto necessitatibus repellat perferendis, eligendi, reprehenderit tempora in nulla ullam, aspernatur laudantium. Quam, excepturi explicabo? Aperiam suscipit dolore, ipsam enim architecto recusandae, voluptate totam nesciunt officia tempore dolorem. Fugiat, doloremque magnam? Debitis eos sint odit laboriosam, impedit expedita alias libero consectetur repellat animi sunt necessitatibus voluptatum repudiandae explicabo porro sapiente recusandae velit? Excepturi accusamus, quas possimus deserunt iste placeat nostrum voluptatibus illo! Placeat laboriosam porro tenetur inventore quo architecto sit quibusdam ea unde nulla quis eveniet, soluta reprehenderit ex perferendis numquam omnis sapiente corrupti temporibus quam tempore quos atque? Quae tenetur corrupti excepturi omnis quis ut sunt cupiditate at aspernatur perspiciatis inventore exercitationem officia, animi eligendi est commodi repudiandae minus officiis maiores doloremque dolore labore fugiat? Praesentium rerum, molestias aliquid alias maiores fugit, reiciendis quae ut fuga sunt illum doloribus? Quibusdam, provident nihil esse tempore harum neque ut unde, dicta ducimus obcaecati, voluptatum odio voluptas aut labore? Non, dolore nobis! Inventore itaque unde, dignissimos, delectus vero ex totam reprehenderit a in eos quisquam. Totam blanditiis earum neque exercitationem, nemo asperiores eum harum corrupti, reiciendis quibusdam, distinctio autem nihil. Labore incidunt ratione asperiores id quod. Modi voluptas aliquam veritatis exercitationem soluta! Ducimus amet necessitatibus, molestias a alias sequi. Maiores inventore doloremque minima explicabo nisi quisquam qui. Neque nemo, similique ad repellendus architecto provident illum itaque impedit explicabo tempora sequi rerum tempore alias, quae id dolor quam totam laudantium soluta magni eveniet ullam deserunt odit consectetur. Ratione, rerum architecto aut exercitationem ipsa velit quisquam, molestiae rem minus accusantium modi laboriosam, fugiat ex suscipit ea autem. Vero, blanditiis aperiam! Consequuntur cupiditate, voluptatum illo voluptatibus pariatur quibusdam facilis cum consectetur recusandae exercitationem tenetur maxime odit voluptates neque, deserunt fugiat nulla. Qui ipsa corrupti assumenda possimus debitis unde voluptatem corporis quae accusantium? Mollitia laudantium accusantium voluptates eveniet reiciendis, quae doloribus quod, dolorem similique magnam aperiam illum quidem nemo dolor quibusdam sed corrupti impedit dicta neque. Consequatur error consequuntur iusto id vel, porro incidunt praesentium ipsam rem nostrum sunt facere iste dolorem est quisquam ut delectus debitis minima laborum distinctio consectetur. Libero culpa ipsa deleniti possimus earum animi fugit, veritatis tempora laboriosam porro aspernatur ut doloremque quam, quae ipsam officia molestias placeat labore aliquid.</div>
-        </section>
+        {/* Profile Details */}
+        <div className="flex flex-col p-6 pt-0 gap-7">
+            <Separator />
+            {/* Name Info */}
+            <section className="flex flex-col gap-5">
+              <h2 className="w-fit font-semibold">Personal Information</h2>
+              <div className="grid grid-cols-3 gap-x-10 gap-y-5">
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="username">Username</Label>
+                  <Input className="border p-2 rounded-md text-sm" />
+                </div>
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="firstName">First Name</Label>
+                  <Input className="border p-2 rounded-md text-sm" />
+                </div>
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="lastname">Last Name</Label>
+                  <Input className="border p-2 rounded-md text-sm" />
+                </div>
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="email">Email</Label>
+                  <div className="border p-2 rounded-md text-sm cursor-not-allowed">yamalali770@gmail.com</div>
+                </div>
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="email">Phone Number</Label>
+                  <PhoneInput placeholder="Enter phone number" value={value} onChange={() => setValue} defaultCountry={"PK"} />
+                </div>
+              </div>
+            </section>
+            <Separator />
+            {/* Educational Information */}
+            <section className="flex flex-col gap-5">
+              <h2 className="w-fit font-semibold">Educational Credentials</h2>
+              <div className="grid grid-cols-3 gap-x-10 gap-y-5">
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="universityName">University Name</Label>
+                  <Input className="border p-2 rounded-md text-sm" />
+                </div>
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="universityCountry">University Country</Label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choose Country Of Educational Institution" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      { countryArray.map((country) => (
+                        <SelectItem value={country.value}>{country.label}</SelectItem>
+                      )) }
+                      {/* <SelectItem value="high-school">High School</SelectItem> */}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="educationLevel">Education Level</Label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Level Of Education" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="high-school">High School</SelectItem>
+                      <SelectItem value="bachelor">Bachelor</SelectItem>
+                      <SelectItem value="master">Master</SelectItem>
+                      <SelectItem value="phd">PhD</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="major">Major</Label>
+                  <Input className="border p-2 rounded-md text-sm" />
+                </div>
+                <div className="flex flex-col gap-2 w-full">
+                  <Label className="text-gray-500" htmlFor="graduationYear">Graduation Year</Label>
+                  <input type="date" className="border p-2 rounded-md text-sm" />
+                </div>
+              </div>
+            </section>
+            <Separator />
+            {/* User Bio & Tagline */}
+            <section className="flex flex-col gap-5">
+              <h2 className="w-fit font-semibold">Your Bio</h2>
+              <div className="flex flex-col gap-2">
+                <Textarea className="w-2/3 h-44" placeholder="Add a short bio..." />
+                <span className="text-sm text-gray-500">400 characters left</span>
+              </div>
+            </section>
+            <Button className="flex w-fit self-end"><Link href="/dashboard/profile">Save & Continue</Link></Button>
+          </div>
     </div>
   )
 }

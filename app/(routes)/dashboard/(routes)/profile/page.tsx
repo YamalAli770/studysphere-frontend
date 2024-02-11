@@ -6,10 +6,8 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import VerificationModal from "./_components/verification-modal";
-import { useSessionContext } from "supertokens-auth-react/recipe/session";
 
 export default function Profile() {
-  const session = useSessionContext();
   return (
     <div className="p-6">
       <div className="flex flex-col gap-7">
@@ -19,7 +17,7 @@ export default function Profile() {
             <h1 className="text-3xl font-semibold">Profile Settings</h1>
             <p>Customize your personal details</p>
           </div>
-          { !session.loading && session.accessTokenPayload.accountType === "mentor" && <VerificationModal />}
+          <VerificationModal />
         </section>
         {/* Middle */}
         <section className="flex flex-col gap-4">

@@ -5,7 +5,7 @@ import React from 'react'
 export default function page() {
   return (
     <div className='flex justify-center items-center h-screen'>
-        <Link href="/auth">
+        <Link href="/auth/sign-up">
             <Button>Register Now</Button>
         </Link>
     </div>

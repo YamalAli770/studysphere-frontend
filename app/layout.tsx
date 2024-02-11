@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import localFont from "next/font/local"
 import './globals.css'
 import { cn } from '@/lib/utils'
-import { SuperTokensProvider } from '@/components/supertokensProvider'
 
 const myfont = localFont({ src: '../fonts/clash-display.ttf' })
 
@@ -18,11 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <SuperTokensProvider>
-        <body className={cn("font-medium", myfont.className)}>
-            {children}
-        </body>
-      </SuperTokensProvider>
+      <body className={cn("font-medium", myfont.className)}>
+          {children}
+      </body>
     </html>
   )
 }

@@ -1,5 +1,3 @@
-"use client";
-
 import UserNavbar from "./_components/user-navbar"
 import UserSidebar from "./_components/user-sidebar"
 

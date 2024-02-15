@@ -14,6 +14,7 @@ generator client {
 enum UserRole {
   MENTOR
   MENTEE
+  ADMIN
 }
 
 model User {
@@ -29,6 +30,7 @@ model User {
   twoFactorConfirmation TwoFactorConfirmation?
 }
 
+// * Used For NextAuth
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -83,3 +85,5 @@ model TwoFactorConfirmation {
 
   @@unique([userId])
 }
+
+// * Till Here

@@ -1,13 +1,15 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import VerificationModal from "./_components/verification-modal";
+import { currentUserServer } from "@/lib/user-server";
+import { auth } from "@/auth";
 
-export default function Profile() {
+export default async function Profile() {
+  const user = await currentUserServer();
+  
   return (
     <div className="p-6">
       <div className="flex flex-col gap-7">

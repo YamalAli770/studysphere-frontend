@@ -25,6 +25,7 @@
 // ! 1st Method
 "use client"
 
+import { Button } from "@/components/ui/button";
 import UserButton from "@/components/user-button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { signOut } from "next-auth/react";
@@ -39,7 +40,7 @@ export default function UserNavbar() {
   return (
     <div>
       <div className="border border-b-gray-300">
-        <div className="py-6 px-4 flex items-center justify-end">
+        <div className="py-6 px-4 flex items-center justify-end gap-6">
           <UserButton />
         </div>
       </div>

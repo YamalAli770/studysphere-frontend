@@ -33,4 +33,23 @@ export const NewPasswordSchema = z.object({
     password: z.string().min(6, {
         message: "Minimum 6 characters required."
     }),
-})
+});
+
+export const EducationSchema = z.object({
+    institution: z.string().min(3, {
+        message: "Minimum 3 characters required."
+    }),
+    country: z.string().min(3, {
+        message: "Minimum 3 characters required."
+    }),
+    level: z.enum(["HIGH_SCHOOL", "BACHELOR", "MASTER", "PHD"]),
+    major: z.string().min(3, {
+        message: "Minimum 3 characters required."
+    }),
+    startYear: z.coerce.number().min(4, {
+        message: "Minimum 4 characters required."
+    }),
+    endYear: z.coerce.number().min(4, {
+        message: "Minimum 4 characters required."
+    })
+});

@@ -18,12 +18,14 @@ import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
 import { useMemo, useTransition } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 // Register the languages
 countries.registerLocale(enLocale);
 
 export default function EducationModal() {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof EducationSchema>>({
     resolver: zodResolver(EducationSchema),
@@ -49,6 +51,7 @@ export default function EducationModal() {
         createEducationAction(values)
           .then((data) => {
               if(data?.success) {
+                  router.refresh();
                   toast.success(data.success);
               }
               else {

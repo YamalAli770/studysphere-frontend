@@ -23,8 +23,8 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en">
         <body className={cn("font-medium", myfont.className)}>
-            {children}
-            <Toaster /> 
+          {children}
+          <Toaster /> 
         </body>
       </html>
     </SessionProvider>

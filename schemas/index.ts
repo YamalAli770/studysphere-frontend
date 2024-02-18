@@ -67,3 +67,21 @@ export const EducationVerificationSchema = z.object({
       "Only .pdf file is accepted."
     ),
 });
+
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+const MAX_IMAGE_SIZE = 4 * 1024 * 1024;
+
+export const PostSchema = z.object({
+    content: z.string().min(10, {
+        message: "Minimum 10 characters required."
+    }),
+    image: z.any().optional().refine((image) => {
+        // If image exists, validate its size and type
+        if (image) {
+            return image.size <= MAX_IMAGE_SIZE && ACCEPTED_IMAGE_TYPES.includes(image?.type);
+        }
+        return true; // If image is null or undefined, validation passes
+    }, {
+        message: "Invalid image format or size."
+    })
+});

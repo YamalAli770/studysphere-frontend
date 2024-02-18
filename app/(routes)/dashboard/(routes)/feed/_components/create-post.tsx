@@ -1,43 +1,125 @@
+"use client";
+
+import { useState } from 'react';
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowUp } from 'lucide-react';
-import { Smile } from 'lucide-react';
+import { ImageIcon } from 'lucide-react';
 
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+
+import { useForm } from 'react-hook-form';
+import * as z from "zod";
+import { PostSchema } from '@/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from 'sonner';
+
+import { useEdgeStore } from '@/lib/edgestore';
+import { createPostAction } from '@/actions/post';
 
 export default function CreatePost() {
+    const { edgestore } = useEdgeStore();
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [isPending, setIsPending] = useState(false);
+
+    const form = useForm<z.infer<typeof PostSchema>>({
+        resolver: zodResolver(PostSchema),
+        defaultValues: {
+            content: '',
+            image: null
+        }
+    });
+
+    const onSubmit = async (values: z.infer<typeof PostSchema>) => {
+        console.log(values);
+        setIsPending(true);
+
+        if(values.image !== null) {
+            const res = await edgestore.postImage.upload({
+                file: values.image
+            });
+
+            if(res) {
+                createPostAction(values.content, res.url)
+                    .then((data) => {
+                        if(data?.success) {
+                            toast.success(data.success);
+                        }
+                        else {
+                            toast.error(data.error);
+                            form.reset();
+                        }
+                    })
+                    .finally(() => {
+                        form.reset();
+                        setImageUrl(null);
+                        setIsPending(false);
+                    });
+            };
+        }
+        else {
+            createPostAction(values.content, null)
+                .then((data) => {
+                    if(data?.success) {
+                        toast.success(data.success);
+                    }
+                    else {
+                        toast.error(data.error);
+                        form.reset();
+                    }
+                })
+                .finally(() => {
+                    form.reset();
+                    setIsPending(false);
+                });
+        }
+    };
+
     return (
         <div className='border bg-white shadow-md p-6 mb-8 rounded-lg'>
-            <div className='flex space-x-4 pb-6 border-b '>
-                <div className="rounded-full relative overflow-hidden h-12 w-12">
-                    <Image
-                    src={"https://ucarecdn.com/5a2e1064-794b-413e-866d-5f8ade379174/-/preview/500x500/-/quality/smart_retina/-/format/auto/"}
-                    fill={true}
-                    style={{objectFit: "cover"}}
-                    alt="profile-photo">
-                    </Image>
-                </div>
-                <div className='flex-auto'>
-                    <textarea rows={2} className='w-full resize-none h-12 focus-visible:outline-none' placeholder='What&#39;s new'/>
-                </div>
-            </div>
-            <div className='flex justify-between items-center px-2 pt-5'>
-                <Button variant={'ghost'} size={'icon'}>
-                    <div className='text-gray-400'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-image" viewBox="0 0 16 16">
-                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-                        <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12"/>
-                    </svg>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <div className='flex space-x-4 pb-6'>
+                        <FormField control={form.control} name='content' render={({ field }) => (
+                            <FormItem className='w-full'>
+                                <FormControl>
+                                    <Textarea {...field} placeholder="What's on your mind?" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )} />
                     </div>
-                </Button>
-                <div className='flex justify-center space-x-4'>
-                    <Button variant={'ghost'} size={'icon'}>
-                        <Smile color='gray'></Smile>
-                    </Button>
-                    <Button variant={'rounded'} size={'icon'}>
-                        <ArrowUp></ArrowUp>
-                    </Button>
-                </div>  
-            </div>
+                    { imageUrl && <div className='relative w-full h-72'>
+                        <Image src={imageUrl} objectFit='cover' className='rounded-lg' fill={true} alt='post-image' />
+                    </div>}
+                    <div className='flex justify-between items-center pt-5'>
+                        <FormField control={form.control} name='image' render={({ field: { value, onChange, ...field } }) => (
+                            <FormItem className='flex items-center gap-2'>
+                                <FormLabel className='cursor-pointer'>
+                                    <ImageIcon color='gray' />
+                                </FormLabel>
+                                <FormControl>
+                                    <Input type="file" {...field} style={{ display: 'none' }} value={value?.file} onChange={(e) => {
+                                        e.target.files && (
+                                            setImageUrl(URL.createObjectURL(e.target.files[0])),
+                                            onChange(e.target.files[0])
+                                        );
+                                    }} />
+                                </FormControl>
+                                <FormMessage style={{ marginTop: 0 }} />
+                            </FormItem>
+                        )}>
+                        </FormField>
+                        <div className='flex justify-center space-x-4'>
+                            <Button type='submit' disabled={isPending} variant='rounded' size='lg'>
+                                Post
+                            </Button>
+                        </div>  
+                    </div>
+                </form>
+            </Form>
         </div>
     )
 }

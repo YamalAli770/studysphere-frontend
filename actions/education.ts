@@ -34,7 +34,7 @@ export const createEducationAction = async (values: z.infer<typeof EducationSche
 
     const education = await db.education.create({
         data: {
-          userId: user.id,
+            userId: user.id,
             institution,
             country,
             level,

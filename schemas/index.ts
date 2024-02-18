@@ -53,3 +53,17 @@ export const EducationSchema = z.object({
         message: "Minimum 4 characters required."
     })
 });
+
+const MAX_FILE_SIZE = 4 * 1024 * 1024;
+const ACCEPTED_FILE_TYPES = ["application/pdf"];
+
+export const EducationVerificationSchema = z.object({
+    documentType: z.enum(["DEGREE", "TRANSCRIPT", "CERTIFICATE", "STUDENT_ID"]),
+    document: z.any()
+    .refine((file) => file?.name, "File is required.")
+    .refine((file) => file?.size <= MAX_FILE_SIZE, `Max file size is 4MB.`)
+    .refine(
+      (file) => ACCEPTED_FILE_TYPES.includes(file?.type),
+      "Only .pdf file is accepted."
+    ),
+});

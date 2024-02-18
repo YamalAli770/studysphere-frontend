@@ -4,6 +4,7 @@ import './globals.css'
 import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/auth'
 import { cn } from '@/lib/utils'
+import { Toaster } from '@/components/ui/sonner'
 
 const myfont = localFont({ src: '../fonts/clash-display.ttf' })
 
@@ -22,7 +23,8 @@ export default async function RootLayout({
     <SessionProvider session={session}>
       <html lang="en">
         <body className={cn("font-medium", myfont.className)}>
-            {children}
+          {children}
+          <Toaster /> 
         </body>
       </html>
     </SessionProvider>

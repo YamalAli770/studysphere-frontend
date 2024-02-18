@@ -6,7 +6,6 @@ import { db } from "@/lib/db";
 
 import { RegisterSchema } from "@/schemas";
 
-import { revalidatePath, revalidateTag } from "next/cache";
 import { getUserByEmail } from "@/lib/data/user";
 import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/mail";

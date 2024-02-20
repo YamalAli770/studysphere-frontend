@@ -85,3 +85,7 @@ export const PostSchema = z.object({
         message: "Invalid image format or size."
     })
 });
+
+export const KudoSchema = z.object({
+    postId: z.string(),
+})

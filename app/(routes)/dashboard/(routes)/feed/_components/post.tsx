@@ -1,9 +1,5 @@
 import Image from 'next/image';
-import { MoreHorizontal, UserCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ArrowUpFromLine } from 'lucide-react';
-import { MessageSquare } from 'lucide-react';
-import { Forward } from 'lucide-react';
+import { UserCircle } from 'lucide-react';
 import { Post } from '@prisma/client';
 import { PostWithExtras } from '@/types/post';
 import Timestamp from './timestamp';
@@ -41,9 +37,9 @@ export default async function Post({ post }: PostProps) {
         </div>
         <PostOptions post={post} userId={user?.id} />
       </div>
-      <div className='py-7 px-2'>
-        <p className='pb-3 text-sm'>{post.content}</p>
-        { post.imageUrl && <div className='rounded-lg overflow-hidden w-full h-96 relative'>
+      <div className='py-5 px-2'>
+        <p className='text-sm'>{post.content}</p>
+        { post.imageUrl && <div className='rounded-lg overflow-hidden w-full h-96 relative mt-5'>
             <Image src={post.imageUrl} fill={true} style={{objectFit: "cover"}} alt='meetup-image' />
         </div>}
       </div>

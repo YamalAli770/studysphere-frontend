@@ -27,7 +27,7 @@ export default function KudoButton({ post, userId }: KudoButtonProps) {
   );
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex flex-col">
       <form
         action={async (formData: FormData) => {
           const postId = formData.get("postId");
@@ -39,17 +39,19 @@ export default function KudoButton({ post, userId }: KudoButtonProps) {
         <input type="hidden" name="postId" value={post.id} />
 
         <ActionIcon>
-          <Heart  
+          <Heart
             className={cn("h-6 w-6", {
               "text-red-500 fill-red-500": optimisticKudos.some(predicate),
             })}
           />
         </ActionIcon>
       </form>
-      <p className='flex gap-0.5'>
-        Kudos
-        <span>({optimisticKudos.length}{""})</span>
-      </p>
+      {optimisticKudos.length > 0 && (
+        <p className="text-sm font-semibold">
+          {optimisticKudos.length}{" "}
+          {optimisticKudos.length === 1 ? "like" : "likes"}
+        </p>
+      )}
     </div>
   );
 }

@@ -77,7 +77,7 @@ export default function Comments({ postId, comments, user }: CommentProps) {
 
             return (
                 <div key={i} className="text-sm flex items-center space-x-2 font-medium">
-                    <Link className="font-semibold" href={`/dashboard/${username}`}>
+                    <Link className="font-semibold" href={`/dashboard/profile/${username}`}>
                         {username}
                     </Link>
                     <p>{ comment.content }</p>

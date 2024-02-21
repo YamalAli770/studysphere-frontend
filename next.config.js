@@ -7,6 +7,18 @@ const nextConfig = {
                 hostname: 'ucarecdn.com',
             },
             {
+                protocol: 'https',
+                hostname: 'files.edgestore.dev'  
+            },
+            {
+                protocol: 'https',
+                hostname: 'avatars.githubusercontent.com'
+            },
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com'  
+            },
+            {
                 protocol: 'http',
                 hostname: 'localhost',
             },

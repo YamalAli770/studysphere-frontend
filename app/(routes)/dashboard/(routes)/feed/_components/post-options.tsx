@@ -1,10 +1,14 @@
+"use client"
+
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { MoreHorizontal } from "lucide-react";
 import SubmitButton from "./submit-button";
 import { PostWithExtras } from "@/types/post";
-import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { deletePostAction } from "@/actions/post";
+import { useEdgeStore } from "@/lib/edgestore";
+import { toast } from "sonner";
 
 type PostOptionProps = {
     post: PostWithExtras,
@@ -12,6 +16,7 @@ type PostOptionProps = {
 }
 
 export default function PostOptions({ post, userId }: PostOptionProps) {
+  const { edgestore } = useEdgeStore();
   const isOwner = post.userId === userId;
 
   return (
@@ -26,8 +31,29 @@ export default function PostOptions({ post, userId }: PostOptionProps) {
             { isOwner && 
             <>
                 <Separator />
-                <form>
-                    <input type="hidden" />
+                <form action={async (formData) => {
+                    const imageUrl = formData.get("imageUrl") as string;
+
+                    if(imageUrl) {
+                        await edgestore.postImage.delete({
+                            url: imageUrl
+                        })
+                    }
+
+                    const postId = formData.get("postId") as string;
+
+                    await deletePostAction(postId)
+                        .then((data) => {
+                            if(data?.success) {
+                                toast.success(data.success);
+                            }
+                            else {
+                                toast.error(data.error);
+                            }
+                        })
+                }}>
+                    <input type="hidden" name="postId" value={post.id} />
+                    <input type="hidden" name="imageUrl" value={post.imageUrl ? post.imageUrl : ""} />
                     <SubmitButton className="text-red-500 font-semibold hover:text-red-300 disabled:cursor-not-allowed w-full p-3 text-sm">
                         Delete post
                     </SubmitButton>

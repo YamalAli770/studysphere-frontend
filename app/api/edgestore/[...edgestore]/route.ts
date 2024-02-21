@@ -44,6 +44,8 @@ const edgeStoreRouter = es.router({
     postImage: es.imageBucket({
         maxSize: 1024 * 1024 * 4, // 4MB
         accept: ['image/jpeg', 'image/jpg', 'image/png']
+    }).beforeDelete(({ ctx, fileInfo }) => {
+        return true;
     })
 });
 

@@ -33,7 +33,6 @@ export default function CreatePost() {
     });
 
     const onSubmit = async (values: z.infer<typeof PostSchema>) => {
-        console.log(values);
         setIsPending(true);
 
         if(values.image !== null) {

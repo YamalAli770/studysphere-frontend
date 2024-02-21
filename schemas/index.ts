@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { Post } from "@prisma/client";
 
 export const LoginSchema = z.object({
     email: z.string().email({
@@ -86,6 +87,18 @@ export const PostSchema = z.object({
     })
 });
 
+export const DeletePostSchema = z.object({
+    postId: z.string(),
+    imageUrl: z.string().optional()
+});
+
 export const KudoSchema = z.object({
     postId: z.string(),
 })
+
+export const CreateCommentSchema = z.object({
+    postId: z.string(),
+    content: z.string().min(1, {
+        message: "Minimum 1 character required."
+    })
+});

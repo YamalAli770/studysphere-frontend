@@ -47,7 +47,7 @@ export default function KudoButton({ post, userId }: KudoButtonProps) {
         </ActionIcon>
       </form>
       {optimisticKudos.length > 0 && (
-        <p className="text-sm font-semibold">
+        <p className="text-sm font-semibold ml-1">
           {optimisticKudos.length}{" "}
           {optimisticKudos.length === 1 ? "like" : "likes"}
         </p>

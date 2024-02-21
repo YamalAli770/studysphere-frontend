@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { db } from "@/lib/db";
-import { KudoSchema, PostSchema } from "@/schemas";
+import { CreateCommentSchema, DeletePostSchema, KudoSchema, PostSchema } from "@/schemas";
 import { currentUserServer } from "@/lib/user-server";
 import { UserRole } from "@prisma/client";
 import { revalidatePath } from "next/cache";
@@ -33,6 +33,46 @@ export const createPostAction = async (content: z.infer<typeof PostSchema>['cont
     revalidatePath("/dashboard")
     return { success: "Post created successfully!" };
 }
+
+export const deletePostAction = async (postId: string) => {
+    const user = await currentUserServer();
+
+    if(!user) {
+        return { error: "User not found!" }
+    }
+
+    const validatedFields = DeletePostSchema.safeParse({
+        postId: postId
+    })
+
+    if(!validatedFields.success) {
+        return { error: "Missing fields, Failed to delete post." }
+    }
+
+    const post = await db.post.findUnique({
+        where: {
+            id: validatedFields.data.postId,
+            userId: user.id
+        }
+    })
+
+    if(!post) {
+        return { error: "Post not found!" }
+    }
+
+    try {
+        await db.post.delete({
+            where: {
+                id: post.id
+            }
+        })
+        revalidatePath("/dashboard")
+        return { success: "Post deleted successfully!" }
+    } catch (error) {
+        return { error: "Failed to delete post." }
+    }
+
+};
 
 export const kudoPostAction = async (value: FormDataEntryValue | null) => {
     const user = await currentUserServer();
@@ -98,3 +138,44 @@ export const kudoPostAction = async (value: FormDataEntryValue | null) => {
         return { error: "Failed to Kudo Post" }
     }
 }
+
+export const createCommentAction = async (values: z.infer<typeof CreateCommentSchema>) => {
+    const user = await currentUserServer();
+
+    if(!user) {
+        return { error: "User not found!" }
+    }
+
+    const validatedFields = CreateCommentSchema.safeParse(values)
+
+    if(!validatedFields.success) {
+        return { error: "Missing fields, Failed to create comment." }
+    }
+
+    const { postId, content } = validatedFields.data
+
+    const post = await db.post.findUnique({
+        where: {
+            id: postId
+        }
+    })
+
+    if(!post) {
+        return { error: "Post not found!" }
+    }
+
+    try {
+        await db.comment.create({
+            data: {
+                content,
+                postId,
+                userId: user.id
+            }
+        })
+        revalidatePath("/dashboard")
+        return { success: "Comment created successfully!" }
+    } catch (error) {
+        return { error: "Failed to create comment." }
+    }
+
+};

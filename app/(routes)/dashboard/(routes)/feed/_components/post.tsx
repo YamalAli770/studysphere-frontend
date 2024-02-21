@@ -6,6 +6,7 @@ import Timestamp from './timestamp';
 import PostOptions from './post-options';
 import { currentUserServer } from '@/lib/user-server';
 import PostActions from './post-actions';
+import Comments from './comments';
 
 interface PostProps {
   post: PostWithExtras
@@ -44,6 +45,7 @@ export default async function Post({ post }: PostProps) {
         </div>}
       </div>
       <PostActions post={post} userId={user?.id} />
+      <Comments postId={post.id} comments={post.comments} user={user} />
     </div>
   )
 }

@@ -58,3 +58,59 @@ export const fetchPosts = async () => {
         return null;
     }
 };
+
+export const fetchPostById = async (id: string) => {
+    noStore();
+
+    try {
+        const post = await db.post.findUnique({
+            where: {
+                id: id
+            },
+            include: {
+                comments: {
+                    include: {
+                        user: {
+                            select: {
+                                id: true,
+                                name: true,
+                                email: true,
+                                emailVerified: true,
+                                image: true,
+                            }
+                        }
+                    },
+                    orderBy: {
+                        createdAt: 'desc'
+                    }
+                },
+                kudos: {
+                    include: {
+                        user: {
+                            select: {
+                                id: true,
+                                name: true,
+                                email: true,
+                                emailVerified: true,
+                                image: true,
+                            }
+                        }
+                    }
+                },
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        emailVerified: true,
+                        image: true,
+                    }
+                }
+            }
+        })
+
+        return post;
+    } catch (error) {
+        return { error: "Error while fetching post."}
+    }
+}

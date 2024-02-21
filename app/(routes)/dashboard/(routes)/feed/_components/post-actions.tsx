@@ -14,7 +14,7 @@ export default function PostActions({ post, userId }: PostActionProps) {
     return (
         <div className="flex items-start w-full gap-x-1 border-t py-3">
           <KudoButton post={post} userId={userId} />
-          <Link href={`/dashboard/p/${post.id}`}>
+          <Link href={`/dashboard/feed/p/${post.id}`}>
             <ActionIcon>
               <MessageCircle className={"h-6 w-6"} />
             </ActionIcon>

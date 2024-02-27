@@ -38,33 +38,36 @@ enum DocumentType {
 }
 
 model User {
-  id                 String    @id @default(cuid())
-  name               String?
-  email              String?   @unique
-  emailVerified      DateTime?
-  image              String?
-  password           String?
-  bio                String?
-  role               UserRole  @default(MENTEE)
-  accounts           Account[]
-  posts Post[]
-  kudos Kudo[]
-  comments Comment[]
-  isTwoFactorEnabled Boolean   @default(false)
+  id                    String                 @id @default(cuid())
+  name                  String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  bio                   String?
+  role                  UserRole               @default(MENTEE)
+  accounts              Account[]
+  posts                 Post[]
+  kudos                 Kudo[]
+  comments              Comment[]
+  isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
-  education Education?
+  education             Education?
+  Message               Message[]
+  Conversation          Conversation[]          @relation("user_one")
+  Conversation2         Conversation[]          @relation("user_two")
 }
 
 model Education {
-  id          String   @id @default(cuid())
-  userId      String
-  institution String
-  country     String
-  level      EducationLevel
-  major       String
-  startYear   Int
-  endYear     Int
-  isVerified  Boolean  @default(false)
+  id                    String                 @id @default(cuid())
+  userId                String
+  institution           String
+  country               String
+  level                 EducationLevel
+  major                 String
+  startYear             Int
+  endYear               Int
+  isVerified            Boolean                @default(false)
   educationVerification EducationVerification?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -73,13 +76,13 @@ model Education {
 }
 
 model EducationVerification {
-  id String @id @default(cuid())
-  educationId String
+  id           String             @id @default(cuid())
+  educationId  String
   documentType DocumentType
-  documentUrl String
-  status VerificationStatus @default(PENDING)
-  closedAt DateTime?
-  remarks String?
+  documentUrl  String
+  status       VerificationStatus @default(PENDING)
+  closedAt     DateTime?
+  remarks      String?
 
   education Education @relation(fields: [educationId], references: [id], onDelete: Cascade)
 
@@ -87,22 +90,22 @@ model EducationVerification {
 }
 
 model Post {
-  id String @id @default(cuid())
-  userId String
-  content String
-  imageUrl String?
-  kudos Kudo[]
-  comments Comment[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(cuid())
+  userId    String
+  content   String
+  imageUrl  String?
+  kudos     Kudo[]
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Kudo {
-  id String @id @default(cuid())
-  userId String
-  postId String
+  id        String   @id @default(cuid())
+  userId    String
+  postId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -113,10 +116,10 @@ model Kudo {
 }
 
 model Comment {
-  id String @id @default(cuid())
-  userId String
-  postId String
-  content String
+  id        String   @id @default(cuid())
+  userId    String
+  postId    String
+  content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -172,12 +175,33 @@ model TwoFactorToken {
 }
 
 model TwoFactorConfirmation {
-  id     String   @id @default(cuid())
+  id String @id @default(cuid())
 
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+model Conversation {
+  id          String    @id @default(cuid())
+  lastMessage String
+  status      Boolean   @default(false)
+  user_oneId  String
+  user_one    User      @relation("user_one", fields: [user_oneId], references: [id])
+  user_twoId  String
+  user_two    User      @relation("user_two", fields: [user_twoId], references: [id])
+  messages    Message[]
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  content        String
+  sender         User         @relation(fields: [senderId], references: [id])
+  senderId       String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String
+  createdAt      DateTime     @default(now())
 }
 
 // * Till Here

@@ -3,91 +3,134 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { fetchConversations } from '@/lib/data/conversation';
+import { useCurrentUser } from "@/hooks/use-current-user";
+import {sendMessage} from "@/actions/chat";
 
 interface Conversation {
-  id: number;
-  name: string;
-  imageUrl: string;
-  status: 'online' | 'offline';
-  messages: { content: string; sender: string }[]; 
-}
-const conversationList: Conversation[] = [
-  { 
-    id: 1, 
-    name: 'John Doe', 
-    imageUrl: 'https://ucarecdn.com/5a2e1064-794b-413e-866d-5f8ade379174/-/preview/500x500/-/quality/smart_retina/-/format/auto/', 
-    status: 'online',
-    messages: [
-      { content: "Hey there!", sender: "John Doe" },
-      { content: "Hi! How are you?", sender: "You" },
-      { content: "I'm good, thanks! How about you?", sender: "John Doe" },
-      { content: "Doing well, thanks for asking.", sender: "You" },
-      // Add more conversation messages as needed
-    ]
-  },
-  { 
-    id: 2, 
-    name: 'Alice Smith', 
-    imageUrl: 'https://ucarecdn.com/78976d1c-3d89-43a5-af72-0f085b7a226c/-/preview/500x500/-/quality/smart_retina/-/format/auto/', 
-    status: 'offline',
-    messages: [
-      { content: "Good morning!", sender: "Alice Smith" },
-      { content: "Morning! How's your day going?", sender: "You" },
-      { content: "Pretty good so far. What about you?", sender: "Alice Smith" },
-      { content: "Just getting started with work.", sender: "You" },
-      // Add more conversation messages as needed
-    ]
-  },
-  { 
-    id: 3, 
-    name: 'Emma Johnson', 
-    imageUrl: 'https://ucarecdn.com/cab5ea16-57a3-454d-9a12-e33d91b8065e/-/preview/500x500/-/quality/smart_retina/-/format/auto/', 
-    status: 'offline',
-    messages: [
-      { content: "Hello!", sender: "Emma Johnson" },
-      { content: "Hi there! How have you been?", sender: "You" },
-      { content: "I've been doing great, thank you!", sender: "Emma Johnson" },
-      { content: "That's awesome!", sender: "You" },
-      // Add more conversation messages as needed
-    ]
-  },
-  { 
-    id: 4, 
-    name: 'Michael Brown', 
-    imageUrl: 'https://ucarecdn.com/804779b8-db9b-4b44-abd1-8bdb35df3bc0/-/preview/500x500/-/quality/smart_retina/-/format/auto/', 
-    status: 'online',
-    messages: [
-      { content: "Hey!", sender: "Michael Brown" },
-      { content: "Hey there! What's up?", sender: "You" },
-      { content: "Not much, just relaxing. How about you?", sender: "Michael Brown" },
-      { content: "Just finished some work.", sender: "You" },
-      // Add more conversation messages as needed
-    ]
-  },
-  { 
-    id: 5, 
-    name: 'Sophia Wilson', 
-    imageUrl: 'https://ucarecdn.com/435a3a88-caf9-44f6-8b29-5709d9837096/-/preview/500x500/-/quality/smart_retina/-/format/auto/', 
-    status: 'offline',
-    messages: [
-      { content: "Hi!", sender: "Sophia Wilson" },
-      { content: "Hello! How are you doing?", sender: "You" },
-      { content: "I'm doing well, thanks for asking!", sender: "Sophia Wilson" },
-      { content: "Glad to hear that!", sender: "You" },
-      
-    ]
-  },
-  
-];
+  id: string;
+  status: boolean;
+  lastMessage:string;
+  user_oneId:string;
+  user_one : {id:string, name:string, imageUrl:string};      
+  user_twoId:string;
+  user_two : {id:string, name:string, imageUrl:string};     
+  messages: Array<{ id:string, content:string, senderId: string, conversationId:string }>; 
+};
 
+const conversationList: Conversation[] = [
+  {
+    id: '1',
+    lastMessage: 'Doing well, thanks for asking.',
+    status: true,
+    user_oneId: '1',
+    user_one: { id: '1', name: 'John Doe', imageUrl: 'https://ucarecdn.com/5a2e1064-794b-413e-866d-5f8ade379174/-/preview/500x500/-/quality/smart_retina/-/format/auto/'},
+    user_twoId: '2',
+    user_two: { id: '2', name: 'Alice Smith', imageUrl:'https://ucarecdn.com/78976d1c-3d89-43a5-af72-0f085b7a226c/-/preview/500x500/-/quality/smart_retina/-/format/auto/' },
+    messages: [
+      { id: 'm1', content: 'Hey there!', senderId: '1', conversationId: '1' },
+      { id: 'm2', content: 'Hi! How are you?', senderId: '2', conversationId: '1' },
+      { id: 'm3', content: 'I\'m good, thanks! How about you?', senderId: '1', conversationId: '1' },
+      { id: 'm4', content: 'Doing well, thanks for asking.', senderId: '2', conversationId: '1' },
+    ],
+  },
+  {
+    id: '2',
+    lastMessage: 'Just getting started with work.',
+    status: false,
+    user_oneId: '1',
+    user_one: { id: '1', name: 'John Doe', imageUrl: 'https://ucarecdn.com/5a2e1064-794b-413e-866d-5f8ade379174/-/preview/500x500/-/quality/smart_retina/-/format/auto/'},
+    user_twoId: '3',
+    user_two: { id: '3', name: 'Emma Johnson', imageUrl:'https://ucarecdn.com/cab5ea16-57a3-454d-9a12-e33d91b8065e/-/preview/500x500/-/quality/smart_retina/-/format/auto/' },
+    messages: [
+      { id: 'm5', content: 'Good morning!', senderId: '1', conversationId: '2' },
+      { id: 'm6', content: 'Morning! How\'s your day going?', senderId: '3', conversationId: '2' },
+      { id: 'm7', content: 'Pretty good so far. What about you?', senderId: '1', conversationId: '2' },
+      { id: 'm8', content: 'Just getting started with work.', senderId: '3', conversationId: '2' },
+    ],
+  },
+  {
+    id: '3',
+    lastMessage: 'That\'s awesome!',
+    status: false,
+    user_oneId: '4',
+    user_one: { id: '4', name: 'Michael Brown', imageUrl:'https://ucarecdn.com/804779b8-db9b-4b44-abd1-8bdb35df3bc0/-/preview/500x500/-/quality/smart_retina/-/format/auto/' },
+    user_twoId: '1',
+    user_two: { id: '1', name: 'John Doe', imageUrl: 'https://ucarecdn.com/5a2e1064-794b-413e-866d-5f8ade379174/-/preview/500x500/-/quality/smart_retina/-/format/auto/'},
+    messages: [
+      { id: 'm9', content: 'Hello!', senderId: '1', conversationId: '3' },
+      { id: 'm10', content: 'Hi there! How have you been?', senderId: '4', conversationId: '3' },
+      { id: 'm11', content: 'I\'ve been doing great, thank you!', senderId: '1', conversationId: '3' },
+      { id: 'm12', content: 'That\'s awesome!', senderId: '4', conversationId: '3' },
+    ],
+  },
+];
 
 const ConversationPage: React.FC = () => {
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
+  const [message, setMessage] = useState<string>();
+  
+
+  
+  const currentUserId = '1';
+  const currentUser = { id: '1', name: 'John Doe', imageUrl: 'https://ucarecdn.com/5a2e1064-794b-413e-866d-5f8ade379174/-/preview/500x500/-/quality/smart_retina/-/format/auto/'}
+
+
+  // const currentUser = useCurrentUser();
+  const getOtherUser = (conversation: Conversation): { id: string; name: string; imageUrl: string } | null => {
+  
+    if (currentUser) {
+      if (conversation.user_one.id === currentUser.id) {
+        return conversation.user_two;
+      } else if (conversation.user_two.id === currentUser.id) {
+        return conversation.user_one;
+      }
+    }
+    return null;
+  };
+
+
+
 
   const handleConversationClick = (conversation: Conversation) => {
     setSelectedConversation(conversation);
   };
+  // const user = useCurrentUser();
 
+  // if(user != undefined){
+  //   const data = fetchConversations(user.id);
+  //   console.log(data);
+  // }
+
+
+
+  const send = async(e: React.FormEvent<HTMLFormElement>) =>{
+    e.preventDefault();
+    if(currentUser!= null && selectedConversation != null){
+      var newMessage = await sendMessage({
+      conversationId: selectedConversation.id,
+      senderId: currentUser.id,
+      content: message || ''
+      });
+    }
+    console.log("newMessage " + message + " null");
+    setMessage("");
+
+
+    setSelectedConversation((prevConversation) => {
+      if (prevConversation !== null) {
+        const updatedConversation = { ...prevConversation };
+        if (newMessage != null){
+          updatedConversation.messages = [...prevConversation.messages, {id: newMessage.id, content:newMessage.content, senderId:newMessage.senderId, conversationId: newMessage.conversationId}];
+        }
+        return updatedConversation;
+      }
+      console.error('Unexpected null value for prevConversation');
+      return null;
+    });
+  }
+  
+  
   return (
     <div className="flex h-screen">
       {/* Left sidebar for friends */}
@@ -102,16 +145,16 @@ const ConversationPage: React.FC = () => {
             >
               <div className='relative w-12 h-12'>
                 <Image
-                  src={conversation.imageUrl} 
-                  alt={conversation.name}
+                  src={getOtherUser(conversation)?.imageUrl || ''} 
+                  alt={getOtherUser(conversation)?.name || ''}
                   fill={true}
                   className="rounded-full object-cover object-top"
                 />
-                <span className={cn('absolute w-3 h-3 bottom-0 right-0 rounded-full', conversation.status === 'online' ? 'bg-green-500' : 'bg-red-400')} />
+                <span className={cn('absolute w-3 h-3 bottom-0 right-0 rounded-full', conversation.status ? 'bg-green-500' : 'bg-red-400')} />
               </div>
               <div className='flex flex-col gap-1'>
-                <span className='text-md text-gray-500 font-semibold'>{conversation.name}</span>
-                <p className='text-xs text-gray-400'>The universe through a...</p>
+                <span className='text-md text-gray-500 font-semibold'>{getOtherUser(conversation)?.name || ''}</span>
+                <p className='text-xs text-gray-400'>{conversation.lastMessage}</p>
               </div>
             </div>
           ))}
@@ -124,20 +167,20 @@ const ConversationPage: React.FC = () => {
         {selectedConversation ? (
           <div className="flex-1 p-6">
             <h2 className="text-2xl font-semibold mb-4">
-              Chatting with {selectedConversation.name}
+              Chatting with {getOtherUser(selectedConversation)?.name || ''}
             </h2>
             <div className="border p-4 h-3/4 overflow-y-auto">
               {/* Display chat messages */}
               {selectedConversation.messages.map((message, index) => (
                 <div key={index} className="mb-4">
-                  {message.sender === 'You' ? (
+                  {message.senderId === currentUser.id ? (
                     <div className="flex flex-col items-end gap-2">
                       <div className="flex items-center mb-1">
-                        <span className="text-sm mr-2">{"Omer"}</span>
+                        <span className="text-sm mr-2">{currentUser.name}</span>
                         <div className='relative w-9 h-9'>
                           <Image
-                            src="https://ucarecdn.com/5a2e1064-794b-413e-866d-5f8ade379174/-/preview/500x500/-/quality/smart_retina/-/format/auto/" 
-                            alt="Your Image"
+                            src={currentUser.imageUrl} 
+                            alt={currentUser.name}
                             fill={true}
                             className="rounded-full"
                           />
@@ -152,13 +195,13 @@ const ConversationPage: React.FC = () => {
                       <div className="flex items-center mb-1">
                         <div className='relative w-10 h-10'>
                           <Image
-                            src={selectedConversation.imageUrl} // Friend's image URL
-                            alt={selectedConversation.name}
+                            src={getOtherUser(selectedConversation)?.imageUrl || ''} // Friend's image URL
+                            alt={getOtherUser(selectedConversation)?.name || ''}
                             fill={true}
                             className="rounded-full object-cover object-top"
                           />
                         </div>
-                        <span className="text-sm ml-2">{selectedConversation.name}</span>
+                        <span className="text-sm ml-2">{getOtherUser(selectedConversation)?.name}</span>
                       </div>
                       <div className="bg-gray-200 p-2 rounded-md">
                         {message.content}
@@ -168,18 +211,20 @@ const ConversationPage: React.FC = () => {
                 </div>
               ))}
             </div>
-            <div className="w-full p-6 border-t">
+            <form onSubmit={send} className="w-full p-6 border-t">
               <div className="flex items-center">
                 <input
                 type="text"
+                value={message}
                 placeholder="Type a message..."
                 className="flex-1 border rounded-l-md px-4 py-2"
+                onChange={(e) => setMessage(e.target.value)}
                 />
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-r-md">
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-r-md">
                 Send
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full">

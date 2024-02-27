@@ -186,6 +186,7 @@ model TwoFactorConfirmation {
 model Conversation {
   id          String    @id @default(cuid())
   lastMessage String
+  status      Boolean   @default(false)
   user_oneId  String
   user_one    User      @relation("user_one", fields: [user_oneId], references: [id])
   user_twoId  String

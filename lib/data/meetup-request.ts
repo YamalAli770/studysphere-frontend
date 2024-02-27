@@ -22,7 +22,7 @@ export const getMeetupRequestByUserIds = async (mentorId: string, menteeId: stri
 export const getMeetupRequestByUserId = async () => {
     try {
         const user = await currentUserServer();
-        if(!user) return null;
+        if (!user) return null;
 
         const meetupRequests = await db.meetupRequest.findMany({
             where: {
@@ -31,12 +31,10 @@ export const getMeetupRequestByUserId = async () => {
                     { mentorId: user.id }
                 ]
             },
-            orderBy: {
-                createdAt: 'desc'
-            },
             include: {
                 mentee: {
                     select: {
+                        id: true,
                         name: true,
                         email: true,
                         image: true
@@ -44,17 +42,21 @@ export const getMeetupRequestByUserId = async () => {
                 },
                 mentor: {
                     select: {
+                        id: true,
                         name: true,
                         email: true,
                         image: true
                     }
                 }
-            }
-        })
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+        });
 
         return meetupRequests;
-    }
-    catch {
+    } catch (error) {
+        console.error("Error fetching meetup requests:", error);
         return null;
     }
 }

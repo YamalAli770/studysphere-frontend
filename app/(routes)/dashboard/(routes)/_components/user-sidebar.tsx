@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Bookmark, CalendarCheck, HelpCircle, MessageSquare, Settings, UserCircle2 } from "lucide-react"
+import { Bookmark, CalendarCheck, HelpCircle, MailOpen, MessageSquare, Settings, UserCircle2 } from "lucide-react"
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
@@ -23,6 +23,11 @@ const sidebarRoutes = [
         name: "Conversations",
         icon: <MessageSquare size={20} />,
         path: "/dashboard/conversation",
+    },
+    {
+        name: "Meetup Requests",
+        icon: <MailOpen size={20} />,
+        path: "/dashboard/meetups",
     },
     {
         name: "Events",

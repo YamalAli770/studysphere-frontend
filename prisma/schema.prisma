@@ -37,6 +37,12 @@ enum DocumentType {
   STUDENT_ID
 }
 
+enum MeetupRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 model User {
   id                    String                 @id @default(cuid())
   name                  String?
@@ -53,6 +59,12 @@ model User {
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   education             Education?
+
+  // Relationship with the meetup requests where the user is a mentee
+  meetupRequestsAsMentee MeetupRequest[] @relation("MenteeRequests")
+
+  // Relationship with the meetup requests where the user is a mentor
+  meetupRequestsAsMentor MeetupRequest[] @relation("MentorRequests")
   Message               Message[]
   Conversation          Conversation[]          @relation("user_one")
   Conversation2         Conversation[]          @relation("user_two")
@@ -125,6 +137,27 @@ model Comment {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model MeetupRequest {
+  id                String              @id @default(cuid())
+  menteeId          String
+  mentorId          String
+  dateTime              String
+  durationInMinutes Int
+  amount            Int
+  message           String?
+  status            MeetupRequestStatus @default(PENDING)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  // Relationship with the user who is a mentee
+  mentee User @relation("MenteeRequests", fields: [menteeId], references: [id])
+
+  // Relationship with the user who is a mentor
+  mentor User @relation("MentorRequests", fields: [mentorId], references: [id])
+
+  @@unique([menteeId, mentorId])
 }
 
 // * Used For NextAuth

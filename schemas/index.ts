@@ -103,6 +103,27 @@ export const CreateCommentSchema = z.object({
     })
 });
 
+// ? Meetup Request Schema
+
+export const MeetupRequestSchema = z.object({
+    menteeId: z.string(),
+    mentorId: z.string(),
+    dateTime: z.string().refine((dateTime) => {
+        const parsedDate = Date.parse(dateTime);
+        return !isNaN(parsedDate) && parsedDate > Date.now();
+    }, {
+        message: "Invalid date or date should be in the future."
+    }),
+    durationInMinutes: z.number().min(10, {
+        message: "Minimum 10 minutes required."
+    }).max(60, {
+        message: "Maximum 60 minutes allowed."
+    }),
+    amount: z.number().min(5, {
+        message: "Minimum amount is $5."
+    }),
+    message: z.string().optional()
+});
 
 export const Message = z.object({
     conversationId: z.string(),

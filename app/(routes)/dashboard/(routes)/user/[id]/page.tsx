@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { currentUserServer } from "@/lib/user-server";
 import { redirect } from "next/navigation";
+import MeetupRequest from "../_components/meetup-request";
 
 type UserViewPageProps = {
   params: {
@@ -18,6 +19,11 @@ type UserViewPageProps = {
 export default async function UserViewPage({ params: { id } }: UserViewPageProps) {
   const currentUser = await currentUserServer();
   const user = await getUserViewById(id);
+
+  const mentor = {
+    id: user?.id,
+    role: user?.role
+  }
 
   if(!user) {
     return null;
@@ -93,7 +99,7 @@ export default async function UserViewPage({ params: { id } }: UserViewPageProps
             </section>}
           </div>
         </section>
-        { user.education?.isVerified && <Button className="w-fit place-self-end">Send Meetup Request</Button>}
+        { user.education?.isVerified && user.role === 'MENTOR' && currentUser?.role === "MENTEE" && <MeetupRequest currentUser={currentUser} mentor={mentor} />}
       </div>
     </div>
     </div>

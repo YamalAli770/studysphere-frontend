@@ -65,6 +65,9 @@ model User {
 
   // Relationship with the meetup requests where the user is a mentor
   meetupRequestsAsMentor MeetupRequest[] @relation("MentorRequests")
+  Message               Message[]
+  Conversation          Conversation[]          @relation("user_one")
+  Conversation2         Conversation[]          @relation("user_two")
 }
 
 model Education {
@@ -211,6 +214,27 @@ model TwoFactorConfirmation {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+model Conversation {
+  id          String    @id @default(cuid())
+  lastMessage String
+  status      Boolean   @default(false)
+  user_oneId  String
+  user_one    User      @relation("user_one", fields: [user_oneId], references: [id])
+  user_twoId  String
+  user_two    User      @relation("user_two", fields: [user_twoId], references: [id])
+  messages    Message[]
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  content        String
+  sender         User         @relation(fields: [senderId], references: [id])
+  senderId       String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String
+  createdAt      DateTime     @default(now())
 }
 
 // * Till Here

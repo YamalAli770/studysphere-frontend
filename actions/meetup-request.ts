@@ -64,3 +64,34 @@ export const createMeetupRequestAction = async (values: z.infer<typeof MeetupReq
     }
 
 };
+
+export const updateMeetupRequestAction = async (id: string, status: string) => {
+    const meetupRequest = await db.meetupRequest.findUnique({
+        where: {
+            id: id,
+        }
+    })
+
+    if(!meetupRequest) {
+        return { error: "Meetup request not found!" }
+    }
+
+    if(status !== "ACCEPTED" && status !== "REJECTED") {
+        return { error: "Invalid status!" }
+    }
+
+    try {
+        await db.meetupRequest.update({
+            where: {
+                id: id
+            },
+            data: {
+                status: status
+            }
+        })
+
+        return { success: "Meetup request updated successfully!" }
+    } catch (error) {
+        return { error: "Error updating meetup request!" }
+    }
+};

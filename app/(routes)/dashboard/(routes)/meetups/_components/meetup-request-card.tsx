@@ -1,10 +1,12 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { currentUserServer } from "@/lib/user-server";
 import { MeetupRequestWithExtras } from "@/types/meetup-request";
+import AcceptButton from "./accept-button";
+import RejectButton from "./reject-button";
+import ActionButtons from "./action-buttons";
 
 interface MeetupRequestCardProps {
   request: MeetupRequestWithExtras
@@ -12,7 +14,6 @@ interface MeetupRequestCardProps {
 
 export default async function MeetupRequestCard({ request }: MeetupRequestCardProps) {
   const user = await currentUserServer();
-  console.log(request);
 
   return (
     <Card>
@@ -64,9 +65,8 @@ export default async function MeetupRequestCard({ request }: MeetupRequestCardPr
           <Input type="text" value={request.status} />
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between gap-4">
-        <Button className="w-full">Accept</Button>
-        <Button className="w-full">Reject</Button>
+      <CardFooter>
+        <ActionButtons requestId={request.id} />
       </CardFooter>
     </Card>
   )

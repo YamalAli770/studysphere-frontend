@@ -1,13 +1,13 @@
 import { getMeetupRequestByUserId } from "@/lib/data/meetup-request";
 import MeetupRequestCard from "./_components/meetup-request-card";
+import FilterButton from "./_components/filter-button";
 
 export default async function Meetups() {
   const meetupRequests = await getMeetupRequestByUserId();
-  console.log(meetupRequests);
 
   return (
     <div className="p-8">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <div>
             <div className='text-3xl font-semibold'>
                 Meetup Requests
@@ -16,10 +16,11 @@ export default async function Meetups() {
                 Accept or reject the recieved meetup requests.
             </div>
         </div>
+        <FilterButton />
       </div>
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {meetupRequests?.map(request => (
-          <MeetupRequestCard key={request.id} />
+          <MeetupRequestCard key={request.id} request={request} />
         ))}
       </div>
     </div>

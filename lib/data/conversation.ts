@@ -5,7 +5,6 @@ export const fetchConversations = async (currentUserId:string) => {
     // disable caching
     noStore();
 
-
     try{
         const conversations = await db.conversation.findMany({
             where: {
@@ -15,8 +14,20 @@ export const fetchConversations = async (currentUserId:string) => {
                 ],
             },
             include: {
-                user_one:true,
-                user_two:true,
+                user_one:{
+                    select:{
+                        id: true,
+                        image:true,
+                        name:true,
+                    }
+                },
+                user_two:{
+                    select:{
+                        id: true,
+                        image:true,
+                        name:true,
+                    }
+                },
             }
         });
         return conversations;
@@ -25,6 +36,4 @@ export const fetchConversations = async (currentUserId:string) => {
         console.log("Database error",error)
         return null;
     }
-
-
 }

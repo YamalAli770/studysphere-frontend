@@ -1,10 +1,10 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { Message } from "@/schemas";
+import { MessageSchema } from "@/schemas";
 import * as z from "zod";
 
-export const sendMessage = async (values: z.infer<typeof Message>) => {
+export const sendMessage = async (values: z.infer<typeof MessageSchema>) => {
     try {
       const newMessage = await db.message.create({
         data: {

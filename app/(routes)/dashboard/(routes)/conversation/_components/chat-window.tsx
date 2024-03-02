@@ -37,7 +37,7 @@ const ChatWindow = ({ selectedConversation, currentUser, message, setMessage, se
         <h2 className="text-2xl font-semibold mb-4">
           Chatting with {getOtherUser(selectedConversation, currentUser?.id)?.name || ''}
         </h2>
-        <div className="border p-4 max-h-[54vh] h-3/4 overflow-y-auto">
+        <div className="border p-4 max-h-[54vh] min-h-[54vh] h-3/4 overflow-y-auto">
           {/* Display chat messages */}
           {selectedConversation.messages.map((message) => (
             <div key={message.id} className="mb-4">

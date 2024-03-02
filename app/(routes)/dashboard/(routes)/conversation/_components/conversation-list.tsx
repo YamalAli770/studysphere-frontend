@@ -4,23 +4,16 @@ import React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { getOtherUser } from '@/lib/utils';
+import { ConversationWithExtras } from '@/types/conversation';
+import { User } from 'next-auth/types';
+import { User as UserIcon } from 'lucide-react';
 
-interface Conversation {
-  id: string;
-  status: boolean;
-  lastMessage:string;
-  user_oneId:string;
-  user_one : {id:string, name:string, imageUrl:string};      
-  user_twoId:string;
-  user_two : {id:string, name:string, imageUrl:string};     
-  messages: Array<{ id:string, content:string, senderId: string, conversationId:string }>; 
-};
 
 
 interface ConversationListProps {
-  conversations: Conversation[];
-  handleConversationClick: (conversation: Conversation) => void;
-  currentUser: { id: string; name: string; imageUrl: string }
+  conversations: ConversationWithExtras[];
+  handleConversationClick: (conversation: ConversationWithExtras) => void;
+  currentUser: User
 }
 
 const ConversationList: React.FC<ConversationListProps> = ({ conversations, handleConversationClick, currentUser }) => {
@@ -36,12 +29,17 @@ const ConversationList: React.FC<ConversationListProps> = ({ conversations, hand
             onClick={() => handleConversationClick(conversation)}
           >
             <div className='relative w-12 h-12'>
-              <Image
-                src={getOtherUser(conversation, currentUser.id)?.imageUrl || ''}
+              {getOtherUser(conversation, currentUser.id)?.image ? 
+                (<Image
+                src={getOtherUser(conversation, currentUser.id)?.image || ''} 
                 alt={getOtherUser(conversation, currentUser.id)?.name || ''}
                 fill={true}
-                className="rounded-full object-cover object-top"
-              />
+                className="rounded-full"
+                />):
+                (
+                  <UserIcon className='bg-ternary-bg text-white rounded-full p-2' size={'40'}/>
+                )
+              }
               <span className={cn('absolute w-3 h-3 bottom-0 right-0 rounded-full', conversation.status ? 'bg-green-500' : 'bg-red-400')} />
             </div>
             <div className='flex flex-col gap-1'>

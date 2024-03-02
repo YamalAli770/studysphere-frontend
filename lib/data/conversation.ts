@@ -28,6 +28,15 @@ export const fetchConversations = async (currentUserId:string) => {
                         name:true,
                     }
                 },
+                messages:{
+                    select:{
+                        content:true,
+                        id:true,
+                        senderId:true,
+                        conversationId:true,
+                        createdAt:true
+                    }
+                }
             }
         });
         return conversations;

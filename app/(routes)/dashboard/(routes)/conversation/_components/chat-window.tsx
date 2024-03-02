@@ -2,27 +2,20 @@
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { getOtherUser } from '@/lib/utils';
+import { ConversationWithExtras } from '@/types/conversation';
+import { User } from 'next-auth/types';
+import { User as UserIcon } from 'lucide-react';
 
-interface Conversation {
-  id: string;
-  status: boolean;
-  lastMessage:string;
-  user_oneId:string;
-  user_one : {id:string, name:string, imageUrl:string};      
-  user_twoId:string;
-  user_two : {id:string, name:string, imageUrl:string};     
-  messages: Array<{ id:string, content:string, senderId: string, conversationId:string }>; 
-};
 
 interface ChatWindowProps {
-  selectedConversation: Conversation | null;
-  currentUser: { id: string; name: string; imageUrl: string } | null;
+  selectedConversation: ConversationWithExtras | null;
+  currentUser: User;
   message: string;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
   send: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ selectedConversation, currentUser, message, setMessage, send }) => 
+const ChatWindow = ({ selectedConversation, currentUser, message, setMessage, send }: ChatWindowProps) => 
 {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -53,12 +46,17 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ selectedConversation, currentUs
                       <div className="flex items-center mb-1">
                         <span className="text-sm mr-2">{currentUser.name}</span>
                         <div className='relative w-9 h-9'>
-                          <Image
-                            src={currentUser.imageUrl} 
-                            alt={currentUser.name}
-                            fill={true}
-                            className="rounded-full"
-                          />
+                          {currentUser.image ? 
+                          (<Image
+                          src={currentUser.image} 
+                          alt={currentUser.name||''}
+                          fill={true}
+                          className="rounded-full"
+                          />):
+                          (
+                            <UserIcon className='bg-ternary-bg text-white rounded-full p-2' size={'40'}/>
+                          )
+                         }
                         </div>
                       </div>
                       <div className="bg-blue-500 text-white p-2 rounded-md text-right">
@@ -69,12 +67,17 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ selectedConversation, currentUs
                     <div className="flex flex-col items-start gap-2">
                       <div className="flex items-center mb-1">
                         <div className='relative w-10 h-10'>
-                          <Image
-                            src={getOtherUser(selectedConversation, currentUser?.id)?.imageUrl || ''} // Friend's image URL
-                            alt={getOtherUser(selectedConversation, currentUser?.id)?.name || ''}
+                          {getOtherUser(selectedConversation, currentUser.id)?.image ? 
+                            (<Image
+                            src={getOtherUser(selectedConversation, currentUser.id)?.image || ''} 
+                            alt={getOtherUser(selectedConversation, currentUser.id)?.name || ''}
                             fill={true}
-                            className="rounded-full object-cover object-top"
-                          />
+                            className="rounded-full"
+                            />):
+                            (
+                              <UserIcon className='bg-ternary-bg text-white rounded-full p-2' size={'40'}/>
+                            )
+                          }
                         </div>
                         <span className="text-sm ml-2">{getOtherUser(selectedConversation, currentUser?.id)?.name}</span>
                       </div>

@@ -35,9 +35,12 @@ export const fetchConversations = async (currentUserId:string) => {
                         senderId:true,
                         conversationId:true,
                         createdAt:true
-                    }
+                    },
+                    orderBy: {
+                        createdAt: 'asc', 
+                    },
                 }
-            }
+            },
         });
         return conversations;
     }

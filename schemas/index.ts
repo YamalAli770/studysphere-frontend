@@ -125,7 +125,7 @@ export const MeetupRequestSchema = z.object({
     message: z.string().optional()
 });
 
-export const Message = z.object({
+export const MessageSchema = z.object({
     conversationId: z.string(),
     senderId: z.string(),
     content: z.string().min(1, {

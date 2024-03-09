@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { currentUserServer } from "@/lib/user-server";
 import { MessageSchema } from "@/schemas";
 import * as z from "zod";
+import {pusherServer} from "@/lib/pusher"
 
 export const sendMessage = async (values: z.infer<typeof MessageSchema>) => {
     try {
@@ -22,6 +23,15 @@ export const sendMessage = async (values: z.infer<typeof MessageSchema>) => {
       if(!validatedFields.success) {
           return { error: "Invalid fields!" }
       };
+      const dummyMessage = {
+        id:Math.random().toString(36).substring(2),
+        conversationId: values.conversationId,
+        content: values.content,
+        senderId: values.senderId,
+      }
+      pusherServer.trigger(dummyMessage.conversationId, "chat", {
+        message: `${JSON.stringify(dummyMessage)}\n\n`
+      });
 
       const newMessage = await db.message.create({
         data: {
@@ -31,17 +41,7 @@ export const sendMessage = async (values: z.infer<typeof MessageSchema>) => {
         }
       });
 
-      const pusher = new Pusher({
-        appId: "1765277",
-        key: "85cc5781a9fb5d38f00f",
-        secret: "0f323451f3d1c69b7761",
-        cluster: "ap2",
-        useTLS: true
-      });
-      console.log("Pusher from server",pusher);
-      pusher.trigger("convId", "chat", {
-        message: `${JSON.stringify(newMessage)}\n\n`
-      });
+      
   
       return newMessage;
     } catch (error) {

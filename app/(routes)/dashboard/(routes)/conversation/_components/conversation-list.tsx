@@ -1,12 +1,13 @@
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { getOtherUser } from '@/lib/utils';
 import { ConversationWithExtras } from '@/types/conversation';
 import { User } from 'next-auth/types';
 import { User as UserIcon } from 'lucide-react';
+import Pusher from 'pusher-js';
 
 
 
@@ -16,7 +17,41 @@ interface ConversationListProps {
   currentUser: User
 }
 
+
 const ConversationList: React.FC<ConversationListProps> = ({ conversations, handleConversationClick, currentUser }) => {
+  
+  // //state to save conversation for pusher online presence manipulation
+  // const [conversationList, setConversationList] = useState<ConversationWithExtras[]>(conversations);
+
+  // //creating pusher instance
+  // const pusher = new Pusher("85cc5781a9fb5d38f00f", {
+  //   cluster: "ap2"
+  // });
+
+  // // Modify the channel name creation in Conversation component
+  // const presenceChannel = pusher.subscribe(`presence-user`);
+
+ 
+  // const handleUserPresence = (member: any) => {
+  //   // Handle user presence change
+  //   const userId = member.user_id;
+  //   const isOnline = member.info.online;
+  //   alert(`User ${member.user_id}  ${member.info.online}`);
+  
+  //   // Update the UI to reflect the online status of the user
+  //   // You might want to update the conversation list or user avatar to indicate online status
+  // };
+  
+  // // Bind presence events
+  // presenceChannel.bind('pusher:subscription_succeeded', (members:any) => {
+  //   members.each(handleUserPresence);
+  // });
+  // presenceChannel.bind('pusher:member_added', handleUserPresence);
+  // presenceChannel.bind('pusher:member_removed', handleUserPresence);
+
+
+
+
   return(
     <div className="w-1/4 p-6 border-r">
       <h2 className="text-2xl font-semibold mb-4">Conversations</h2>

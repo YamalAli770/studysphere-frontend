@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { MeetupRequestSchema } from "@/schemas";
 import { getUserById } from "@/lib/data/user";
 import { getMeetupRequestByUserIds } from "@/lib/data/meetup-request";
+import { revalidatePath } from "next/cache";
 
 export const createMeetupRequestAction = async (values: z.infer<typeof MeetupRequestSchema>) => {
     const validatedFields = MeetupRequestSchema.safeParse(values);
@@ -81,7 +82,7 @@ export const updateMeetupRequestAction = async (id: string, status: string) => {
     }
 
     try {
-        await db.meetupRequest.update({
+        const updatedMeetupRequest = await db.meetupRequest.update({
             where: {
                 id: id
             },
@@ -90,7 +91,8 @@ export const updateMeetupRequestAction = async (id: string, status: string) => {
             }
         })
 
-        return { success: "Meetup request updated successfully!" }
+        revalidatePath("/dashboard/meetups");
+        return { updatedMeetupRequest, success: "Meetup request status updated." };
     } catch (error) {
         return { error: "Error updating meetup request!" }
     }

@@ -4,24 +4,15 @@ import { Loader2, LucideLoader2 } from 'lucide-react';
 import '@livekit/components-styles';
 import {
   LiveKitRoom,
-  GridLayout,
-  ParticipantTile,
   RoomAudioRenderer,
-  useTracks,
   VideoConference,
 } from '@livekit/components-react';
-import { Track } from 'livekit-client';
 import { useEffect, useState } from 'react';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import CountdownTimer from './_components/countdownTimer';
 
 const MAX_CALL_DURATION = 600;
 export default function Page() {
-  
-  const endCall = () => {
-    // Perform actions to end the call, e.g., disconnect from video call service
-    console.log('Call ended');
-  };
 
   const user = useCurrentUser()
   // TODO: get user input for room and name
@@ -60,8 +51,8 @@ export default function Page() {
   return (
     <div style={{height: '100dvh',backgroundColor:'#111'}}>
       <h1 className="flex justify-center text-white py-3 text-2xl">
-        <span>Remaining Time:</span>
-        <CountdownTimer initialTime={3600} onTimerEnd={() => console.log('Timer ended!')} />
+        <span>Remaining Time :</span>
+        <CountdownTimer initialTime={MAX_CALL_DURATION} onTimerEnd={() => console.log('Timer ended!')} />
       </h1>
       <LiveKitRoom
         video={true}

@@ -65,9 +65,10 @@ model User {
 
   // Relationship with the meetup requests where the user is a mentor
   meetupRequestsAsMentor MeetupRequest[] @relation("MentorRequests")
-  Message               Message[]
-  Conversation          Conversation[]          @relation("user_one")
-  Conversation2         Conversation[]          @relation("user_two")
+  Message                Message[]
+  Conversation           Conversation[]  @relation("user_one")
+  Conversation2          Conversation[]  @relation("user_two")
+  Subscription           Subscription[]
 }
 
 model Education {
@@ -143,7 +144,7 @@ model MeetupRequest {
   id                String              @id @default(cuid())
   menteeId          String
   mentorId          String
-  dateTime              String
+  dateTime          String
   durationInMinutes Int
   amount            Int
   message           String?
@@ -235,6 +236,18 @@ model TwoFactorConfirmation {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+model Subscription {
+  id        Int      @id @default(autoincrement())
+  userId    String   @unique
+  plan      String
+  status    String   @default("active")
+  meetings  Int?     @default(0)
+  stripeId  String? 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 // * Till Here

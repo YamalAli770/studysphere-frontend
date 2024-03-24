@@ -87,14 +87,14 @@ function Controls({SwitchChat, isChatOpen}:ControlsProps) {
       </Button>
       
       <Button
-        className={`${isLocalScreenShared ? "bg-secondary-bg hover:bg-secondary-bg/50":""}`}
+        className={`${isLocalScreenShared ? "bg-secondary-bg hover:bg-secondary-bg/80":""}`}
         onClick={ScreenShareOn}
       >
         <ScreenShareIcon />
       </Button>
       
       <Button
-        className={`${isChatOpen ? "bg-secondary-bg hover:bg-secondary-bg/50":""}`}
+        className={`${isChatOpen ? "bg-secondary-bg hover:bg-secondary-bg/80":""}`}
         onClick={SwitchChat}
       >
       <MessageIcon />

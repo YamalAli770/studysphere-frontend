@@ -38,7 +38,7 @@ const ConferenceChat =({isChatOpen}:ConferenceChatProps)=>{
  
     return(
         <div className={`${isChatOpen ? "w-2/6" : "w-0 hidden"} transition-all duration-100 ease-out flex flex-col gap-4 p-4 rounded-xl bg-[#2b2d2e]`}>
-          <div className="grow-0 p-4 w-full text-center rounded-md bg-dark-bg">
+          <div className="grow-0 p-4 w-full font-bold text-center rounded-md bg-dark-bg">
             <div className="text-white">Conversations</div>
           </div>
           <div className="grow min-h-0 min-w-0">
@@ -69,14 +69,15 @@ const ConferenceChat =({isChatOpen}:ConferenceChatProps)=>{
             </ScrollArea>
           </div>
           <div className="grow-0">
-            <form onSubmit={sendMessage} className="flex w-full items-center space-x-2">
-              <Input 
-              type="text"
-              value={newMessage}
-              onChange={(e)=>{setNewMessage(e.target.value)}} 
-              className="bg-dark-bg text-white" 
-              placeholder="Write a message..." />
-              <Button type="submit" className="bg-ternary-bg">
+            <form onSubmit={sendMessage} className="w-full relative">
+              <input 
+                type="text"
+                value={newMessage}
+                onChange={(e)=>{setNewMessage(e.target.value)}} 
+                className="w-full p-4 rounded-md bg-dark-bg text-white focus:outline-none" 
+                placeholder="Write a message...">
+              </input>
+              <Button type="submit" className="absolute top-2 right-2 bg-secondary-bg hover:bg-secondary-bg/80">
                 <SendIcon/>
               </Button>
             </form>

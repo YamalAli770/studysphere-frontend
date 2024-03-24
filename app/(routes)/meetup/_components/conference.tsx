@@ -1,9 +1,10 @@
 'use client';
 
-import { selectPeers, useHMSStore, selectHMSMessages,useHMSActions,selectLocalPeer  } from "@100mslive/react-sdk";
+import { selectPeers, useHMSStore,selectIsSomeoneScreenSharing,selectPeersScreenSharing } from "@100mslive/react-sdk";
 import React, { useState} from "react";
 import PeerTile from "./peer-tile";
 import Controls from "./controls";
+import ScreenShare from "./screen-share";
 import ConferenceChat from "./conference-chat";
 import { 
   Disc2 as RecordingIcon
@@ -12,17 +13,19 @@ import {
 function Conference() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const peers = useHMSStore(selectPeers);
+  const isScreenSharing = useHMSStore(selectIsSomeoneScreenSharing);
+  const peerSharingScreen = useHMSStore(selectPeersScreenSharing);
 
   const handleChatOpen = () => {
     setIsChatOpen(!isChatOpen);
   }
-  
-  
-  
+  console.log(peers);
+  console.log(isScreenSharing);
+  console.log(peerSharingScreen);
   return (
     <div className="h-screen max-h-screen max-w-screen box-border flex flex-col bg-dark-bg relative">
       <div className="grow-0 flex gap-4 border-b text-white border-[#2b2d2e] p-4">
-        <span className="flex gap-2 text-destructive animate-pulse duration-400">
+        <span className="flex gap-2 font-bold text-destructive animate-pulse duration-400">
           <RecordingIcon/>
           <span>REC</span>
         </span>
@@ -34,7 +37,10 @@ function Conference() {
           <div className="grow flex gap-4 min-h-0">
             {peers.map((peer) => (
               <PeerTile key={peer.id} peer={peer} />
-            ))}
+              ))}
+            {isScreenSharing ? peerSharingScreen.map((peers) => {
+              return <ScreenShare Peer={peers} />
+            }) : null}
           </div>
           <div className="grow-0">
           <Controls SwitchChat={handleChatOpen} isChatOpen={isChatOpen}/>

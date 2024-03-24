@@ -13,16 +13,13 @@ import {
  } from 'lucide-react';
 
 
-function PeerTile({ peer }:any) {
+const PeerTile = ({ peer }:any) => {
   const trackId = peer.videoTrack;
   const { videoRef } = useVideo({
     trackId: trackId
   });
   const isAudioMuted = !useHMSStore(selectIsPeerAudioEnabled(peer.id));
   
-  function isLocalPeer(){
-    
-  }
   // For gaining video track info
   const trackSelector = selectVideoTrackByID(trackId);
   const track = useHMSStore(trackSelector);

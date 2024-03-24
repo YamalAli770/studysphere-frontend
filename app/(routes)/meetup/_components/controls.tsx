@@ -37,9 +37,14 @@ function Controls({SwitchChat, isChatOpen}:ControlsProps) {
     await hmsActions.setLocalAudioEnabled(!isLocalAudioEnabled);
   };
 
-  const ScreenShare = async () => {
+  const ScreenShareOn = async () => {
     //toggle screenshare enabled
-    await hmsActions.setScreenShareEnabled(!isLocalScreenShared);
+    await hmsActions.setScreenShareEnabled(true);
+  };
+
+  const ScreenShareOff = async () => {
+    //toggle screenshare enabled
+    await hmsActions.setScreenShareEnabled(false);
   };
 
   const SwitchVideo = async () => {
@@ -82,13 +87,14 @@ function Controls({SwitchChat, isChatOpen}:ControlsProps) {
       </Button>
       
       <Button
-        onClick={ScreenShare}
+        className={`${isLocalScreenShared ? "bg-secondary-bg hover:bg-secondary-bg/50":""}`}
+        onClick={ScreenShareOn}
       >
         <ScreenShareIcon />
       </Button>
       
       <Button
-        className={`${isChatOpen ? "bg-secondary-bg":""}`}
+        className={`${isChatOpen ? "bg-secondary-bg hover:bg-secondary-bg/50":""}`}
         onClick={SwitchChat}
       >
       <MessageIcon />
@@ -109,6 +115,14 @@ function Controls({SwitchChat, isChatOpen}:ControlsProps) {
       >
         <LogOutIcon/>
       </Button>
+      {isLocalScreenShared?
+      <Button
+        variant={'destructive'}
+        onClick={ScreenShareOff}
+      >
+        Stop sharing
+      </Button>
+      :null}
         
       
     </div>

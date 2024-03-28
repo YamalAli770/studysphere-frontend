@@ -1,7 +1,6 @@
 'use client';
-import { selectPeers, useHMSStore, selectHMSMessages,useHMSActions,selectLocalPeer  } from "@100mslive/react-sdk";
+import { useHMSStore, selectHMSMessages,useHMSActions,selectLocalPeer  } from "@100mslive/react-sdk";
 import React, {useRef,useEffect} from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
@@ -17,10 +16,14 @@ const ConferenceChat =({isChatOpen}:ConferenceChatProps)=>{
   const hmsActions = useHMSActions();
   const [newMessage, setNewMessage] = React.useState("");
   const allMessages = useHMSStore(selectHMSMessages);
+
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    hmsActions.sendBroadcastMessage(newMessage);
-    setNewMessage("");
+    if(newMessage || newMessage !== "")
+    {
+      hmsActions.sendBroadcastMessage(newMessage);
+      setNewMessage("");
+    }
   };
 
   const messagesEndRef = useRef<HTMLDivElement>(null);

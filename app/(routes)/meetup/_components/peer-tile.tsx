@@ -3,7 +3,8 @@ import {
   useHMSStore,
   useVideo,
   selectVideoTrackByID,
-  selectIsPeerAudioEnabled
+  selectIsPeerAudioEnabled,
+  selectDominantSpeaker
 } from "@100mslive/react-sdk";
 
 import { 
@@ -24,9 +25,9 @@ const PeerTile = ({ peer }:any) => {
   const trackSelector = selectVideoTrackByID(trackId);
   const track = useHMSStore(trackSelector);
   const isVideoMuted = !track?.enabled;
-
+  
   return (
-    <div className="peer-container relative w-[22rem] h-[12.5rem]">
+    <div className={`peer-container  relative w-[22rem] h-[12.5rem]`}>
       <div className="h-full w-full rounded-xl overflow-hidden">
         {
           isVideoMuted ? 
@@ -47,20 +48,20 @@ const PeerTile = ({ peer }:any) => {
           )
         }
       </div>
-      <div className={`peer-tile-overlapper rounded-xl overflow-hidden p-4 text-slate-50  absolute inset-0 flex flex-col justify-between`}>
+      <div className={`peer-tile-overlapper rounded-xl overflow-hidden p-2 text-slate-50  absolute inset-0 flex flex-col justify-between`}>
         <div>
-          <div className="backdrop-blur-sm bg-white/10 p-2 w-fit rounded-md">
+          <div className="backdrop-blur-sm bg-white/10 p-1 text-sm w-fit rounded-md">
               {peer.name} {peer.isLocal ? "(You)" : ""}
           </div>
         </div>
         <div>
           {isAudioMuted ?
-            <span className="bg-destructive p-2 rounded-full float-right">
-              <MicOffIcon size={'20'}/> 
+            <span className="bg-destructive p-1 rounded-full float-right">
+              <MicOffIcon size={'18'}/> 
             </span>
           : 
-            <span className="backdrop-blur-sm bg-white/10 p-2 rounded-full float-right">
-              <MicIcon size={'20'}/> 
+            <span className="backdrop-blur-sm bg-white/10 p-1 rounded-full float-right">
+              <MicIcon size={'18'}/> 
             </span>}
         </div>
       </div>

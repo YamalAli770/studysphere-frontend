@@ -73,28 +73,32 @@ function Controls({SwitchChat, isChatOpen}:ControlsProps) {
     <div className="controls w-full flex flex-row gap-2 justify-center items-center">
       
       <Button
-        variant={`${isLocalVideoEnabled ? "default":"destructive"}`}
+        variant={`${isLocalVideoEnabled ? "outline":"destructive"}`}
+        className={`${isLocalVideoEnabled ? "bg-transparent text-white hover:bg-white/20":""}`}
         onClick={SwitchVideo}
       >
       {isLocalVideoEnabled ? <VideoIcon/> : <VideoOffIcon/>}
       </Button>
       
       <Button
-      variant={`${isLocalAudioEnabled ? "default":"destructive"}`}
+        variant={`${isLocalAudioEnabled ? "outline":"destructive"}`}
+        className={`${isLocalAudioEnabled ? "bg-transparent text-white hover:bg-white/20":""}`}
         onClick={SwitchAudio}
       >
       {isLocalAudioEnabled ? <MicIcon/> : <MicOffIcon/>}
       </Button>
       
       <Button
-        className={`${isLocalScreenShared ? "bg-secondary-bg hover:bg-secondary-bg/80":""}`}
+        variant={'outline'}
+        className={`${isLocalScreenShared ? "bg-white hover:bg-white/80 text-primary-text":"bg-transparent text-white hover:bg-white/20"}`}
         onClick={ScreenShareOn}
       >
         <ScreenShareIcon />
       </Button>
       
       <Button
-        className={`${isChatOpen ? "bg-secondary-bg hover:bg-secondary-bg/80":""}`}
+        variant={"outline"}
+        className={`${isChatOpen ? "bg-white hover:bg-white/80 text-primary-text":"bg-transparent text-white hover:bg-white/20"}`}
         onClick={SwitchChat}
       >
       <MessageIcon />

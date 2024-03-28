@@ -15,12 +15,13 @@ const JoinRoom =()=> {
       }
     };
   }, [hmsActions, isConnected]);
-    return(
-        <>
-        {isConnected ? 
-        (<Conference/>):(<JoinForm/>)}
-        </>
-    )
+
+  return(
+      <>
+      {isConnected ? 
+      (<Conference/>):(<JoinForm/>)}
+      </>
+  )
 }
 
 export default JoinRoom;

@@ -20,10 +20,10 @@ const ScreenShare= ({Peer}:any) => {
         await hmsActions.detachVideo(screenTrack.id, screenRef.current);
       }
     })();
-  }, [hmsActions, Peer]);
+  }, [hmsActions, screenTrack, Peer]);
 
   return (
-    <div className="share-screen-container relative w-[22rem] h-[12.5rem]">
+    <div className="share-screen-container relative max-w-[820px] min-w-[22rem]">
     <div className="h-full w-full rounded-xl overflow-hidden">
           <video
               ref={screenRef}
@@ -33,13 +33,17 @@ const ScreenShare= ({Peer}:any) => {
               playsInline
           />
     </div>
-    <div className={`share-screen-overlapper rounded-xl overflow-hidden p-4 text-slate-50  absolute inset-0 flex flex-col justify-between`}>
-      <div>
-        <div className="backdrop-blur-sm bg-white/10 p-2 w-fit rounded-md">
-            {Peer.name} {Peer.isLocal ? "(You)" : ""}
+    {Peer.isLocal ? (
+      <div className="share-screen-overlapper rounded-xl overflow-hidden p-2 text-slate-50  absolute inset-0 flex flex-col justify-between">
+        <div>
+          <div className="backdrop-blur-sm bg-white/10 p-1 text-sm w-fit rounded-md">
+              {Peer.name} (You)
+          </div>
         </div>
-      </div>
-    </div>
+      </div>)
+      :
+      null
+    }
   </div>
   );
 };

@@ -4,7 +4,7 @@ import {
   useVideo,
   selectVideoTrackByID,
   selectIsPeerAudioEnabled,
-  selectDominantSpeaker
+  selectIsSomeoneScreenSharing
 } from "@100mslive/react-sdk";
 
 import { 
@@ -21,13 +21,14 @@ const PeerTile = ({ peer }:any) => {
   });
   const isAudioMuted = !useHMSStore(selectIsPeerAudioEnabled(peer.id));
   
+  const isScreenSharing = useHMSStore(selectIsSomeoneScreenSharing);
   // For gaining video track info
   const trackSelector = selectVideoTrackByID(trackId);
   const track = useHMSStore(trackSelector);
   const isVideoMuted = !track?.enabled;
   
   return (
-    <div className={`peer-container  relative w-[22rem] h-[12.5rem]`}>
+    <div className="peer-container relative max-w-[573px] min-w-[21rem] aspect-[1.78]">
       <div className="h-full w-full rounded-xl overflow-hidden">
         {
           isVideoMuted ? 
@@ -40,7 +41,7 @@ const PeerTile = ({ peer }:any) => {
           (
             <video
                 ref={videoRef}
-                className={`peer-video w-full relative ${peer.isLocal ? "local -scale-x-100" : ""}`}
+                className={`peer-video w-full relative local -scale-x-100`}
                 autoPlay
                 muted
                 playsInline
@@ -50,7 +51,7 @@ const PeerTile = ({ peer }:any) => {
       </div>
       <div className={`peer-tile-overlapper rounded-xl overflow-hidden p-2 text-slate-50  absolute inset-0 flex flex-col justify-between`}>
         <div>
-          <div className="backdrop-blur-sm bg-white/10 p-1 text-sm w-fit rounded-md">
+          <div className="backdrop-blur-sm bg-white/10 p-1 select-none text-sm w-fit rounded-md">
               {peer.name} {peer.isLocal ? "(You)" : ""}
           </div>
         </div>

@@ -40,9 +40,9 @@ const ConferenceChat =({isChatOpen}:ConferenceChatProps)=>{
 
  
     return(
-        <div className={`${isChatOpen ? "w-2/6" : "w-0 hidden"} transition-all duration-100 ease-out flex flex-col gap-4 p-4 rounded-xl bg-[#2b2d2e]`}>
-          <div className="grow-0 p-4 w-full font-bold text-center rounded-md bg-dark-bg">
-            <div className="text-white">Conversations</div>
+        <div className={`${isChatOpen ? "w-2/6" : "w-0 hidden"} transition-all duration-100 ease-out flex flex-col gap-4 p-3 rounded-xl bg-[#2b2d2e]`}>
+          <div className="grow-0 p-3 w-full text-center rounded-md bg-dark-bg">
+            <div className="text-white font-bold text-sm">Conversations</div>
           </div>
           <div className="grow min-h-0 min-w-0">
             <ScrollArea className="h-full w-full rounded-md">
@@ -55,7 +55,7 @@ const ConferenceChat =({isChatOpen}:ConferenceChatProps)=>{
                       <div
                       className={`flex flex-col ${(msg.sender == localPeer?.id) ? "bg-white/10":"bg-dark-bg"} w-fit p-2 mb-4 gap-1 rounded-md`}
                       >
-                        <div className="flex gap-10 text-sm text-white opacity-50 justify-between">
+                        <div className="flex gap-10 text-xs text-white opacity-50 justify-between">
                           <span className="">
                             {msg.senderName}
                           </span>
@@ -63,7 +63,7 @@ const ConferenceChat =({isChatOpen}:ConferenceChatProps)=>{
                             {msg.time.getHours().toString().padStart(2, '0')}:{msg.time.getMinutes().toString().padStart(2, '0')}
                           </span>
                         </div>
-                        <span className="text-white break-all">{msg.message}</span>
+                        <span className="text-white text-sm break-all">{msg.message}</span>
                       </div>
                     </div>
                   )})}
@@ -77,12 +77,12 @@ const ConferenceChat =({isChatOpen}:ConferenceChatProps)=>{
                 type="text"
                 value={newMessage}
                 onChange={(e)=>{setNewMessage(e.target.value)}} 
-                className="w-full p-4 rounded-md bg-dark-bg text-white focus:outline-none" 
+                className="w-full p-3 text-sm rounded-md bg-dark-bg text-white focus:outline-none" 
                 placeholder="Write a message...">
               </input>
-              <Button type="submit" className="absolute top-2 right-2 bg-secondary-bg hover:bg-secondary-bg/80">
-                <SendIcon/>
-              </Button>
+              <button type="submit" className="absolute top-[6px] right-[6px] p-[6px] rounded-sm text-white bg-secondary-bg hover:bg-secondary-bg/80">
+                <SendIcon size={20}/>
+              </button>
             </form>
           </div>
         </div>

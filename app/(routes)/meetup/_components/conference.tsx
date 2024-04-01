@@ -18,12 +18,9 @@ function Conference() {
   const isScreenSharing = useHMSStore(selectIsSomeoneScreenSharing);
   const peerSharingScreen = useHMSStore(selectPeersScreenSharing);
   const room = useHMSStore((store)=>store.room);
-
   const handleChatOpen = () => {
     setIsChatOpen(!isChatOpen);
   }
-  useEffect(()=>{console.log("helloworld")},[]);
-  console.log(room);
   return (
     <div className="h-screen max-h-screen max-w-screen box-border flex flex-col bg-dark-bg relative">
       <div className="flex justify-between items-center cursor-default grow-0 gap-4 border-b border-[#2b2d2e]">
@@ -42,14 +39,25 @@ function Conference() {
         </div>
       </div>
       <div className="grow min-h-0 flex p-4 gap-4">
-        <div className={`flex flex-col duration-100 ease-out ${isChatOpen ? "w-4/6" : "w-full"}`}>
-          <div className="grow flex flex-wrap gap-4 min-h-0">
-            {peers.map((peer) => (
-              <PeerTile key={peer.id} peer={peer} />
-              ))}
-            {isScreenSharing ? peerSharingScreen.map((peers) => {
-              return <ScreenShare key={peers.id} Peer={peers} />
-            }) : null}
+        <div className={`flex flex-col gap-4 duration-100 ease-out ${isChatOpen ? "w-4/6" : "w-full"}`}>
+          <div className="grow mx-auto flex gap-4">
+            {
+              isScreenSharing ? 
+              (
+              <>
+                {peerSharingScreen.map((peers) => (
+                  <ScreenShare key={peers.id} Peer={peers} />
+                ))}
+              </>
+              ):null
+            }
+            
+            <div className={`flex gap-4 ${isScreenSharing ? "flex-col max-w-[21rem] shrink justify-center":""} items-center`}>
+              {peers.map((peer) => (
+                <PeerTile key={peer.id} peer={peer} />
+                ))}
+            </div>
+            
           </div>
           <div className="grow-0">
           <Controls SwitchChat={handleChatOpen} isChatOpen={isChatOpen}/>

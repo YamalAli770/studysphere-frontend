@@ -1,5 +1,12 @@
 'use client';
-import { selectPeers, selectRoom,useHMSStore,selectIsSomeoneScreenSharing,selectPeersScreenSharing } from "@100mslive/react-sdk";
+import { 
+  selectPeers, 
+  useHMSActions, 
+  selectRoom,
+  useHMSStore,
+  selectIsSomeoneScreenSharing,
+  selectPeersScreenSharing
+ } from "@100mslive/react-sdk";
 import React, { useState, useEffect} from "react";
 import PeerTile from "./peer-tile";
 import Controls from "./controls";
@@ -11,13 +18,34 @@ import {
   Disc2 as RecordingIcon,
   Copy as CopyIcon
 } from 'lucide-react';
+import ConferenceTimer from "./conference-timer";
 
 function Conference() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const peers = useHMSStore(selectPeers);
+  const hmsActions = useHMSActions();
   const isScreenSharing = useHMSStore(selectIsSomeoneScreenSharing);
   const peerSharingScreen = useHMSStore(selectPeersScreenSharing);
+
+  const [initialTime] = useState(new Date().toISOString()); // Current time
+  const [endTime] = useState(new Date(Date.now() + 30 * 60 * 1000).toISOString()); // 20 minutes from now
+
   const room = useHMSStore((store)=>store.room);
+  console.log(room);
+  const endRoom = async () => {
+    //end the meeting
+    try {
+      // const lock = true; // A value of true disallow rejoins
+      // const reason = "Meeting is over";
+      // await hmsActions.endRoom(lock, reason);
+      hmsActions.leave();
+      console.log("Meeting is Ended");
+    } catch (error) {
+      // Permission denied or not connected to room
+      console.error(error);
+    }
+  };
+
   const handleChatOpen = () => {
     setIsChatOpen(!isChatOpen);
   }
@@ -30,9 +58,8 @@ function Conference() {
             <span>REC</span>
           </span>
           <hr className="border-l border-[#2b2d2e] h-6"/>
-          <div><Badge variant={'secondary'} className="text-sm px-4 user-select-none">01 : 00 : 00</Badge></div>
+          <ConferenceTimer initialTime={initialTime} endTime={endTime} meetEnd={endRoom}/>
         </div>
-        
         <div className="flex gap-3 p-1 me-4 rounded py-1 px-3 text-white">
           <div className="select-none">hyv-smgc-ort</div>
           <button className="p-[6px] rounded border border-white/20 hover:bg-white/20"><CopyIcon size={12}/></button>

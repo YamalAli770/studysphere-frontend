@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef, FormEvent } from "react";
+import React from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,9 +20,7 @@ import {
   selectIsLocalAudioEnabled,
   selectIsLocalVideoEnabled,
   selectLocalPeer,
-  selectRemotePeers,
-  selectPermissions,
-  selectIsLocalScreenShared,
+  selectRemotePeers
 } from "@100mslive/react-sdk";
 
 const PreJoin = ({ username, authToken }: any) => {

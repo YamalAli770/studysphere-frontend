@@ -1,6 +1,7 @@
 export const publicRoutes = [
     "/",
     "/auth/new-verification",
+    "/api/email/send-roomcode"
 ];
 
 export const authRoutes = [

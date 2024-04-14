@@ -28,7 +28,7 @@ const PeerTile = ({ peer }:any) => {
   const isVideoMuted = !track?.enabled;
   
   return (
-    <div className="peer-container relative max-w-[573px] min-w-[21rem] aspect-[1.78]">
+    <div className="peer-container relative max-w-[573px] min-w-[21rem] aspect-video">
       <div className="h-full w-full rounded-xl overflow-hidden">
         {
           isVideoMuted ? 
@@ -41,7 +41,7 @@ const PeerTile = ({ peer }:any) => {
           (
             <video
                 ref={videoRef}
-                className={`peer-video w-full relative local -scale-x-100`}
+                className={`peer-video w-full relative local ${peer.isLocal ? "-scale-x-100":""}`}
                 autoPlay
                 muted
                 playsInline

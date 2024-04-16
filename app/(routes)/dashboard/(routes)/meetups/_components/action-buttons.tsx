@@ -32,7 +32,7 @@ export default function ActionButtons({ requestId }: ActionButtonsProps) {
               .then((data) => {
                 if(data.success) {
                   toast.success(data.success);
-                  router.push(`/dashboard/order/${data.order.id}`);
+                  router.push(`/dashboard/order/${data.order?.id}`);
                 }
                 else {
                   toast.error(data.error);

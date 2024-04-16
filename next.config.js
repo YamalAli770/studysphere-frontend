@@ -34,6 +34,7 @@ const nextConfig = {
           include: /node_modules/,
           type: "javascript/auto",
         });
+        config.resolve.fallback = { fs: false };
         return config;
       },
 }

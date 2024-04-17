@@ -43,6 +43,13 @@ enum MeetupRequestStatus {
   REJECTED
 }
 
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+  DISPUTED
+}
+
 model User {
   id                    String                 @id @default(cuid())
   name                  String?
@@ -151,6 +158,7 @@ model MeetupRequest {
   status            MeetupRequestStatus @default(PENDING)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
+  order             Order?
 
   // Relationship with the user who is a mentee
   mentee User @relation("MenteeRequests", fields: [menteeId], references: [id])
@@ -159,6 +167,16 @@ model MeetupRequest {
   mentor User @relation("MentorRequests", fields: [mentorId], references: [id])
 
   @@unique([menteeId, mentorId])
+}
+
+model Order {
+  id                String               @id @default(cuid())
+  meetupRequestId   String            @unique
+  status            OrderStatus       @default(PENDING)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  meetupRequest  MeetupRequest      @relation(fields: [meetupRequestId], references: [id], onDelete: Cascade)
 }
 
 model Conversation {

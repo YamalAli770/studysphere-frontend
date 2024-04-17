@@ -23,7 +23,20 @@ const nextConfig = {
                 hostname: 'localhost',
             },
         ]
-    }
+    },
+    //Added for live kit without this it will give errors
+    webpack: (
+        config,
+        { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+      ) => {
+        config.module.rules.push({
+          test: /\.mjs$/,
+          include: /node_modules/,
+          type: "javascript/auto",
+        });
+        config.resolve.fallback = { fs: false };
+        return config;
+      },
 }
 
 module.exports = nextConfig

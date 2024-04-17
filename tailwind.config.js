@@ -89,6 +89,9 @@ module.exports = {
         "primary-bg": "#fff",
         "secondary-bg": "#21e9c5",
         "ternary-bg": "#094044",
+        "dark-bg":"#121212",
+        "dark-ll-bg":"#1e1e1e",
+        "dark-ul-bg":"",
         "accent": "#E0F6F2",
         "modal": "#c8e8e2"
       },

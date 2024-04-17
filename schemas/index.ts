@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { Post } from "@prisma/client";
+//import { Post } from "@prisma/client";
 
 export const LoginSchema = z.object({
     email: z.string().email({
@@ -132,3 +132,33 @@ export const MessageSchema = z.object({
         message: "Cannot send empty message"
     }),
 })
+
+
+export const SubscriptionPriceSchema = z.object({
+    price:z.string()  
+    
+});
+
+export const CreateSubscriptionSchema = z.object({
+    plan:z.string()      
+});
+
+
+export const UpdateSubscriptionSchema = z.object({
+    id: z.number(),     
+    plan: z.string(),   
+    
+});
+
+
+export const SubscriptionSchema = z.object({
+    id: z.number(),        
+    userId: z.string(),     
+    plan: z.string(), 
+    meetings:z.number(),     
+    status: z.string(),     
+    stripeId: z.string().nullable(), 
+    createdAt: z.date(),    
+    updatedAt: z.date(),  
+ 
+});

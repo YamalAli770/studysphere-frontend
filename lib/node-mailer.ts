@@ -107,7 +107,7 @@ function compileTemplate(menteeName:string, mentorName:string, dateTime:Date, du
 }
 
 //For sending order confirmation mail
-export async function sendConfirmationMail({menteeEmail,menteeName,mentorEmail,mentorName,orderId,dateTime,duration}:MailArgs){
+export async function sendConfirmationMail({menteeEmail,menteeName,mentorEmail,mentorName,orderId,dateTime,duration,roomId}:MailArgs){
   try{  
     const menteeBody = compileTemplate(menteeName, mentorName, dateTime, duration, orderId, MenteeMailConfirmation);
     const mentorBody = compileTemplate(menteeName, mentorName, dateTime, duration, orderId, MentorMailConfirmation);
@@ -126,7 +126,7 @@ export async function sendConfirmationMail({menteeEmail,menteeName,mentorEmail,m
 
     await sendMail("Order Confirmation",menteeEmail,menteeBody,cal);
     await sendMail("New Meeting Confirmed", mentorEmail,mentorBody,cal);
-    await scheduleEmail({menteeEmail,menteeName,mentorEmail,mentorName,orderId,dateTime,duration});
+    await scheduleEmail({menteeEmail,menteeName,mentorEmail,mentorName,orderId,dateTime,duration,roomId});
   }
   catch(error)
   {

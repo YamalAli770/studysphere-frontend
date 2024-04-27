@@ -175,7 +175,7 @@ model Order {
   status            OrderStatus       @default(PENDING)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-
+  roomId            String              
   meetupRequest  MeetupRequest      @relation(fields: [meetupRequestId], references: [id], onDelete: Cascade)
 }
 

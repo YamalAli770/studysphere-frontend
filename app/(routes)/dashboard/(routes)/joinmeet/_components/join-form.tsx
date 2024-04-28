@@ -26,7 +26,7 @@ const JoinForm: React.FC = () => {
     }
     catch(error)
     {
-      console.error("Database error", error);
+      console.error("Error occurred while generating token", error);
     }
     
   };

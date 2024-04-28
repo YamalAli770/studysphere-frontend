@@ -1,9 +1,9 @@
 import JoinProviderWrapper from "./_components/join-provider-wrapper";
 
-const Meet = () => {  
+const JoinMeet = () => {  
   return (
     <JoinProviderWrapper/>
   )
 };
 
-export default Meet;
+export default JoinMeet;

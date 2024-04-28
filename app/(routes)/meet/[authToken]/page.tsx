@@ -1,5 +1,7 @@
-// import Meeting from "./_components/meeting";
+import ConferenceProviderWrapper from "../_components/conference-provider-wrapper";
+
 export default function Meet({params}:{params: { authToken: string}}){
-    //  <Meeting/>
-    return(<h1>auth Token {params.authToken}</h1>);
+    return(
+    <ConferenceProviderWrapper authToken={params.authToken}/>
+);
 }

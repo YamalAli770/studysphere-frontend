@@ -13,34 +13,6 @@ const JoinForm: React.FC = () => {
   const [authToken, setAuthToken] = useState<string | null>(null);
   const userName="Osama Naseem";
 
-  const handleSendMail = async ()=> {
-    try{
-      // "use server";
-      // await sendConfirmationMail({menteeEmail:"osamanasim909@gmail.com",menteeName:"Osama",orderNo:"123456"});
-      console.log("room create button pressed");
-      // const data = {
-      //   name:"osama",
-      //   id:"304"
-      // }
-      
-      // const res = await fetch(`/api/email/schedule-email`,
-      // {
-      //   method: 'POST',
-      //   body: JSON.stringify(data),
-      //   headers: {
-      //     'content-type':'application/json'
-      //   }
-      // }
-      // )
-    }
-    catch (e) {
-      if (e instanceof Error) {
-          console.error("Error:", e.message);
-      } else {
-          console.error("An unknown error occurred");
-      }
-    }
-  }
   
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();

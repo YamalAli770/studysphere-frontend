@@ -1,9 +1,9 @@
-import Meeting from "./_components/meeting";
+import JoinProviderWrapper from "./_components/join-provider-wrapper";
 
-const MeetUp = () => {  
+const Meet = () => {  
   return (
-   <Meeting/>
+    <JoinProviderWrapper/>
   )
 };
 
-export default MeetUp;
+export default Meet;

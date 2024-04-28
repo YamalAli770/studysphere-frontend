@@ -66,7 +66,7 @@ const JoinForm: React.FC = () => {
   };
 
   return (
-    <div className={`h-screen ${authToken ? "bg-dark-bg":""} flex justify-center items-center`}>
+    <div className={`h-full ${authToken ? "bg-dark-bg":""} flex justify-center items-center`}>
       {authToken ? 
       (
         <div className="w-4/5 md:w-3/6 lg:w-2/6">
@@ -74,25 +74,20 @@ const JoinForm: React.FC = () => {
         </div>
       ):(
         <div className="w-4/5 md:w-3/6 lg:w-2/6 p-8 text-center rounded-md shadow-lg border">
-          <h1 className="text-2xl text-primary-text font-extrabold mb-8">Join Room</h1>
-          <div className="flex gap-4">
-            <Button onClick={handleSendMail}>Create Room</Button>
-            <hr className="border-l h-10"/>
-            <form className="flex gap-3" onSubmit={handleSubmit}>
-              <Input
-                className="mb-4"
-                id="room-code"
-                type="text"
-                name="roomCode"
-                placeholder="Room code"
-                required
-                onChange={(e) => setRoomName(e.target.value)}
-              />
-              <Button type="submit">
-                Join Room
-              </Button>
-            </form>
-          </div>
+          <h1 className="text-2xl text-primary-text font-extrabold mb-8">Write Your Room Code</h1>
+          <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+            <Input
+              id="room-code"
+              type="text"
+              name="roomCode"
+              placeholder="Room code"
+              required
+              onChange={(e) => setRoomName(e.target.value)}
+            />
+            <Button type="submit">
+              Join Room
+            </Button>
+          </form>
         </div>
       )}
     </div>

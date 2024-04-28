@@ -37,7 +37,7 @@ const sidebarRoutes = [
     {
         name: "Join Meet",
         icon: <VideoCall size={20} />,
-        path: "/dashboard/meet",
+        path: "/dashboard/joinmeet",
     },
 ];
 

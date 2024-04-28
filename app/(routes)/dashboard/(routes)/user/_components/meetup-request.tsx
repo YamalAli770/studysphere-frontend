@@ -1,8 +1,8 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 import { ClipLoader } from "react-spinners";
 import { toast } from "sonner";
 
@@ -59,7 +59,9 @@ export default function MeetupRequest({ currentUser, mentor }: MeetupRequestProp
   return (
     <div className="place-self-end">
         <Dialog>
-            <DialogTrigger>Request Meetup</DialogTrigger>
+            <DialogTrigger>
+              <Button>Request Meetup</Button>
+            </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Request Meetup</DialogTitle>

@@ -66,3 +66,39 @@ export const sendMessage = async (values: z.infer<typeof MessageSchema>) => {
       return null;
     }
   };
+
+  export const createConversation = async (userOneId:string, userTwoId:string) => {
+    try
+    {
+      const existingConversation = await db.conversation.findFirst({
+        where: {
+          OR: [
+            { user_oneId: userOneId, user_twoId: userTwoId },
+            { user_oneId: userTwoId, user_twoId: userOneId }
+          ]
+        }
+      });
+
+      if(existingConversation)
+      {
+        return existingConversation;
+      }
+      
+      const conversation = await db.conversation.create(
+        {
+          data: {
+            user_oneId: userOneId,
+            user_twoId: userTwoId,
+            lastMessage:"",
+            status:false
+          }
+        }
+      );
+      return conversation;
+    }
+    catch(error)
+    {
+      console.error("Database error", error);
+      return null;
+    }
+  }

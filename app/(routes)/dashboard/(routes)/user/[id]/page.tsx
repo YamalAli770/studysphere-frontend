@@ -99,7 +99,16 @@ export default async function UserViewPage({ params: { id } }: UserViewPageProps
             </section>}
           </div>
         </section>
-        { user.education?.isVerified && user.role === 'MENTOR' && currentUser?.role === "MENTEE" && <MeetupRequest currentUser={currentUser} mentor={mentor} />}
+        
+        { user.education?.isVerified 
+        && user.role === 'MENTOR' 
+        && currentUser?.role === "MENTEE" 
+        && <section>
+            <Button variant={'outline'}>Message</Button>
+            <MeetupRequest currentUser={currentUser} mentor={mentor} />
+          </section>
+        }
+              
       </div>
     </div>
     </div>

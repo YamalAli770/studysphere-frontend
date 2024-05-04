@@ -22,6 +22,7 @@ export interface MailArgs {
     orderId: string,
     dateTime: dateTime,
     duration: number,
-    mentorCode?: string
+    roomId:string,
+    mentorCode?: string,
     menteeCode?: string
 }

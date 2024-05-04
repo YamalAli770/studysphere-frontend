@@ -6,6 +6,8 @@ import { currentUserServer } from "@/lib/user-server";
 import { redirect } from "next/navigation";
 import { sendConfirmationMail } from "@/lib/node-mailer";
 import { MailArgs } from "@/types/email";
+import { createMeetingRoom } from "@/lib/hms-server";
+
 
 export const createOrderAction = async (meetupRequestId: string) => {
     const user = await currentUserServer();
@@ -40,18 +42,35 @@ export const createOrderAction = async (meetupRequestId: string) => {
     // }
 
     try {
-        // const order = await db.order.create({
-        //     data: {
+        //For Actual Use
+
+        const room = await createMeetingRoom();
+        const order = await db.order.create({
+            data: {
+                meetupRequestId: meetupRequest.id,
+                roomId:room.id
+            }
+        });
+
+        //For Temporary use
+        // const order = await db.order.findUnique({
+        //     where: {
         //         meetupRequestId: meetupRequest.id,
         //     }
         // });
 
-        const order = await db.order.findUnique({
-            where: {
-                meetupRequestId: meetupRequest.id,
-            }
-        });
+        //For temporary use
+        // if(order)
+        // {
+        //     const orderDelete = await db.order.delete({
+        //         where: {
+        //             id:order.id
+        //         }
+        //     });
+        //     return {success: "Order deleted successfully!"}   
+        // }
 
+        
         const orderWithRelatedData = await db.order.findUnique({
             // where : {id : order.id},
             where: {
@@ -84,9 +103,10 @@ export const createOrderAction = async (meetupRequestId: string) => {
             mentorEmail:orderWithRelatedData?.meetupRequest.mentor.email!,
             orderId:orderWithRelatedData?.id!,
             dateTime:new Date(orderWithRelatedData?.meetupRequest.dateTime!),
-            duration:orderWithRelatedData?.meetupRequest.durationInMinutes!
+            duration:orderWithRelatedData?.meetupRequest.durationInMinutes!,
+            roomId:orderWithRelatedData?.roomId!
         }
-
+        console.log(mailArgs);
         await sendConfirmationMail(mailArgs);
         return { order, success: "Order created successfully" };
 

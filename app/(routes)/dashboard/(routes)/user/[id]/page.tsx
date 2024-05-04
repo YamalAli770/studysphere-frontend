@@ -5,10 +5,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { getUserViewById } from "@/lib/data/user";
 import { UserCircle } from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { currentUserServer } from "@/lib/user-server";
 import { redirect } from "next/navigation";
 import MeetupRequest from "../_components/meetup-request";
+
+import MessageButton from "../_components/message-button";
 
 type UserViewPageProps = {
   params: {
@@ -32,6 +33,8 @@ export default async function UserViewPage({ params: { id } }: UserViewPageProps
   if(currentUser?.id === user.id) {
     redirect('/dashboard/profile');
   }
+
+
 
   return (
     <div>
@@ -99,7 +102,16 @@ export default async function UserViewPage({ params: { id } }: UserViewPageProps
             </section>}
           </div>
         </section>
-        { user.education?.isVerified && user.role === 'MENTOR' && currentUser?.role === "MENTEE" && <MeetupRequest currentUser={currentUser} mentor={mentor} />}
+        
+        { user.education?.isVerified 
+        && user.role === 'MENTOR' 
+        && currentUser?.role === "MENTEE" 
+        && <section className="flex justify-end gap-4">
+            <MessageButton userOneId={currentUser.id} userTwoId={id}/>
+            <MeetupRequest currentUser={currentUser} mentor={mentor} />
+          </section>
+        }
+              
       </div>
     </div>
     </div>

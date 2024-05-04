@@ -41,7 +41,7 @@ export const createMeetupRequestAction = async (values: z.infer<typeof MeetupReq
     }
 
     const existingMeetupRequest = await getMeetupRequestByUserIds(mentor.id, mentee.id);
-
+    
     if(existingMeetupRequest) {
         return { error: "Meetup request already exists!" }
     }
@@ -73,9 +73,21 @@ export const updateMeetupRequestAction = async (id: string, status: string) => {
         }
     })
 
+
+
     if(!meetupRequest) {
         return { error: "Meetup request not found!" }
     }
+    // For temporary use only
+    // if(meetupRequest){
+        
+    //     const meetupRequestDelete = await db.meetupRequest.delete({
+    //         where:{
+    //             id:meetupRequest.id
+    //         }
+    //     })
+    //     return { success: "Meetup request deleted successfully!" }
+    // }
 
     if(status !== "ACCEPTED" && status !== "REJECTED") {
         return { error: "Invalid status!" }

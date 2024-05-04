@@ -57,7 +57,7 @@ export default function MeetupRequest({ currentUser, mentor }: MeetupRequestProp
   };
 
   return (
-    <div className="place-self-end">
+    <div>
         <Dialog>
             <DialogTrigger>
               <Button>Request Meetup</Button>

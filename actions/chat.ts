@@ -33,6 +33,7 @@ export const sendMessage = async (values: z.infer<typeof MessageSchema>) => {
         message: `${JSON.stringify(dummyMessage)}\n\n`
       });
 
+      // creating new message in the database
       const newMessage = await db.message.create({
         data: {
           content: values.content,
@@ -41,6 +42,15 @@ export const sendMessage = async (values: z.infer<typeof MessageSchema>) => {
         }
       });
 
+      // updating last message of the conversation
+      const updateLastMessage = await db.conversation.update({
+        where:{
+          id:values.conversationId,
+        },
+        data:{
+          lastMessage: newMessage.content,
+        }
+      })
       
   
       return newMessage;

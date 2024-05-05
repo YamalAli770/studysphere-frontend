@@ -49,3 +49,22 @@ export const fetchConversations = async (currentUserId:string) => {
         return null;
     }
 }
+export const fetchMessages = async (conversationId:string) => {
+    // disable caching
+    noStore();
+
+    try{
+        const messages = await db.message.findMany(
+            {
+                where:{
+                    id:conversationId
+                }
+            }
+        ); 
+        return messages;
+    }
+    catch(error){
+        console.log("Database error while fetching messages",error)
+        return null;
+    }
+}

@@ -63,7 +63,7 @@ const ChatWindow = ({ selectedConversation, currentUser, message, setMessage, se
                          }
                         </div>
                       </div>
-                      <div className="bg-white text-black p-2 rounded-md text-right">
+                      <div className="bg-white text-black p-2 rounded-md shadow-md text-right">
                         {message.content}
                       </div>
                     </div>
@@ -85,7 +85,7 @@ const ChatWindow = ({ selectedConversation, currentUser, message, setMessage, se
                         </div>
                         <span className="text-sm ml-2">{getOtherUser(selectedConversation, currentUser?.id)?.name}</span>
                       </div>
-                      <div className="bg-gray-200 p-2 rounded-md">
+                      <div className="bg-gray-200 p-2 rounded-md shadow-md">
                         {message.content}
                       </div>
                     </div>
@@ -103,7 +103,7 @@ const ChatWindow = ({ selectedConversation, currentUser, message, setMessage, se
               className="w-full p-3 text-sm rounded-lg focus:outline-none" 
               placeholder="Write a message...">
             </input>
-            <button type="submit" className="absolute top-[6px] right-[6px] p-[6px] rounded-sm text-white bg-secondary-bg hover:bg-secondary-bg/80">
+            <button type="submit" className="absolute top-[6px] right-[6px] p-[6px] rounded-sm text-white bg-primary hover:bg-primary/80">
               <SendIcon size={20}/>
             </button>
           </form>

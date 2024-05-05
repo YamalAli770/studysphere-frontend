@@ -29,7 +29,8 @@ const ConversationList: React.FC<ConversationListProps> = ({ selectedConversatio
         return (
         <div
           key={conversation.id}
-          className={`flex items-center p-2 gap-3 cursor-pointer ${selectedConversation?.id == conversation.id ? "bg-gray-200":"" } hover:bg-gray-200 transition duration-300 rounded-lg`}
+          className={`flex items-center p-2 gap-3 cursor-pointer ${selectedConversation?.id == conversation.id ? "bg-gray-200":"" } hover:bg-gray-200 transition duration-3
+          00 rounded-lg`}
           onClick={() => handleConversationClick(conversation)}
         >
           <div className='relative w-12 h-12'>

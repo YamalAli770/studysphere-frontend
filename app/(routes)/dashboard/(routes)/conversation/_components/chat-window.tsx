@@ -5,6 +5,10 @@ import { getOtherUser } from '@/lib/utils';
 import { ConversationWithExtras } from '@/types/conversation';
 import { User } from 'next-auth/types';
 import { User as UserIcon } from 'lucide-react';
+import { 
+  Send as SendIcon
+} from 'lucide-react';
+
 
 
 interface ChatWindowProps {
@@ -31,13 +35,13 @@ const ChatWindow = ({ selectedConversation, currentUser, message, setMessage, se
 
   
   return(
-    <div className="flex-1 flex flex-col h-full overflow-y-auto">
+    <div className="flex-1 flex flex-col gap-6 h-full overflow-y-auto">
     {selectedConversation ? (
-      <div className="flex-1 p-6">
-        <h2 className="text-2xl font-semibold mb-4">
+      <>
+        {/* <h2 className="text-2xl font-semibold mb-4">
           Chatting with {getOtherUser(selectedConversation, currentUser?.id)?.name || ''}
-        </h2>
-        <div className="border p-4 max-h-[54vh] min-h-[54vh] h-3/4 overflow-y-auto">
+        </h2> */}
+        <div className="px-4 max-h-[65.9vh] min-h-[65.9vh] h-3/4 overflow-y-auto">
           {/* Display chat messages */}
           {selectedConversation.messages.map((message) => (
             <div key={message.id} className="mb-4">
@@ -59,7 +63,7 @@ const ChatWindow = ({ selectedConversation, currentUser, message, setMessage, se
                          }
                         </div>
                       </div>
-                      <div className="bg-blue-500 text-white p-2 rounded-md text-right">
+                      <div className="bg-white text-black p-2 rounded-md text-right">
                         {message.content}
                       </div>
                     </div>
@@ -90,21 +94,21 @@ const ChatWindow = ({ selectedConversation, currentUser, message, setMessage, se
           ))}
           <div ref={messagesEndRef} />
         </div>
-        <form onSubmit={send} className="w-full p-6 border-t">
-          <div className="flex items-center">
-            <input
-            type="text"
-            value={message}
-            placeholder="Type a message..."
-            className="flex-1 border rounded-l-md px-4 py-2"
-            onChange={(e) => setMessage(e.target.value)}
-            />
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-r-md">
-            Send
+        <div className='rounded-lg shadow-md'>
+          <form onSubmit={send} className="w-full relative">
+            <input 
+              type="text"
+              value={message}
+              onChange={(e)=>{setMessage(e.target.value)}} 
+              className="w-full p-3 text-sm rounded-lg focus:outline-none" 
+              placeholder="Write a message...">
+            </input>
+            <button type="submit" className="absolute top-[6px] right-[6px] p-[6px] rounded-sm text-white bg-secondary-bg hover:bg-secondary-bg/80">
+              <SendIcon size={20}/>
             </button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </>
     ) : (
       <div className="flex flex-col items-center justify-center h-full">
         <p className="text-xl">Select a conversation to start chatting</p>

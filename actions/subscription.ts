@@ -26,21 +26,21 @@ export const subscriptionHandler = async (values: z.infer<typeof SubscriptionPri
 }
 
 
-export const transferToAccount = async (amount: number, destinationAccountId: string): Promise<Stripe.Transfer> => {
-    const stripe = new Stripe('sk_test_51Oud8NRoFYuuQacW8L7vVopnPCSeor3whbOQxKfsrKjpRzjIpmM2KBUR3EJYHN9E1vKdTas2JDlgFLVOGUbCkI5w00wml4Ph2F', { apiVersion: '2023-10-16' });
-    try {
-      // Create a transfer to the destination account
-      const transfer = await stripe.transfers.create({
-        amount: amount * 100, 
-        currency: 'usd',
-        destination: destinationAccountId, 
-      });
-      return transfer;
-    } catch (error) {
-      console.error('Error transferring money:', error);
-      throw error;
-    }
-  };
+// export const transferToAccount = async (amount: number, destinationAccountId: string): Promise<Stripe.Transfer> => {
+//     const stripe = new Stripe('sk_test_51Oud8NRoFYuuQacW8L7vVopnPCSeor3whbOQxKfsrKjpRzjIpmM2KBUR3EJYHN9E1vKdTas2JDlgFLVOGUbCkI5w00wml4Ph2F', { apiVersion: '2023-10-16' });
+//     try {
+//       // Create a transfer to the destination account
+//       const transfer = await stripe.transfers.create({
+//         amount: amount * 100, 
+//         currency: 'usd',
+//         destination: destinationAccountId, 
+//       });
+//       return transfer;
+//     } catch (error) {
+//       console.error('Error transferring money:', error);
+//       throw error;
+//     }
+//   };
 
 export const createSubscriptionAction = async (plan:string) => {
     const user = await currentUserServer();
@@ -60,7 +60,7 @@ export const createSubscriptionAction = async (plan:string) => {
                 userId: user.id,
                 plan:plan,
                 meetings:plan=='Basic'?5:plan=='Standard'?10:20,
-                status:'active'
+                status:'ACTIVE'
             }
         });
 

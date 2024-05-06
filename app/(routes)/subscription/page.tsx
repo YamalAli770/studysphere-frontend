@@ -2,10 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { createSubscriptionAction } from "@/actions/subscription";
 import { subscriptionHandler } from "@/actions/subscription";
-import { currentUserServer } from "@/lib/user-server";
 import { getSubscriptionByUserAction } from "@/actions/subscription";
 import { useRouter } from 'next/navigation';
-
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 // Mock subscription data
 const mockSubscriptions = [
@@ -14,7 +13,7 @@ const mockSubscriptions = [
   { id: 3, name: 'Premium', price: '$30/month', features: ['20 meetings per month'], color: 'bg-yellow-200' },
 ];
 const SubscriptionScreen: React.FC =   () => {
-  const user =  currentUserServer();
+  const user = useCurrentUser();
   const [selectedSubscription, setSelectedSubscription] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -66,7 +65,7 @@ const SubscriptionScreen: React.FC =   () => {
           console.log(user)
           const response = await getSubscriptionByUserAction();
           console.log(response);
-          if (response && response.status === 'active') {
+          if (response && response.status === 'ACTIVE') {
             setActiveSubscription(true);
           }
           else{

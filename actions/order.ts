@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { sendConfirmationMail } from "@/lib/node-mailer";
 import { MailArgs } from "@/types/email";
 import { createMeetingRoom } from "@/lib/hms-server";
+import { decreaseRemainingMeetings } from "./subscription";
 
 
 export const createOrderAction = async (meetupRequestId: string) => {
@@ -37,9 +38,9 @@ export const createOrderAction = async (meetupRequestId: string) => {
     });
 
     //temporarily commented to test emails
-    // if(existingOrder) {
-    //     return { error: "Order already exists!" }
-    // }
+    if(existingOrder) {
+        return { error: "Order already exists!" }
+    }
 
     try {
         //For Actual Use
@@ -113,5 +114,31 @@ export const createOrderAction = async (meetupRequestId: string) => {
     } catch (error) {
         console.log(error);
         return { error: "Error creating order!" }
+    }
+}
+
+export const completeOrderAction = async (roomId:string) => {
+    const user = await currentUserServer();
+
+    if(!user) {
+        return { error: "User not found!" }
+    }
+    try
+    {
+        const updatedOrder = await db.order.update({
+            where:{
+                roomId: roomId
+            },
+            data:{
+                status:"COMPLETED"
+            }
+        });
+        const result = decreaseRemainingMeetings();
+        return {success: "Order completed successfully"}
+    }
+    catch(error)
+    {
+        console.log(error);
+        return { error: "Error completing order!" }
     }
 }

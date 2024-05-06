@@ -81,6 +81,7 @@ model User {
   Conversation           Conversation[]  @relation("user_one")
   Conversation2          Conversation[]  @relation("user_two")
   Subscription           Subscription[]
+  stripeInfo             UserStripeInfo?
 }
 
 model Education {
@@ -270,6 +271,17 @@ model Subscription {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
+}
+
+model UserStripeInfo {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  stripeId  String?
+  amount    Float?   @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // * Till Here

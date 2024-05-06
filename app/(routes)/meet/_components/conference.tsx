@@ -14,8 +14,10 @@ import ConferenceChat from "./conference-chat";
 import { 
   Disc2 as RecordingIcon,
 } from 'lucide-react';
+import { toast } from 'sonner';
 import ConferenceTimer from "./conference-timer";
 import { MeetupRequestFromRoomId } from "@/lib/data/order";
+import { completeOrderAction } from "@/actions/order";
 
 function Conference() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -49,6 +51,15 @@ function Conference() {
       const lock = true; // A value of true disallow rejoins
       const reason = "Meeting time is over";
       await hmsActions.endRoom(lock, reason);
+      await completeOrderAction(room.id)
+      .then((data) => {
+        if(data?.success) {
+            toast.success(data.success);
+        }
+        else {
+            toast.error(data.error);
+        }
+      });
       // hmsActions.leave();
     } catch (error) {
       // Permission denied or not connected to room

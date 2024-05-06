@@ -75,23 +75,43 @@ export const createSubscriptionAction = async (plan:string) => {
 
 export const getSubscriptionByUserAction = async () => {
     const user = await currentUserServer();
+    console.log(user);
     const subscription = await db.subscription.findFirst({
         where: {
             userId: user?.id
         }
     });
+    console.log(subscription);
 
     if (!subscription) {
         return;
     }
 
-    const { plan, status } = subscription;
+    const { plan, status, meetings } = subscription;
 
     return {
         plan,
-        status
+        status,
+        meetings
     };
 };
+
+export const transferToAccount = async (amount: number, destinationAccountId: string): Promise<Stripe.Transfer> => {
+    const stripe = new Stripe('sk_test_51Oud8NRoFYuuQacW8L7vVopnPCSeor3whbOQxKfsrKjpRzjIpmM2KBUR3EJYHN9E1vKdTas2JDlgFLVOGUbCkI5w00wml4Ph2F', { apiVersion: '2023-10-16' });
+    try {
+      // Create a transfer to the destination account
+      const transfer = await stripe.transfers.create({
+        amount: amount * 100, 
+        currency: 'usd',
+        destination: destinationAccountId, 
+      });
+      return transfer;
+    } catch (error) {
+      console.error('Error transferring money:', error);
+      throw error;
+    }
+  };
+
 
 export const getRemainingMeetings = async () => {
     const user = await currentUserServer();
@@ -135,16 +155,34 @@ export const decreaseRemainingMeetings = async () => {
             return { error: "No remaining meetings!" };
         }
 
-        await db.subscription.update({
-            where: {
-                userId: user.id
-            },
-            data: {
-                meetings: {
-                    decrement: 1 
+        if(subscription.meetings === 1)
+        {
+            await db.subscription.update({
+                where: {
+                    userId: user.id
+                },
+                data: {
+                    meetings: {
+                        decrement: 1 
+                    },
+                    status:"EXPIRED"
                 }
-            }
-        });
+            });
+        }
+        else
+        {
+            await db.subscription.update({
+                where: {
+                    userId: user.id
+                },
+                data: {
+                    meetings: {
+                        decrement: 1 
+                    }
+                }
+            });
+        }
+
 
         return { success: "Meetings updated successfully!" };
     } catch (error) {

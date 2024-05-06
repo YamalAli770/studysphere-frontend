@@ -5,7 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Button } from "@/components/ui/button";
 import { ClipLoader } from "react-spinners";
 import { toast } from "sonner";
-
+import { useRouter } from "next/navigation";
 import { ExtendedUser } from "@/next-auth";
 
 import * as z from "zod";
@@ -29,6 +29,7 @@ interface MeetupRequestProps {
 
 export default function MeetupRequest({ currentUser, mentor }: MeetupRequestProps) {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter(); 
 
   const form = useForm<z.infer<typeof MeetupRequestSchema>>({
     resolver: zodResolver(MeetupRequestSchema),
@@ -45,6 +46,10 @@ export default function MeetupRequest({ currentUser, mentor }: MeetupRequestProp
         .then((data) => {
           if(data.success) {
             toast.success(data.success);
+          }
+          else if(data.error && data.redirection)
+          {
+            router.push(`/subscription`);
           }
           else {
             toast.error(data.error);
@@ -93,28 +98,6 @@ export default function MeetupRequest({ currentUser, mentor }: MeetupRequestProp
                       <FormLabel>Date</FormLabel>
                       <FormControl>
                         <Input type="datetime-local" {...field} disabled={isPending} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField control={form.control} name="durationInMinutes" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Duration<sub>(in minutes)</sub></FormLabel>
-                      <FormControl>
-                        <Input type="number" {...field} value={field.value} onChange={(e) => {
-                          form.setValue("durationInMinutes", parseInt(e.target.value));
-                        }} disabled={isPending} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField control={form.control} name="amount" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Amount($)</FormLabel>
-                      <FormControl>
-                        <Input type="number" {...field} value={field.value} onChange={(e) => {
-                          form.setValue("amount", parseInt(e.target.value));
-                        }} disabled={isPending} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

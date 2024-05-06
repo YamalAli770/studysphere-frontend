@@ -114,14 +114,14 @@ export const MeetupRequestSchema = z.object({
     }, {
         message: "Invalid date or date should be in the future."
     }),
-    durationInMinutes: z.number().min(10, {
-        message: "Minimum 10 minutes required."
-    }).max(60, {
-        message: "Maximum 60 minutes allowed."
-    }),
-    amount: z.number().min(5, {
-        message: "Minimum amount is $5."
-    }),
+    // durationInMinutes: z.number().min(10, {
+    //     message: "Minimum 10 minutes required."
+    // }).max(60, {
+    //     message: "Maximum 60 minutes allowed."
+    // }),
+    // amount: z.number().min(5, {
+    //     message: "Minimum amount is $5."
+    // }),
     message: z.string().optional()
 });
 

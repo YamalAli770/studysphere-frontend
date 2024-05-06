@@ -6,6 +6,7 @@ import { MeetupRequestSchema } from "@/schemas";
 import { getUserById } from "@/lib/data/user";
 import { getMeetupRequestByUserIds } from "@/lib/data/meetup-request";
 import { revalidatePath } from "next/cache";
+import { getSubscriptionByUserAction } from "./subscription";
 
 export const createMeetupRequestAction = async (values: z.infer<typeof MeetupRequestSchema>) => {
     const validatedFields = MeetupRequestSchema.safeParse(values);
@@ -14,7 +15,7 @@ export const createMeetupRequestAction = async (values: z.infer<typeof MeetupReq
         return { error: "Invalid fields!" }
     };
 
-    const { menteeId, mentorId, amount, dateTime, durationInMinutes, message } = validatedFields.data;
+    const { menteeId, mentorId, dateTime, message } = validatedFields.data;
 
     if(menteeId === mentorId) {
         return { error: "Mentee and mentor cannot be the same!" }
@@ -39,6 +40,18 @@ export const createMeetupRequestAction = async (values: z.infer<typeof MeetupReq
     if(mentor.role !== "MENTOR") {
         return { error: "User not authorized!" }
     }
+    const subscription = await getSubscriptionByUserAction();
+
+    if(!subscription){
+        return { error: "No subsciption model subscribed", redirection:true}
+    }
+    else
+    {
+        if(subscription.status == "EXPIRED")
+            {
+                return { error: "Subsription has expired"}
+            }
+    }
 
     const existingMeetupRequest = await getMeetupRequestByUserIds(mentor.id, mentee.id);
     
@@ -51,9 +64,7 @@ export const createMeetupRequestAction = async (values: z.infer<typeof MeetupReq
             data: {
                 menteeId,
                 mentorId,
-                amount,
                 dateTime,
-                durationInMinutes,
                 message
             }
         });

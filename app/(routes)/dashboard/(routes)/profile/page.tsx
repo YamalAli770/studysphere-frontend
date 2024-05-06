@@ -6,14 +6,25 @@ import EducationModal from "./_components/education-modal";
 import { currentUserServer } from "@/lib/user-server";
 import { getEducationByUserIdAction } from "@/actions/education";
 import { Badge } from "@/components/ui/badge";
+import { getSubscriptionByUserAction } from "@/actions/subscription";
+import SubscriptionStatus from "./_components/subsciption-status";
+
+
+
 
 export default async function Profile() {
   const user = await currentUserServer();
   let education;
-
+  let subsInfo;
   if(user) {
     education = await getEducationByUserIdAction(user.id);
+    if(user.role = "MENTEE")
+    {
+      subsInfo = await getSubscriptionByUserAction();
+      console.log(subsInfo);
+    }
   }
+  
 
   return (
     <div className="p-6">
@@ -24,6 +35,7 @@ export default async function Profile() {
             <h1 className="text-3xl font-semibold">Profile Settings</h1>
             <p>Customize your personal details</p>
           </div>
+          <SubscriptionStatus subscriptionInfo={subsInfo}/>
           <div className="flex gap-3">
             { !education &&  <EducationModal />}
             { education && !education.isVerified && <VerificationModal />}

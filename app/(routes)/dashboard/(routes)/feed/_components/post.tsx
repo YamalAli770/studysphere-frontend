@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { UserCircle } from 'lucide-react';
-import { Post } from '@prisma/client';
+//import { Post } from '@prisma/client';
 import { PostWithExtras } from '@/types/post';
 import Timestamp from './timestamp';
 import PostOptions from './post-options';

@@ -1,8 +1,7 @@
 'use client';
 import { 
   selectPeers, 
-  useHMSActions, 
-  selectRoom,
+  useHMSActions,
   useHMSStore,
   selectIsSomeoneScreenSharing,
   selectPeersScreenSharing
@@ -12,13 +11,13 @@ import PeerTile from "./peer-tile";
 import Controls from "./controls";
 import ScreenShare from "./screen-share";
 import ConferenceChat from "./conference-chat";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { 
   Disc2 as RecordingIcon,
-  Copy as CopyIcon
 } from 'lucide-react';
+import { toast } from 'sonner';
 import ConferenceTimer from "./conference-timer";
+import { MeetupRequestFromRoomId } from "@/lib/data/order";
+import { completeOrderAction } from "@/actions/order";
 
 function Conference() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -27,20 +26,41 @@ function Conference() {
   const isScreenSharing = useHMSStore(selectIsSomeoneScreenSharing);
   const peerSharingScreen = useHMSStore(selectPeersScreenSharing);
 
-  const [startTime] = useState(new Date(Date.now() + 1 * 60 * 1000).toISOString()); // Current time + 1 min
-  const [endTime] = useState(new Date(Date.now() + 30 * 60 * 1000).toISOString()); // 30 minutes from now
-  const [meetingTime] =useState(new Date(Date.now() + 1 * 60 * 1000).toLocaleTimeString());
-  console.log(startTime);
+  const [startTime, setStartTime] = useState<string>(""); 
+  const [endTime, setEndTime] = useState<string>(""); 
+  const [meetingTime, setMeetingTime] =useState<string>("");
+
   const room = useHMSStore((store)=>store.room);
-  console.log(room);
+  useEffect(() => {
+    const fetchData = async () => {
+      const order = await MeetupRequestFromRoomId(room.id);
+      const date = new Date(order?.dateTime as string);
+      setStartTime(date.toISOString());
+      const endTime = new Date(date.getTime() + (order?.durationInMinutes as number) * 60 * 1000)
+      setEndTime(endTime.toISOString());
+      setMeetingTime(date.toLocaleTimeString());
+    };
+
+    fetchData();
+  }, [room]);
+
+
   const endRoom = async () => {
     //end the meeting
     try {
-      // const lock = true; // A value of true disallow rejoins
-      // const reason = "Meeting is over";
-      // await hmsActions.endRoom(lock, reason);
-      hmsActions.leave();
-      console.log("Meeting is Ended");
+      const lock = true; // A value of true disallow rejoins
+      const reason = "Meeting time is over";
+      await hmsActions.endRoom(lock, reason);
+      await completeOrderAction(room.id)
+      .then((data) => {
+        if(data?.success) {
+            toast.success(data.success);
+        }
+        else {
+            toast.error(data.error);
+        }
+      });
+      // hmsActions.leave();
     } catch (error) {
       // Permission denied or not connected to room
       console.error(error);
@@ -50,6 +70,7 @@ function Conference() {
   const handleChatOpen = () => {
     setIsChatOpen(!isChatOpen);
   }
+
   return (
     <div className="h-screen max-h-screen max-w-screen box-border flex flex-col bg-dark-bg relative">
       <div className="flex px-4 py-3 justify-between items-center cursor-default grow-0 gap-4 border-b border-[#2b2d2e]">
@@ -63,7 +84,10 @@ function Conference() {
             <div className="">Meeting start time {meetingTime}</div>
           </div>
         </div>
-        <ConferenceTimer startTime={startTime} endTime={endTime} meetEnd={endRoom}/>
+        {startTime && endTime ? (
+          <ConferenceTimer startTime={startTime} endTime={endTime} meetEnd={endRoom}/>
+          ):null
+        }
       </div>
       <div className="grow min-h-0 flex p-4 gap-4">
         <div className={`flex flex-col gap-4 duration-100 ease-out ${isChatOpen ? "w-4/6" : "w-full"}`}>

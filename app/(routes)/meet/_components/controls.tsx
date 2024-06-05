@@ -12,7 +12,7 @@ import {
     useHMSNotifications,
     HMSNotificationTypes
   } from "@100mslive/react-sdk";
-
+import {useRouter} from "next/navigation";
 import { 
   ScreenShare as ScreenShareIcon, 
   Video as VideoIcon,
@@ -30,6 +30,7 @@ interface ControlsProps{
 
 
 function Controls({SwitchChat, isChatOpen}:ControlsProps) {
+  const router = useRouter();
   const [newMessage, setNewMessage] = useState<HMSMessageNotification | null>(null)
   const hmsActions = useHMSActions();
   let toggler = false;
@@ -41,7 +42,6 @@ function Controls({SwitchChat, isChatOpen}:ControlsProps) {
   useEffect(()=>{
     setNewMessage(messageNotification);
   },[messageNotification]);
-  console.log(newMessage);
 
   useEffect(()=>{
     setNewMessage(null);
@@ -67,6 +67,7 @@ function Controls({SwitchChat, isChatOpen}:ControlsProps) {
   };
 
   const ExitRoom = () => {
+    router.push('/dashboard/joinmeet');
     hmsActions.leave();
     //exit a room
   };

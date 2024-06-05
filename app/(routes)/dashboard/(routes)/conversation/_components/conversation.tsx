@@ -86,9 +86,10 @@ const Conversation = ({ conversations, currentUser }: ConversationProps) => {
   
 
   return (
-    <div className="flex max-h-[85vh]">
+    <div className="flex gap-6 max-h-[85vh] h-full bg-gray-100 p-6">
       {/* Left sidebar for friends */}
       <ConversationList 
+      selectedConversation={selectedConversation} 
       conversations={conversations} 
       handleConversationClick={handleConversationClick} 
       currentUser={currentUser}

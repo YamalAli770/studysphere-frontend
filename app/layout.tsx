@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import { Lato } from 'next/font/google'
+import { Outfit } from 'next/font/google'
 import './globals.css'
 import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/auth'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/sonner'
 
-const myfont = Lato({ weight: '400', subsets: ['latin'] })
+const myfont = Outfit({ weight: '400', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Study Sphere',

@@ -12,7 +12,7 @@ export default function UserButton() {
     <DropdownMenu>
         <DropdownMenuTrigger className="flex gap-3 items-center">
             <Avatar>
-                <AvatarImage src={ user?.image || "" } />
+                <AvatarImage className="object-cover" src={ user?.image || "" } />
                 <AvatarFallback className="bg-ternary-bg">
                     <User className="text-white" />
                 </AvatarFallback>

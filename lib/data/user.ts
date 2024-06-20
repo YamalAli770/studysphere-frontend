@@ -1,3 +1,5 @@
+"use server";
+
 import { db } from "../db";
 
 export const getUserByEmail = async(email: string) => {
@@ -53,3 +55,38 @@ export const getUserViewById = async (id: string) => {
         return null;
     }
 }
+
+export const getUserByRole = async (role: "MENTEE" | "MENTOR") => {
+    try {
+        const users = await db.user.findMany({
+            where: {
+                role: role,
+                education: { isVerified: true },
+            },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                image: true,
+                bio: true,
+                education: {
+                    select: {
+                        institution: true,
+                        country: true,
+                        level: true,
+                        major: true,
+                        isVerified: true,
+                        startYear: true,
+                        endYear: true,
+                    }
+                },
+            }
+        });
+
+        console.log(users); // Log for debugging
+        return users;
+    } catch (error) {
+        console.error("Error fetching users by role:", error);
+        return [];
+    }
+};

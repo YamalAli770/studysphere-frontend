@@ -64,3 +64,34 @@ export function PostsSkeleton() {
       </Dialog>
     );
   }
+
+  export const MentorCardSkeleton = () => {
+    return (
+      <div className="flex flex-col gap-5 bg-white shadow-md rounded-md p-4">
+        <div className='flex justify-between items-center'>
+          <div className='flex gap-3'>
+            <div className='w-12 h-12 relative'>
+              <Skeleton className="h-12 w-12 rounded-full" />
+            </div>
+            <div>
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[200px]" />
+            </div>
+          </div>
+          <Skeleton className="h-6 w-6" />
+        </div>
+        <Skeleton className="h-[200px]" />
+        <div className='flex flex-col gap-5'>
+          <div className='flex items-center gap-2 border-b'>
+            <Skeleton className='h-4 w-1/2' />
+            <Skeleton className='h-4 w-1/2' />
+          </div>
+          <div className='flex items-center gap-2 border-b'>
+            <Skeleton className='h-4 w-1/2' />
+            <Skeleton className='h-4 w-1/2' />
+          </div>
+        </div>
+      </div>
+    );
+  };
+  

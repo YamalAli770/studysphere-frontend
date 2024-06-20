@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Airplay as VideoCall, Bookmark, CalendarCheck, HelpCircle, MailOpen, MessageSquare, Settings, UserCircle2 } from "lucide-react"
+import { Airplay as VideoCall, Bookmark, CalendarCheck, HelpCircle, MailOpen, MessageSquare, Settings, UserCircle2, Users, Receipt, BaggageClaim } from "lucide-react"
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
@@ -30,9 +30,24 @@ const sidebarRoutes = [
         path: "/dashboard/meetups",
     },
     {
+        name: "Mentors",
+        icon: <Users size={20} />,
+        path: "/dashboard/mentors",
+    },
+    {
+        name: "Subscription",
+        icon: <Receipt size={20} />,
+        path: "/dashboard/subscription",
+    },
+    {
         name: "Events",
         icon: <CalendarCheck size={20} />,
         path: "/dashboard/events",
+    },
+    {
+        name: "Orders",
+        icon: <BaggageClaim size={20} />,
+        path: "/dashboard/order",
     },
     {
         name: "Join Meet",

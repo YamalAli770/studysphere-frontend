@@ -49,7 +49,7 @@ export default function MeetupRequest({ currentUser, mentor }: MeetupRequestProp
           }
           else if(data.error && data.redirection)
           {
-            router.push(`/subscription`);
+            router.push(`/dashboard/subscription`);
           }
           else {
             toast.error(data.error);

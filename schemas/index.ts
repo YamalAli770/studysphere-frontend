@@ -24,6 +24,16 @@ export const RegisterSchema = z.object({
     role: z.enum(["MENTOR", "MENTEE"]),
 });
 
+export const ProfileImageSchema = z.object({
+    image: z.any()
+    .refine((image) => image?.name, "Image is required.")
+    .refine((image) => image?.size <= 4 * 1024 * 1024, "Max file size is 4MB.")
+    .refine(
+      (image) => ["image/jpeg", "image/jpg", "image/png"].includes(image?.type),
+      "Only .jpeg, .jpg, .png file is accepted."
+    ),
+});
+
 export const ResetSchema = z.object({
     email: z.string().email({
         message: "Email is required."

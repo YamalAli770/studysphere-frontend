@@ -7,44 +7,30 @@ import { sendMessage } from "@/actions/chat";
 import { ConversationWithExtras } from '@/types/conversation';
 import { User } from 'next-auth/types';
 import { Message } from '@prisma/client';
-import {pusherClient} from '@/lib/pusher'
+import { pusherClient } from '@/lib/pusher';
 
 interface ConversationProps {
-  conversations:ConversationWithExtras[]
-  currentUser:User
+  conversations: ConversationWithExtras[];
+  currentUser: User;
 }
 
 const Conversation = ({ conversations, currentUser }: ConversationProps) => {
-
-  //states for selected conversation and message
   const [selectedConversation, setSelectedConversation] = useState<ConversationWithExtras | null>(null);
   const [message, setMessage] = useState<string>('');
-  
-  
-  useEffect(()=>{
-    if (selectedConversation !== null) {
-      console.log("checking run time");
-      
-      //creating chat channel
-      const channel = pusherClient.subscribe(selectedConversation.id);
-      console.log("channel extablished",channel);
-      
-      
-      //binding chat channel
-      channel.bind('chat', function(data:any) {
-        let parsedMessage = JSON.parse(data.message) as Message
-        console.log(parsedMessage);
 
-        
-        //appending new message in conversation
+  useEffect(() => {
+    if (selectedConversation !== null) {
+      const channel = pusherClient.subscribe(selectedConversation.id);
+
+      channel.bind('chat', function (data: any) {
+        let parsedMessage = JSON.parse(data.message) as Message;
+
         setSelectedConversation((prevConversation) => {
           if (prevConversation !== null) {
             const updatedConversation = { ...prevConversation };
             updatedConversation.messages = [...prevConversation.messages, parsedMessage];
-
             return updatedConversation;
           }
-
           console.error('Unexpected null value for prevConversation');
           return null;
         });
@@ -52,16 +38,14 @@ const Conversation = ({ conversations, currentUser }: ConversationProps) => {
 
       return () => {
         pusherClient.unsubscribe(selectedConversation.id);
-      }
+      };
     }
-  },[selectedConversation]);
+  }, [selectedConversation]);
 
-  //click to change the selected conversation
   const handleConversationClick = async (conversation: ConversationWithExtras) => {
     setSelectedConversation(conversation);
   };
-  
-  //function to send message
+
   const send = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (currentUser != null && selectedConversation != null) {
@@ -71,37 +55,32 @@ const Conversation = ({ conversations, currentUser }: ConversationProps) => {
         content: message,
         senderId: currentUser.id,
       });
-      
-      if(result == null){
-        console.log("Result is null")
+
+      if (result == null) {
+        console.log("Result is null");
         return null;
       }
-  
+
       if ('error' in result) {
         console.error('Error sending message:', result.error);
-        // Handle error, show a notification, etc.
-      } 
+      }
     }
   };
-  
 
   return (
-    <div className="flex gap-6 max-h-[85vh] h-full bg-gray-100 p-6">
-      {/* Left sidebar for friends */}
+    <div className="flex flex-col lg:flex-row gap-6 max-h-[85vh] h-full bg-gray-100 p-4 lg:p-6">
       <ConversationList 
-      selectedConversation={selectedConversation} 
-      conversations={conversations} 
-      handleConversationClick={handleConversationClick} 
-      currentUser={currentUser}
+        selectedConversation={selectedConversation} 
+        conversations={conversations} 
+        handleConversationClick={handleConversationClick} 
+        currentUser={currentUser}
       />
-      
-      {/* Right section for chat */}
       <ChatWindow 
-      selectedConversation={selectedConversation} 
-      currentUser={currentUser} 
-      message={message} 
-      setMessage={setMessage} 
-      send={send} 
+        selectedConversation={selectedConversation} 
+        currentUser={currentUser} 
+        message={message} 
+        setMessage={setMessage} 
+        send={send} 
       />
     </div>
   );

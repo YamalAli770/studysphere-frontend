@@ -6,16 +6,16 @@ import Posts from './_components/posts';
 
 export default async function Feed() {
   return (
-    <div className='flex space-x-10 p-12 bg-gray-100'>
-      <div className='w-3/5'>
+    <div className='flex flex-col lg:flex-row space-y-10 lg:space-y-0 lg:space-x-10 p-4 lg:p-12 bg-gray-100'>
+      <div className='lg:w-3/5 w-full'>
         <CreatePost />
         <Suspense fallback={<PostsSkeleton />}>
           <Posts />
         </Suspense>
       </div>
-      <div className="flex-auto h-fit sticky top-7">
+      <div className="flex-auto h-fit lg:sticky lg:top-7 w-full lg:w-auto">
         <UpcomingEvents/>
       </div>
     </div>
-  )
+  );
 }

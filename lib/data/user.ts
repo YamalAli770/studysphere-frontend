@@ -15,7 +15,7 @@ export const getUserByEmail = async(email: string) => {
 
 export const getUserById = async(id: string) => {
     try{
-        const user = await db.user.findUnique({ where: { id } });
+        const user = await db.user.findUnique({ where: { id }, select: { id: true, name: true, email: true, image: true, bio: true, role: true, emailVerified: true, isTwoFactorEnabled: true }});
 
         return user;
     }
@@ -83,10 +83,17 @@ export const getUserByRole = async (role: "MENTEE" | "MENTOR") => {
             }
         });
 
-        console.log(users); // Log for debugging
         return users;
     } catch (error) {
         console.error("Error fetching users by role:", error);
         return [];
     }
+};
+
+export const getAllMentees = async () => {
+    return getUserByRole("MENTEE");
+};
+
+export const getAllMentors = async () => {
+    return getUserByRole("MENTOR");
 };

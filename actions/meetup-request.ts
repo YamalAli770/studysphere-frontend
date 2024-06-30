@@ -65,7 +65,8 @@ export const createMeetupRequestAction = async (values: z.infer<typeof MeetupReq
                 menteeId,
                 mentorId,
                 dateTime,
-                message
+                message,
+                durationInMinutes: 2
             }
         });
 

@@ -8,12 +8,20 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 
 export type Mentee = {
-    id: string,
-    username: string,
-    email: string,
+  id: string,
+  name: string | null,
+  email: string | null,
+  image: string | null,
+  bio: string | null,
+  education: {
+    institution: string,
     country: string,
-    universityName: string,
-    universityCountry: string,
+    level: string,
+    major: string,
+    isVerified: boolean,
+    startYear: number,
+    endYear: number,
+  } | null,
 }
 
 export const columns: ColumnDef<Mentee>[] = [
@@ -46,8 +54,8 @@ export const columns: ColumnDef<Mentee>[] = [
         header: "ID",
     },
     {
-        accessorKey: "username",
-        header: "Username",
+        accessorKey: "name",
+        header: "Name",
     },
     {
         accessorKey: "email",
@@ -63,18 +71,6 @@ export const columns: ColumnDef<Mentee>[] = [
               </Button>
             )
         },
-    },
-    {
-        accessorKey: "country",
-        header: "Residence",
-    },
-    {
-        accessorKey: "universityName",
-        header: "University",
-    },
-    {
-        accessorKey: "universityCountry",
-        header: "U-Country",
     },
     {
         id: "actions",

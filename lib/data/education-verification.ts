@@ -10,3 +10,21 @@ export const getEducationVerificationByEducationId = async (educationId: string)
         return null;
     }
 }
+
+export const getAllEduVerification = async () => {
+    try {
+        const educationVerifications = await db.educationVerification.findMany({
+            include: {
+                education: {
+                    select: {
+                        userId: true,
+                    }
+                }
+            }
+        });
+        
+        return educationVerifications;
+    } catch (error) {
+        return [];
+    }
+}

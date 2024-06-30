@@ -1,9 +1,12 @@
 import { columns } from "./_components/columns";
 import DataTable from "../_components/data-table";
 
-import { orders } from "@/data/dbd-order-data";
+import { getAllOrders } from "@/lib/data/order";
 
-export default function Orders() {
+export default async function Orders() {
+  const orders = await getAllOrders();
+  console.log(orders);
+
   return (
     <div className="p-6">
       <DataTable columns={columns} data={orders} />

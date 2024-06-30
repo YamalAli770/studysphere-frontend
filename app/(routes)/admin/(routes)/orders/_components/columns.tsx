@@ -7,15 +7,21 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
+import { OrderStatus } from "@prisma/client"
 
 export type Order = {
-    id: string;
-    orderStatus: "pending" | "completed" | "disputed" | "cancelled";
-    amount: string;
-    orderDate: number;
-    paymentMethod: "PayPal" | "Credit Card" | "Apple Pay" | "Google Pay";
-    paymentDate: number;
-    paymentStatus: "pending" | "escrow" | "paid";
+  id: string;
+  status: OrderStatus,
+  createdAt: Date,
+  updatedAt: Date,
+  meetupRequest: {
+    mentee: {
+      email: string | null,
+    },
+    mentor: {
+      email: string | null,
+    }
+  }
 }
 
 export const columns: ColumnDef<Order>[] = [
@@ -48,57 +54,36 @@ export const columns: ColumnDef<Order>[] = [
         header: "ID",
     },
     {
+        accessorKey: "meetupRequest.mentee.email",
+        header: "Mentee",
+    },
+    {
+        accessorKey: "meetupRequest.mentor.email",
+        header: "Mentor",
+    },
+    {
+        accessorKey: "createdAt",
+        header: "Created At",
+        cell: ({ row }) => new Date(row.getValue("createdAt")).toLocaleString(),
+    },
+    {
+        accessorKey: "updatedAt",
+        header: "Updated At",
+        cell: ({ row }) => new Date(row.getValue("updatedAt")).toLocaleString(),
+    },
+    {
         accessorKey: "orderStatus",
         header: "Order Status",
         cell: ({ row }) => {
-            return row.getValue("orderStatus") === "pending" ? (
+            const orderStatus = row.original.status;
+            return orderStatus === "PENDING" ? (
                 <Badge variant="pending">Pending</Badge>
-            ) : row.getValue("orderStatus") === "completed" ? (
+            ) : orderStatus === "COMPLETED" ? (
                 <Badge variant="completed">Completed</Badge>
-            ) : row.getValue("orderStatus") === "disputed" ? (
+            ) : orderStatus === "DISPUTED" ? (
                 <Badge variant="disputed">Disputed</Badge>
             ) : (
                 <Badge variant="cancelled">Cancelled</Badge>
-            )
-        },
-    },
-    {
-        accessorKey: "amount",
-        header: "Amount",
-    },
-    {
-        accessorKey: "orderDate",
-        header: ({ column }) => {
-          return (
-            <Button
-              className="hover:bg-gray-200"
-              variant="ghost"
-              onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            >
-              Order Date
-              <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-          )
-      },
-    },
-    {
-        accessorKey: "paymentMethod",
-        header: "Payment Method",
-    },
-    {
-        accessorKey: "paymentDate",
-        header: "Payment Date",
-    },
-    {
-        accessorKey: "paymentStatus",
-        header: "Payment Status",
-        cell: ({ row }) => {
-            return row.getValue("paymentStatus") === "pending" ? (
-                <Badge variant="pending">Pending</Badge>
-            ) : row.getValue("paymentStatus") === "escrow" ? (
-                <Badge variant="escrow">Escrow</Badge>
-            ) : (
-                <Badge variant="paid">Paid</Badge>
             )
         },
     },

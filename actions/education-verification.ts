@@ -6,7 +6,8 @@ import { EducationVerificationSchema } from "@/schemas";
 import { getEducationVerificationByEducationId } from "@/lib/data/education-verification";
 import { getEducationByUserId } from "@/lib/data/education";
 import { currentUserServer } from "@/lib/user-server";
-import { UserRole } from "@prisma/client";
+import { UserRole, VerificationStatus } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const createEducationVerificationAction = async (documentType: z.infer<typeof EducationVerificationSchema>['documentType'], documentUrl: string) => {
     console.log("I RUN");
@@ -50,5 +51,52 @@ export const createEducationVerificationAction = async (documentType: z.infer<ty
         return { error: "Something went wrong!" }
     }
 
+    revalidatePath("/admin/edu-verification");
     return { success: "Verification request sent successfully!"};
+};
+
+export const verifyEducationVerificationAction = async (userId: string, status: VerificationStatus, remarks: string | null) => {
+    const user = await currentUserServer();
+    
+    if(!user) {
+        return { error: "User not found!" }
+    };
+
+    if(user.role !== UserRole.ADMIN) {
+        return { error: "User not authorized!" }
+    }
+
+    const education = await getEducationByUserId(userId);
+
+    if(!education) {
+        return { error: "Education not found!" }
+    }
+
+    const educationVerification = await getEducationVerificationByEducationId(education.id);
+
+    if(!educationVerification) {
+        return { error: "Verification request not found!" }
+    }
+
+    const updatedEducationVerification = await db.educationVerification.update({
+        where: {
+            id: educationVerification.id
+        },
+        data: {
+            status: status,
+            closedAt: new Date(),
+            remarks: remarks,
+            education: {
+                update: {
+                    isVerified: true
+                }
+            }
+        }
+    })
+
+    if(!updatedEducationVerification) {
+        return { error: "Something went wrong!" }
+    }
+
+    return { success: "Verification request updated successfully!"};
 };

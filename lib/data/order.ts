@@ -74,3 +74,34 @@ export const MeetupRequestFromRoomId = async (roomId:string) => {
     })
     return orderWithExtras?.meetupRequest
 }
+
+export const getAllOrders = async () => {
+    try {
+        const orders = await db.order.findMany({
+            select: {
+                id: true,
+                status: true,
+                createdAt: true,
+                updatedAt: true,
+                meetupRequest: {
+                    select: {
+                        mentee: {
+                            select: {
+                                email: true,
+                            }
+                        },
+                        mentor: {
+                            select: {
+                                email: true,
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        return orders;
+    } catch (error) {
+        return [];
+    }
+}

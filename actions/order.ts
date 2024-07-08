@@ -8,6 +8,7 @@ import { sendConfirmationMail } from "@/lib/node-mailer";
 import { MailArgs } from "@/types/email";
 import { createMeetingRoom } from "@/lib/hms-server";
 import { decreaseRemainingMeetings } from "./subscription";
+import { depositFund } from "./wallet";
 
 
 export const createOrderAction = async (meetupRequestId: string) => {
@@ -131,9 +132,18 @@ export const completeOrderAction = async (roomId:string) => {
             },
             data:{
                 status:"COMPLETED"
+            },
+            include:{
+                meetupRequest:{
+                    select:{
+                        mentorId:true,
+                    },
+                },
             }
         });
+
         const result = decreaseRemainingMeetings();
+        const result2 = depositFund(0.8, updatedOrder?.meetupRequest?.mentorId!);
         return {success: "Order completed successfully"}
     }
     catch(error)

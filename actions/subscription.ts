@@ -5,6 +5,7 @@ import { CreateSubscriptionSchema, SubscriptionSchema, SubscriptionPriceSchema} 
 import { currentUserServer } from "@/lib/user-server";
 import { UserRole } from "@prisma/client";
 import Stripe from 'stripe';
+import { resetWallet } from "./wallet";
 
 
 
@@ -190,6 +191,88 @@ export const decreaseRemainingMeetings = async () => {
         return { error: "Failed to update meetings!" };
     }
 };
+
+export const withdrawToStripeAction = async () => {
+    try
+    {
+        const user = await currentUserServer();
+        if (!user) {
+            return { error: "User not found!" };
+        }
+        const wallet = await db.wallet.findUnique({
+            where:{
+                userId:user.id!,
+            },
+        });
+        console.log(wallet?.balance);
+        if(wallet?.balance && wallet.balance ==0)
+        {
+            return {error:"Sorry! Wallet is empty"}
+        }
+        if(!wallet?.stripeAccountId)
+        {
+            return {error:"Stripe Account does not exist", code:404}
+        }
+        const transfer = await transferToAccount(wallet.balance, wallet.stripeAccountId);
+        const updatedWallet = await resetWallet();
+        return {success: "Transfer successful", updatedWallet}
+    }
+    catch(ex)
+    {
+        console.log(ex);
+        if(ex instanceof Stripe.errors.StripeError)
+        {
+            if(ex.type == 'StripeInvalidRequestError' && (ex.statusCode == 404 || ex.statusCode == 400))
+            {
+                return {error: "Error occured in stripe connection", code :404}
+            }
+        }
+        return {error:"Error occurred while withdrawing"}
+    }
+}
+
+export const connectStripeAccount= async () => {
+    const user = await currentUserServer();
+    const stripe = new Stripe('sk_test_51Oud8NRoFYuuQacW8L7vVopnPCSeor3whbOQxKfsrKjpRzjIpmM2KBUR3EJYHN9E1vKdTas2JDlgFLVOGUbCkI5w00wml4Ph2F', { apiVersion: '2023-10-16' });
+    const account = await stripe.accounts.create({
+        type: 'express',
+        country: 'US',
+        email: user?.email!,
+      });
+
+    try{
+
+        // Create an account link for onboarding
+        const accountLink = await stripe.accountLinks.create({
+        account: account.id,
+        refresh_url: `https://${process.env.APP_URL}/dashboard/feed`,
+        return_url: `https://${process.env.APP_URL}/dashboard/feed`,
+        type: 'account_onboarding',
+      });
+
+      const updatedWallet = await db.wallet.update({
+        where: {
+            userId: user?.id
+        },
+        data : {
+            stripeAccountId : account.id 
+        }
+        });
+    
+  
+    console.log('OAuth link generated:', accountLink.url);
+    // Redirect the user to link.url
+    return {
+        accountId: account.id,
+        accountLinkUrl: accountLink.url
+        };
+    }
+    catch(ex)
+    {
+        console.log(ex);
+        return {error:"Error occurred in linking account",ex}
+    }
+  }
 
 // export const addUserStripeInfoAction = async (stripeId:string, amount:number) => {
 //     const user = await currentUserServer();

@@ -49,6 +49,8 @@ export const fetchConversations = async (currentUserId:string) => {
         return null;
     }
 }
+
+
 export const fetchMessages = async (conversationId:string) => {
     // disable caching
     noStore();

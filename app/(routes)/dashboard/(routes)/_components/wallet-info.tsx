@@ -112,7 +112,6 @@ const WalletComponent = () => {
     setIsPending(false);
   };
 
-  
 
   return (
     <div>

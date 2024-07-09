@@ -195,6 +195,7 @@ export const decreaseRemainingMeetings = async () => {
 export const withdrawToStripeAction = async () => {
     try
     {
+        console.log("My method working");
         const user = await currentUserServer();
         if (!user) {
             return { error: "User not found!" };
@@ -204,8 +205,7 @@ export const withdrawToStripeAction = async () => {
                 userId:user.id!,
             },
         });
-        console.log(wallet?.balance);
-        if(wallet?.balance && wallet.balance ==0)
+        if(wallet?.balance ==0)
         {
             return {error:"Sorry! Wallet is empty"}
         }

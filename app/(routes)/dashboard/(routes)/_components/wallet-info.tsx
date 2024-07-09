@@ -16,8 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { completeOrderAction } from "@/actions/order";
-import { connectStripeAccount, withdrawToStripeAction } from "@/actions/subscription";
+import { connectStripeAccount, transferToAccount, withdrawToStripeAction } from "@/actions/subscription";
 
 interface WalletInfo {
   balance: number;
@@ -29,23 +28,23 @@ const WalletComponent = () => {
   const [wallet, setWallet] = useState<WalletInfo | null>(null);
   const [isPending, setIsPending] = useState(true);
   const user = useCurrentUser();
-  useEffect(() => {
-    const fetchWallet = async () => {
-      setIsPending(true);
-      try {
-        const walletInfo = await fetchWalletInfo();
-        if (walletInfo && "error" in walletInfo) {
-          toast.error(walletInfo.error);
-          console.log(walletInfo.error);
-        } else {
-          setWallet(walletInfo);
-        }
-      } catch (ex) {
-        console.log("Error fetching wallet info", ex);
+  const fetchWallet = async () => {
+    setIsPending(true);
+    try {
+      const walletInfo = await fetchWalletInfo();
+      if (walletInfo && "error" in walletInfo) {
+        toast.error(walletInfo.error);
+        console.log(walletInfo.error);
+      } else {
+        setWallet(walletInfo);
       }
-      setIsPending(false);
-    };
+    } catch (ex) {
+      console.log("Error fetching wallet info", ex);
+    }
+    setIsPending(false);
+  };
 
+  useEffect(() => {
     fetchWallet();
   }, []);
 
@@ -54,10 +53,10 @@ const WalletComponent = () => {
     try
     {
       const result = await withdrawToStripeAction();
-      console.log(result);
       if(result.success && result)
       {
         toast.success(result.success);
+        await fetchWallet();
       }
       else
       {
@@ -112,6 +111,8 @@ const WalletComponent = () => {
     }
     setIsPending(false);
   };
+
+  
 
   return (
     <div>

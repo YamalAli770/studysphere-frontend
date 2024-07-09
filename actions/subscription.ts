@@ -20,8 +20,8 @@ export const subscriptionHandler = async (values: z.infer<typeof SubscriptionPri
                 quantity: 1,
             }],
             mode: 'subscription',
-            success_url: 'http://localhost:3000', 
-            cancel_url: 'http://localhost:3000'
+            success_url: `https://${process.env.APP_URL}/dashboard/feed`, 
+            cancel_url: `https://${process.env.APP_URL}/dashboard/feed`
         });
         return session;
 }

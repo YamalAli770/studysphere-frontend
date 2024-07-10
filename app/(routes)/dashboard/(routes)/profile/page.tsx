@@ -35,7 +35,7 @@ export default async function Profile() {
               <p>Customize your personal details</p>
             </div>
           </div>
-          <SubscriptionStatus subscriptionInfo={subsInfo} />
+          { user?.role === "MENTEE" && <SubscriptionStatus subscriptionInfo={subsInfo} />}
           <div className="flex gap-3">
             {!education && <EducationModal />}
             {education && !education.isVerified && <VerificationModal />}
@@ -53,7 +53,9 @@ export default async function Profile() {
                 <Image
                   src={user.image}
                   alt="profile-image"
-                  className="w-24 h-24 rounded-full object-cover border"
+                  width={96}
+                  height={96}
+                  className="rounded-full object-cover border"
                 /> : <ProfileImageUpload />
               }
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">

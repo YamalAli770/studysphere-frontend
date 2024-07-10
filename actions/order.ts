@@ -144,7 +144,7 @@ export const completeOrderAction = async (roomId:string) => {
 
         const result = decreaseRemainingMeetings();
         const result2 = depositFund(0.8, updatedOrder?.meetupRequest?.mentorId!);
-        return {success: "Order completed successfully"}
+        return {updatedOrder, success: "Order completed successfully"}
     }
     catch(error)
     {

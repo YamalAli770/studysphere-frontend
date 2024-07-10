@@ -60,3 +60,19 @@ export const getMeetupRequestByUserId = async () => {
         return null;
     }
 }
+
+export const getMeetupRequestByOrderId = async (orderId: string) => {
+    try {
+        const meetupRequest = await db.meetupRequest.findFirst({
+            where: {
+                order: {
+                    id: orderId
+                }
+            }
+        });
+
+        return meetupRequest;
+    } catch (error) {
+        return null;
+    }
+}

@@ -27,13 +27,13 @@ export const getOrderById = async (id: string) => {
                                 image: true,
                                 email: true,
                                 role: true,
+                                feedback: true,
                             }
                         }
                     },
                 }
             }
         });
-        
         return order;
     } catch (error) {
         return null;

@@ -25,7 +25,7 @@ export default function SubscriptionStatus({subscriptionInfo}:SubscriptionStatus
             </div>
             )
             :
-            <Button onClick={()=>router.push('/subscription')}>Get subscription</Button>}
+            <Button onClick={()=>router.push('subscription')}>Get subscription</Button>}
         </div>
         
     )

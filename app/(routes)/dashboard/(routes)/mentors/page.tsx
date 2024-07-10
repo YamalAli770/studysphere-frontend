@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import MentorCard from './_components/mentor-card';
 import Search from './_components/search';
 import { MentorCardSkeleton } from '@/components/skeletons';
+import { Mentor } from '@/types/mentor';
 
 const Mentors = () => {
   const [mentors, setMentors] = useState<Mentor[]>([]);

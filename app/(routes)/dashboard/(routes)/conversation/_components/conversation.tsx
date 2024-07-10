@@ -91,7 +91,7 @@ const Conversation = ({ conversations, currentUser }: ConversationProps) => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 max-h-[85vh] h-full bg-gray-100 p-4 lg:p-6">
+    <div className="flex flex-col lg:flex-row gap-6 h-full bg-gray-100 p-4 lg:p-6">
       <ConversationList 
         selectedConversation={selectedConversation} 
         conversations={conversations} 

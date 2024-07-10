@@ -53,16 +53,12 @@ const ProfileImageUpload = () => {
     <FormProvider {...form}>
       <div className='flex gap-5'>
         <form className='flex flex-col gap-4'>
-          <FormField control={form.control} name='image' render={({ field: { value, onChange, ...field } }) => (
-            <FormItem>
-              <FormLabel>Profile Image</FormLabel>
-              <FormControl>
-                <Input type="file" {...field} onChange={(e) => {e.target.files && onChange(e.target.files[0])}} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}>
-          </FormField>
+        <FormField control={form.control} name='image' render={({ field }) => (
+          <div>
+            <input type="file" {...field} onChange={(e) => {e.target.files && field.onChange(e.target.files[0])}} />
+          </div>
+        )}>
+        </FormField>
         </form>
         <Button className='mt-8' type='submit' onClick={form.handleSubmit(onSubmit)} disabled={isPending}>Submit</Button>
       </div>

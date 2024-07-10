@@ -124,7 +124,7 @@ export default function SignInForm() {
             {/* Bottom */}
             <Social />
             <section className="flex flex-col gap-5 w-full">
-              <p className="text-xs text-center text-gray-400">Don't have an account yet? <Link href="/auth/sign-up" className="text-black hover:text-gray-600">Sign Up</Link></p>
+              <p className="text-xs text-center text-gray-400">Don&apos;t have an account yet? <Link href="/auth/sign-up" className="text-black hover:text-gray-600">Sign Up</Link></p>
             </section>
           </div>
         </div>

@@ -14,7 +14,7 @@ export default function Dashboard() {
         <section className="flex justify-between items-center">
           <div className="flex flex-col">
             <h1 className="text-3xl font-semibold">Dashboard</h1>
-            <span className="text-sm">Here's your analytical details</span>
+            <span className="text-sm">Here&apos;s your analytical details</span>
           </div>
           <div className="flex gap-4 items-center">
             <DropdownMenu>

@@ -65,7 +65,7 @@ const ChatWindow = ({ selectedConversation, currentUser, message, setMessage, se
                             src={getOtherUser(selectedConversation, currentUser.id)?.image || ''}
                             alt={getOtherUser(selectedConversation, currentUser.id)?.name || ''}
                             fill={true}
-                            className="rounded-full"
+                            className="rounded-full object-cover"
                           />
                         ) : (
                           <UserIcon className='bg-ternary-bg text-white rounded-full p-2' size={'40'} />

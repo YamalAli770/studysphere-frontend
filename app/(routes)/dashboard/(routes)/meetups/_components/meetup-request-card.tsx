@@ -58,7 +58,7 @@ export default async function MeetupRequestCard({ request }: MeetupRequestCardPr
           <Input type="text" value={request.status} disabled/>
         </div>
       </CardContent>
-      {request.status === "PENDING" ?
+      {request.status === "PENDING" && user?.role === "MENTOR" ?
       (
         <CardFooter>
           <ActionButtons requestId={request.id} />

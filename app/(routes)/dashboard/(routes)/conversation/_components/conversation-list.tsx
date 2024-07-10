@@ -33,7 +33,7 @@ const ConversationList: React.FC<ConversationListProps> = ({ selectedConversatio
                     src={getOtherUser(conversation, currentUser.id)?.image || ''}
                     alt={getOtherUser(conversation, currentUser.id)?.name || ''}
                     fill={true}
-                    className="rounded-full"
+                    className="rounded-full object-cover"
                   />
                 ) : (
                   <UserIcon className='bg-ternary-bg text-white rounded-full p-2' size={'40'} />

@@ -46,6 +46,12 @@ export const getUserViewById = async (id: string) => {
                         endYear: true,
                     }
                 },
+                feedback: {
+                    select: {
+                        rating: true,
+                        content: true,
+                    }
+                }
             }
         });
 
@@ -80,6 +86,12 @@ export const getUserByRole = async (role: "MENTEE" | "MENTOR") => {
                         endYear: true,
                     }
                 },
+                feedback: {
+                    select: {
+                        rating: true,
+                        content: true,
+                    }
+                }
             }
         });
 

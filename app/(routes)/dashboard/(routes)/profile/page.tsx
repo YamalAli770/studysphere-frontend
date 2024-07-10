@@ -9,9 +9,9 @@ import { getSubscriptionByUserAction } from "@/actions/subscription";
 import SubscriptionStatus from "./_components/subsciption-status";
 import Image from "next/image";
 import ProfileImageUpload from "./_components/profile-image-upload";
-
 export default async function Profile() {
   const user = await currentUserServer();
+  
   let education;
   let subsInfo;
   if (user) {
@@ -21,6 +21,8 @@ export default async function Profile() {
       console.log(subsInfo);
     }
   }
+
+  
 
   return (
     <div className="p-4 sm:p-6">

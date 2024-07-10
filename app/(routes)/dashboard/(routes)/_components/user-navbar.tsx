@@ -6,7 +6,9 @@ import UserButton from "@/components/user-button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { signOut } from "next-auth/react";
 import { Menu as MenuIcon } from "lucide-react";
+
 import MobileSidebar from "./mobile-sidebar";
+import WalletInfo from "./wallet-info";
 
 export default function UserNavbar() {
   const user = useCurrentUser();
@@ -23,6 +25,7 @@ export default function UserNavbar() {
           <MenuIcon size={24} />
         </button>
         <div className="flex items-center gap-6 justify-end w-full">
+          {user?.role =='MENTOR' && <WalletInfo/>}
           <UserButton />
         </div>
       </div>

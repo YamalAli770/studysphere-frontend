@@ -24,17 +24,19 @@ const Conversation = ({ conversations, currentUser }: ConversationProps) => {
 
       channel.bind('chat', function (data: any) {
         let parsedMessage = JSON.parse(data.message) as Message;
-
-        setSelectedConversation((prevConversation) => {
-          if (prevConversation !== null) {
-            const updatedConversation = { ...prevConversation };
-            updatedConversation.messages = [...prevConversation.messages, parsedMessage];
-            return updatedConversation;
-          }
-          console.error('Unexpected null value for prevConversation');
-          return null;
+        if(parsedMessage.senderId != currentUser.id)
+        {
+          setSelectedConversation((prevConversation) => {
+            if (prevConversation !== null) {
+              const updatedConversation = { ...prevConversation };
+              updatedConversation.messages = [...prevConversation.messages, parsedMessage];
+              return updatedConversation;
+            }
+            console.error('Unexpected null value for prevConversation');
+            return null;
+          });
+        }
         });
-      });
 
       return () => {
         pusherClient.unsubscribe(selectedConversation.id);
@@ -46,10 +48,31 @@ const Conversation = ({ conversations, currentUser }: ConversationProps) => {
     setSelectedConversation(conversation);
   };
 
+  
+  const generateUniqueId = () => {
+    return Math.random().toString(36).substr(2, 9); // Simple unique ID generator
+  };
+
   const send = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (currentUser != null && selectedConversation != null) {
+      const dummyMessage = {
+        id:generateUniqueId(),
+        conversationId: selectedConversation.id,
+        content: message,
+        senderId: currentUser.id,
+        createdAt: new Date()
+      }
       setMessage('');
+      setSelectedConversation((prevConversation) => {
+        if (prevConversation !== null) {
+          const updatedConversation = { ...prevConversation };
+          updatedConversation.messages = [...prevConversation.messages, dummyMessage];
+          return updatedConversation;
+        }
+        console.error('Unexpected null value for prevConversation');
+        return null;
+      });
       const result = await sendMessage({
         conversationId: selectedConversation.id,
         content: message,

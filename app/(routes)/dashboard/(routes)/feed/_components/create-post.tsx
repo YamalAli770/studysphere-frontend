@@ -94,23 +94,22 @@ export default function CreatePost() {
                         <Image src={imageUrl} objectFit='cover' className='rounded-lg' fill={true} alt='post-image' />
                     </div>}
                     <div className='flex justify-between items-center pt-5'>
-                        <FormField control={form.control} name='image' render={({ field: { value, onChange, ...field } }) => (
+                        <FormField control={form.control} name='image' render={({ field }) => (
                             <FormItem className='flex items-center gap-2'>
                                 <FormLabel className='cursor-pointer'>
                                     <ImageIcon color='gray' />
                                 </FormLabel>
                                 <FormControl>
-                                    <Input type="file" {...field} style={{ display: 'none' }} value={value?.file} onChange={(e) => {
-                                        e.target.files && (
-                                            setImageUrl(URL.createObjectURL(e.target.files[0])),
-                                            onChange(e.target.files[0])
-                                        );
+                                    <Input type="file" {...field} style={{ display: 'none' }} onChange={(e) => {
+                                        if (e.target.files && e.target.files[0]) {
+                                            setImageUrl(URL.createObjectURL(e.target.files[0]));
+                                            field.onChange(e.target.files[0]);
+                                        }
                                     }} />
                                 </FormControl>
                                 <FormMessage style={{ marginTop: 0 }} />
                             </FormItem>
-                        )}>
-                        </FormField>
+                        )} />
                         <div className='flex justify-center space-x-4'>
                             <Button type='submit' disabled={isPending} variant='rounded' size='lg'>
                                 Post

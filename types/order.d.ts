@@ -30,7 +30,7 @@ export interface OrderType {
 
 export interface Feedback {
   rating: number;
-  content: string;
+  content: string | null;
 }
 
 export interface Mentor {

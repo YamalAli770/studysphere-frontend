@@ -134,7 +134,7 @@ export const completeOrderAction = async (roomId:string) => {
             }
         });
         const result = decreaseRemainingMeetings();
-        return {success: "Order completed successfully"}
+        return {updatedOrder, success: "Order completed successfully"}
     }
     catch(error)
     {

@@ -1,3 +1,5 @@
+import { ExtendedUser } from "@/next-auth";
+
 interface Education {
   institution: string;
   country: string;
@@ -15,6 +17,7 @@ interface User {
   image: string | null;
   bio: string | null;
   education: Education | null;
+  feedback: Feedback[];
 }
 
 type Mentor = User;

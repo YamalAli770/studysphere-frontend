@@ -18,8 +18,10 @@ import { toast } from 'sonner';
 import ConferenceTimer from "./conference-timer";
 import { MeetupRequestFromRoomId } from "@/lib/data/order";
 import { completeOrderAction } from "@/actions/order";
+import { useRouter } from "next/navigation";
 
 function Conference() {
+  const router = useRouter();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const peers = useHMSStore(selectPeers);
   const hmsActions = useHMSActions();
@@ -55,12 +57,13 @@ function Conference() {
       .then((data) => {
         if(data?.success) {
             toast.success(data.success);
+            router.push(`/dashboard/order/${data.updatedOrder.id}?mt=true`);
         }
         else {
             toast.error(data.error);
         }
       });
-      // hmsActions.leave();
+      hmsActions.leave();
     } catch (error) {
       // Permission denied or not connected to room
       console.error(error);

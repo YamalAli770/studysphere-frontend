@@ -50,8 +50,8 @@ export const EducationSchema = z.object({
     institution: z.string().min(3, {
         message: "Minimum 3 characters required."
     }),
-    country: z.string().min(3, {
-        message: "Minimum 3 characters required."
+    country: z.string().min(2, {
+        message: "Minimum 2 characters required."
     }),
     level: z.enum(["HIGH_SCHOOL", "BACHELOR", "MASTER", "PHD"]),
     major: z.string().min(3, {

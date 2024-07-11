@@ -203,8 +203,6 @@ model MeetupRequest {
 
   // Relationship with the user who is a mentor
   mentor User @relation("MentorRequests", fields: [mentorId], references: [id])
-
-  @@unique([menteeId, mentorId])
 }
 
 model Order {

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogTitle, DialogTrigger, DialogContent, DialogHeader, DialogDescription, DialogFooter } from "@/components/ui/dialog"
-import { Separator } from "@/components/ui/separator"
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogTitle, DialogTrigger, DialogContent, DialogHeader, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 import { createEducationAction } from "@/actions/education"; 
@@ -43,7 +43,7 @@ export default function EducationModal() {
       label: value,
       value: key
     }))
-  }, []);
+  }, [countryObj]);
 
   const onSubmit = (values: z.infer<typeof EducationSchema>) => {
     form.reset();
@@ -70,7 +70,7 @@ export default function EducationModal() {
             <DialogContent>
             <DialogHeader>
                 <DialogTitle className='font-medium flex items-center gap-2'>
-                <h2>Educational Information.</h2>
+                <h2>Educational Information</h2>
                 </DialogTitle>
             </DialogHeader>
             <DialogDescription>
@@ -93,13 +93,13 @@ export default function EducationModal() {
                           <FormItem>
                             <FormLabel>Country</FormLabel>
                             <FormControl>
-                              <Select {...field} value={field.value} onValueChange={field.onChange}disabled={isPending}>
+                              <Select value={field.value} onValueChange={field.onChange} disabled={isPending}>
                                 <SelectTrigger>
                                   <SelectValue placeholder="Choose Country Of Educational Institution" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     { countryArray.map((country) => (
-                                        <SelectItem value={country.label}>{country.label}</SelectItem>
+                                        <SelectItem key={country.value} value={country.value}>{country.label}</SelectItem>
                                     ))}
                                 </SelectContent>
                               </Select>
@@ -111,7 +111,7 @@ export default function EducationModal() {
                           <FormItem>
                             <FormLabel>Level</FormLabel>
                             <FormControl>
-                              <Select {...field} value={field.value} onValueChange={field.onChange}disabled={isPending}>
+                              <Select value={field.value} onValueChange={field.onChange} disabled={isPending}>
                                 <SelectTrigger>
                                   <SelectValue placeholder="Choose your education level" />
                                 </SelectTrigger>

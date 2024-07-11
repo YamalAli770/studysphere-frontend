@@ -7,23 +7,25 @@ import Link from 'next/link';
 
 type OrderStatus = 'PENDING' | 'COMPLETED' | 'CANCELLED' | 'DISPUTED';
 
+interface Order {
+  id: string;
+  meetupRequestId: string;
+  status: OrderStatus;
+  createdAt: Date;
+  updatedAt: Date;
+  roomId: string;
+}
+
 interface OrderFilterProps {
-  orders: {
-    id: string;
-    meetupRequestId: string;
-    status: OrderStatus;
-    createdAt: Date;
-    updatedAt: Date;
-    roomId: string;
-  }[] | null;
+  orders: Order[] | null;
 }
 
 const OrderFilter = ({ orders }: OrderFilterProps) => {
+  const [status, setStatus] = useState('ALL');
+
   if (!orders) {
     return null;
-  };
-
-  const [status, setStatus] = useState('ALL');
+  }
 
   const filteredOrders = status === 'ALL' ? orders : orders.filter(order => order.status === status);
 
@@ -48,22 +50,26 @@ const OrderFilter = ({ orders }: OrderFilterProps) => {
         </Select>
       </div>
       <div className='flex flex-wrap gap-5 mt-6'>
-        {
-            filteredOrders.length > 0 ? 
-            filteredOrders.map(order => (
-                <Link href={`/dashboard/order/${order.id}`} key={order.id} className='flex justify-between gap-10 items-center p-4 border border-gray-200 rounded-lg mb-4 w-96 hover:bg-slate-700/20'>
-                    <div className='flex flex-col'>
-                    <h3><span className='font-semibold'>Order ID:</span> {order.id}</h3>
-                    </div>
-                    <div>
-                    <Badge>{order.status}</Badge>
-                    </div>
-                </Link>
-        )) :
-            <div className='flex items-center justify-center w-full h-64'>
-                <p className='text-lg text-gray-500'>No Orders Found</p>
-            </div>  
-        }
+        {filteredOrders.length > 0 ? (
+          filteredOrders.map(order => (
+            <Link
+              href={`/dashboard/order/${order.id}`}
+              key={order.id}
+              className='flex justify-between gap-10 items-center p-4 border border-gray-200 rounded-lg mb-4 w-96 hover:bg-slate-700/20'
+            >
+              <div className='flex flex-col'>
+                <h3><span className='font-semibold'>Order ID:</span> {order.id}</h3>
+              </div>
+              <div>
+                <Badge>{order.status}</Badge>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <div className='flex items-center justify-center w-full h-64'>
+            <p className='text-lg text-gray-500'>No Orders Found</p>
+          </div>
+        )}
       </div>
     </div>
   );

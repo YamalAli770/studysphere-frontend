@@ -69,6 +69,7 @@ model Wallet {
   userId    String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
 
 model User {
   id                    String                 @id @default(cuid())
@@ -104,7 +105,7 @@ model User {
 model Feedback {
   id        String   @id @default(cuid())
   userId    String
-  orderId   String
+  orderId   String  @unique
   rating    Int      @default(1) // Ensure rating is between 1 and 5
   content   String?
   createdAt DateTime @default(now())
@@ -214,7 +215,7 @@ model Order {
   updatedAt       DateTime      @updatedAt
   roomId          String        @unique
   meetupRequest   MeetupRequest @relation(fields: [meetupRequestId], references: [id], onDelete: Cascade)
-  Feedback        Feedback[]
+  Feedback        Feedback?
 }
 
 model Conversation {

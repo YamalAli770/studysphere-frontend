@@ -3,12 +3,13 @@ import { currentUserServer } from "../user-server";
 
 export const getMeetupRequestByUserIds = async (mentorId: string, menteeId: string) => {
     try {
-        const meetupRequest = await db.meetupRequest.findUnique({
+        const meetupRequest = await db.meetupRequest.findFirst({
             where: {
-                menteeId_mentorId: {
-                    menteeId,
-                    mentorId
-                }
+                menteeId,
+                mentorId
+            },
+            orderBy: {
+                createdAt: 'desc'
             }
         })
 

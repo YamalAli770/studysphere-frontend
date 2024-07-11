@@ -55,7 +55,7 @@ export const createMeetupRequestAction = async (values: z.infer<typeof MeetupReq
 
     const existingMeetupRequest = await getMeetupRequestByUserIds(mentor.id, mentee.id);
     
-    if(existingMeetupRequest) {
+    if(existingMeetupRequest && existingMeetupRequest.status === "PENDING") {
         return { error: "Meetup request already exists!" }
     }
     

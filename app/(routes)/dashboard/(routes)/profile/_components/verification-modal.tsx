@@ -23,7 +23,6 @@ import { Separator } from "@/components/ui/separator";
 import {
   Form,
   FormControl,
-  FormField,
   FormItem,
   FormLabel,
   FormMessage,
@@ -33,7 +32,7 @@ import { toast } from "sonner";
 
 import { useEdgeStore } from "@/lib/edgestore";
 
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import * as z from "zod";
 import { EducationVerificationSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -50,32 +49,36 @@ export default function VerificationModal() {
     resolver: zodResolver(EducationVerificationSchema),
   });
 
-  const onSubmit = async (
-    values: z.infer<typeof EducationVerificationSchema>
-  ) => {
+  const onSubmit = async (values: z.infer<typeof EducationVerificationSchema>) => {
     setIsPending(true);
     if (values.document) {
-      const res = await edgestore.educationDocument.upload({
-        file: values.document,
-        onProgressChange(progress) {
-          setProgress(progress);
-        },
-      });
-      if (res) {
-        setUrl(res.url);
-        toast.success("Document uploaded successfully");
+      try {
+        const res = await edgestore.educationDocument.upload({
+          file: values.document,
+          onProgressChange(progress) {
+            setProgress(progress);
+          },
+        });
+        if (res) {
+          setUrl(res.url);
+          toast.success("Document uploaded successfully");
 
-        createEducationVerificationAction(values.documentType, res.url)
-          .then((data) => {
-            if (data?.success) {
-              toast.success(data.success);
-            } else {
-              toast.error(data.error);
-            }
-          })
-          .finally(() => {
-            setIsPending(false);
-          });
+          createEducationVerificationAction(values.documentType, res.url)
+            .then((data) => {
+              if (data?.success) {
+                toast.success(data.success);
+              } else {
+                toast.error(data.error);
+              }
+            })
+            .finally(() => {
+              setIsPending(false);
+            });
+        }
+      } catch (error) {
+        console.error("Error occurred during document upload:", error);
+        toast.error("Error occurred during document upload");
+        setIsPending(false);
       }
     }
   };
@@ -98,16 +101,15 @@ export default function VerificationModal() {
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col gap-4"
             >
-              <FormField
-                control={form.control}
+              <Controller
                 name="document"
+                control={form.control}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Document</FormLabel>
                     <FormControl>
                       <Input
                         type="file"
-                        {...field}
                         onChange={(e) => {
                           e.target.files && field.onChange(e.target.files[0]);
                         }}
@@ -131,15 +133,14 @@ export default function VerificationModal() {
                 <p>Maximum File Size: 4MB</p>
               </div>
               <Separator className="my-2" />
-              <FormField
-                control={form.control}
+              <Controller
                 name="documentType"
+                control={form.control}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Document Type</FormLabel>
                     <FormControl>
                       <Select
-                        {...field}
                         value={field.value}
                         onValueChange={field.onChange}
                       >

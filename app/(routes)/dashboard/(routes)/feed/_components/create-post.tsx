@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from 'react';
-
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ImageIcon } from 'lucide-react';
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-
 import { useForm } from 'react-hook-form';
 import * as z from "zod";
 import { PostSchema } from '@/schemas';
@@ -35,44 +33,39 @@ export default function CreatePost() {
     const onSubmit = async (values: z.infer<typeof PostSchema>) => {
         setIsPending(true);
 
-        if(values.image !== null) {
-            const res = await edgestore.postImage.upload({
-                file: values.image
-            });
+        try {
+            if (values.image) {
+                console.log("Uploading image...", values.image);
+                const res = await edgestore.postImage.upload({ file: values.image });
+                console.log("Upload response:", res);
 
-            if(res) {
-                createPostAction(values.content, res.url)
-                    .then((data) => {
-                        if(data?.success) {
-                            toast.success(data.success);
-                        }
-                        else {
-                            toast.error(data.error);
-                            form.reset();
-                        }
-                    })
-                    .finally(() => {
-                        form.reset();
-                        setImageUrl(null);
-                        setIsPending(false);
-                    });
-            };
-        }
-        else {
-            createPostAction(values.content, null)
-                .then((data) => {
-                    if(data?.success) {
+                if (res) {
+                    const data = await createPostAction(values.content, res.url);
+                    console.log("Create post response:", data);
+                    if (data?.success) {
                         toast.success(data.success);
-                    }
-                    else {
+                    } else {
                         toast.error(data.error);
                         form.reset();
                     }
-                })
-                .finally(() => {
+                }
+            } else {
+                const data = await createPostAction(values.content, null);
+                console.log("Create post response without image:", data);
+                if (data?.success) {
+                    toast.success(data.success);
+                } else {
+                    toast.error(data.error);
                     form.reset();
-                    setIsPending(false);
-                });
+                }
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
+            toast.error('An error occurred while creating the post.');
+        } finally {
+            form.reset();
+            setImageUrl(null);
+            setIsPending(false);
         }
     };
 
@@ -90,9 +83,11 @@ export default function CreatePost() {
                             </FormItem>
                         )} />
                     </div>
-                    { imageUrl && <div className='relative w-full h-72'>
-                        <Image src={imageUrl} objectFit='cover' className='rounded-lg' fill={true} alt='post-image' />
-                    </div>}
+                    {imageUrl && (
+                        <div className='relative w-full h-72'>
+                            <Image src={imageUrl} layout='fill' objectFit='cover' className='rounded-lg' alt='post-image' />
+                        </div>
+                    )}
                     <div className='flex justify-between items-center pt-5'>
                         <FormField control={form.control} name='image' render={({ field }) => (
                             <FormItem className='flex items-center gap-2'>
@@ -100,10 +95,12 @@ export default function CreatePost() {
                                     <ImageIcon color='gray' />
                                 </FormLabel>
                                 <FormControl>
-                                    <Input type="file" {...field} style={{ display: 'none' }} onChange={(e) => {
-                                        if (e.target.files && e.target.files[0]) {
-                                            setImageUrl(URL.createObjectURL(e.target.files[0]));
-                                            field.onChange(e.target.files[0]);
+                                    <Input type="file" style={{ display: 'none' }} onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            console.log("Selected file:", file);
+                                            setImageUrl(URL.createObjectURL(file));
+                                            field.onChange(file);
                                         }
                                     }} />
                                 </FormControl>
@@ -114,10 +111,10 @@ export default function CreatePost() {
                             <Button type='submit' disabled={isPending} variant='rounded' size='lg'>
                                 Post
                             </Button>
-                        </div>  
+                        </div>
                     </div>
                 </form>
             </Form>
         </div>
-    )
+    );
 }
